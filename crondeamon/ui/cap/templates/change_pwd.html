@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block style %}
+        <style>
+        html,body{height: 100%;}
+        body{background: #f7f7f7;}
+        .main-container{padding-top: 10%;font-family: "microsoft yahei",arial, sans serif;background: #fff;min-height: 100%;box-sizing: border-box;}
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container main-container">
+    <form class="form-horizontal" role="form" action="/changepwd/" method="post" id="changepwd">
+        {% csrf_token %}
+   <div class="form-group">
+      <label for="oldpwd" class="col-sm-4 control-label ">旧密码：</label>
+      <div class="col-sm-4">
+         <input type="password" class="form-control" id="oldpwd" name="oldpwd"
+            placeholder="请输入旧密码"  required>
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="firstname" class="col-sm-4 control-label ">新密码：</label>
+      <div class="col-sm-4">
+         <input type="password" class="form-control" id="firstname" name="newpwd"
+            placeholder="请输入新密码"  required>
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="lastname" class="col-sm-4 control-label">新密码(重复)：</label>
+      <div class="col-sm-4">
+         <input type="password" class="form-control" id="lastname" name="confirm_pwd"
+            placeholder="请再次输入新密码" required>
+      </div>
+   </div>
+
+   <div class="form-group">
+      <div class="col-sm-offset-5 col-sm-2">
+         <button type="submit" class="btn btn-info btn-block" id="_submit" >确定</button>
+      </div>
+   </div>
+</form>
+    </div>
+{% endblock %}

@@ -1,0 +1,300 @@
+{% extends "base_cron.html" %}
+{% block style %}
+        <style>
+        html,body{height: 100%;}
+        body{background: #f7f7f7;}
+        .main-container{padding-top: 60px;font-family: "microsoft yahei",arial, sans serif;background: #fff;min-height: 100%;box-sizing: border-box;}
+        .jqgfirstrow td{padding: 0 !important;}
+        .ui-jqgrid-resize{display: none;}
+        .ui-jqgrid-htable th{border: 1px solid #ddd;background: #f9f9f9;padding: 5px;border-bottom: 0;}
+        .form-inline{padding-bottom: 6px;}
+        .form-inline .form-group .control-label{display: inline-block;width: 90px;}
+        .modal-body{padding: 10px 70px;}
+
+        [class*=icon-] {display: inline-block;background: url(http://static.gcimg.net/i/201505/3uHspSDMoV.png) no-repeat 0 0;}
+        .ui-pg-table {line-height: 1}
+        .ui-paging-info {text-align: left!important}
+        .ui-icon-seek-next,.ui-icon-seek-prev {height: 26px;width: 26px;border: 1px solid #dfe5e7}
+        .ui-state-disabled .ui-icon-seek-prev {background-position: -41px -124px}
+        .ui-state-disabled .ui-icon-seek-next {background-position: -41px -154px}
+        .ui-icon-seek-prev {background-position: -1px -124px}
+        .ui-icon-seek-next {background-position: -1px -154px}
+        .ui-pg-input {text-align: center;width: 40px}
+        .hd{padding: 6px 0 6px 10px;border-left: 2px solid #337ab7;margin-bottom: 20px;}
+    </style>
+
+{% endblock %}
+{% block content %}
+
+
+     <script >
+        function  svn(){
+            var _branchdiv=document.getElementById("branchdiv");
+            _branchdiv.style="display:none";
+        //jQuery("#branchdiv").css("display","none");
+        //jQuery("#cap_version").attr("placeholder","(*代表当前最高版本)")
+            var _cap_version=document.getElementById("cap_version");
+            _cap_version.setAttribute("placeholder","(*代表当前最高版本)");
+        }
+    function  git(){
+        var _branchdiv=document.getElementById("branchdiv");
+        var _cap_version=document.getElementById("cap_version");
+        //jQuery("#branchdiv").removeAttr("style");
+        //jQuery("#cap_version").removeAttr("placeholder");
+        _branchdiv.removeAttribute("style");
+        _cap_version.removeAttribute("placeholder");
+    }
+    function _vcs(ele){
+        //var _vcs= jQuery(ele);
+        //var val=_vcs.val();
+        var index=ele.selectedIndex;
+        var  val=ele.options[index].value;
+        if (val==1){
+            svn()
+        }
+        else git();
+    }
+    </script>
+ <!-- Content -->
+<script type="text/html" id="exampleModal">
+    <form action="/cron/add/?data=add" method="post" autocomplete="off" id="form1">
+    {% csrf_token %}
+        <div class="modal-body">
+            <div class="form-inline">
+                <div class="form-group" >
+                    <label for="cap-ip" class="control-label">IP:</label>
+                    <!--input type="text" class="form-control" name="ip" id="cap-ip"-->
+                    <select name="ip" class="form-control" multiple="multiple"  style="width: 200px">
+                        {% for i in cronserve %}
+                        <option value="{{ i.ip }}">{{ i.ip }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">类型：</label>
+                    <label ><input type="radio" name="type" value="1" checked>Python</label>
+{#                    <label><input type="radio" name="type" value="2">PHP </label>#}
+                    <label><input type="radio" name="type" value="3">Shell </label>
+
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap-name" class="control-label">名称:</label>
+                    <input type="text" class="form-control" name="name" id="cap-name">
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap-rule" class="control-label">时间规则:</label>
+                    <input type="text" class="form-control" name="rule" id="cap-rule">
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">所属组:</label>
+                    <select name="project" class="form-control" >
+                        <option value="">项目</option>
+                        {% for i in cronproj %}
+                        <option value="{{ i.name }}">{{ i.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="app"  class="form-control"  style="width: 160px">
+                        <option value="" style="width: 160px">组</option>
+                        {% for i  in appinfo %}
+                        <option value="{{ i.app }}" project="{{ i.proj }}" style="width: 160px">{{ i.app }}</option>
+
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-inline" style="display:none">
+                <div class="form-group">
+                    <label for="vcs" class="control-label">版本控制:</label>
+                    <select name="vcs" class="form-control" id="vcs" onclick="_vcs(this)" onchange="_vcs(this)">
+                        <option value="1" selected >SVN</option>
+                        <option value="2" >Git</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-inline" id="branchdiv"  style="display: none">
+                <div class="form-group">
+                    <label for="branch" class="control-label">分支:</label>
+                    <input type="text" class="form-control" name="branch" id="branch" style="width: 250px">
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap-url" class="control-label">版本库url:</label>
+                    <input type="text" class="form-control" name="url" id="cap-url" style="width: 250px">
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap_version" class="control-label">版本:</label>
+                    <input type="text" class="form-control" name="version" id="cap_version" style="width: 200px" placeholder="(*代表当前最高版本)">
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">版本库用户:</label>
+                    <input  type="text" class="form-control" name="svnuser" id="cap-svnuser" placeholder="用户名">
+                </div>
+            </div>
+             <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">版本库密码:</label>
+                    <input  type="text" class="form-control" name="svnpasswd" id="cap-svnpasswd" placeholder="密码">
+                </div>
+            </div>
+             <div class="form-inline" style="display: none">
+                <div class="form-group">
+                    <label class="control-label" for="cap-custom">预处理命令：</label>
+                    <input type="text" class="form-control" name="custom" id="custom" >
+                </div>
+            </div>
+             <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label" for="cap-filename">执行文件名：</label>
+                    <input type="text" class="form-control" name="filename" id="cap-filename" >
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label" for="cap-args">运行参数:</label>
+                    <input type="text" class="form-control" name="args" id="cap-args" >
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap-fn" class="control-label">功能:</label>
+                    <textarea class="form-control" name="fn" id="cap-fn" style="height: 70px;width: 195px;"></textarea>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default">取消</button>
+            <button type="submit" class="btn btn-primary">确定</button>
+        </div>
+    </form>
+</script>
+<div class="container main-container">
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="hd">计划任务管理</h3>
+        </div>
+        <div class="col-md-6">
+            <button type="button" id="create-button" class="btn btn-primary" style="float: right;margin-top: 30px;">创建计划任务</button>
+        </div>
+    </div>
+
+    <form action="{{ request.path }}" method="get" class="form-inline" id="form2">
+    <div class="row" style="padding-bottom: 8px">
+          <div class="form-group" style="padding-left: 10px">
+            <label>主机：</label>
+            <select name="ip" class="form-control" style="width: 145px">
+                <option value="">请选择</option>
+                {% for i in cronserve %}
+                <option value="{{ i.ip }}">{{ i.ip }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>组：</label>
+            <select class="form-control" name="project"  style="width: 95px" id="proj_1">
+                <option value="">项目</option>
+                {% for i in cronproj %}
+                <option value="{{ i.name }}">{{ i.name }}</option>
+                {% endfor %}
+                <!--option value="2">国际站</option>
+                <option value="3">悉知</option>
+                <option value="4">运维</option-->
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select name="app" class="form-control" style="width: 120px ;">
+                <option value="">组</option>
+                {% for i in appinfo %}
+                <option value="{{ i.app }}" project="{{ i.proj }}">{{ i.app }}</option>
+                {% endfor %}
+                <!--option value="2">en.xxx</option>
+                <option value="3">xz.xxx</option-->
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>状态：</label>
+            <select name="status" class="form-control" style="width: 95px">
+                <option value="">请选择</option>
+                <option value="1">正常</option>
+                <option value="-1">禁用</option>
+                <option value="0">待部署</option>
+                <option value="2">正在部署</option>
+                <option value="3">部署失败</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>语言：</label>
+            <select name="lan" class="form-control" style="width: 100px">
+                <option value="">请选择</option>
+                <option value="1">Python</option>
+                <option value="2">PHP</option>
+                <option value="3">Shell</option>
+
+            </select>
+        </div>
+{#    {% if request.user.group ==  "管理员" %}#}
+        <div class="form-group">
+            <label>创建人：</label>
+            <select name="owner" class="form-control" style="width: 100px;">
+                <option value="">请选择</option>
+                {% for i in userinfo %}
+                    <option value="{{ i.username }}">{{ i.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>功能：</label>
+            <input type="text" class="form-control" name="fn" style="width: 120px"/>
+        </div>
+{#     {% else %}#}
+{#         <div class="form-group">#}
+{#            <label>功能：</label>#}
+{#            <input type="text" class="form-control" name="fn" style="width: 270px"/>#}
+{#        </div>#}
+{##}
+{#    {% endif %}#}
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">查询</button>
+        </div>
+
+        </div>
+
+    </form>
+    <table class="table table-striped table-hover table-bordered table-condensed" id="table">
+    </table>
+    <div id="table-pager"></div>
+</div>
+
+
+
+<script src="http://static.gcimg.net/??seajs/seajs/2.2.1/sea.js,seajs/seajs-style/1.0.2/seajs-style.js,seajs/seajs-plus/1.0.0/seajs-plus.js,jquery/jquery/1.8.2/jquery.js" id="seajsnode"></script>
+<script type="text/javascript">
+    var gridUrl = '{{ request.path }}?data=table';
+    var project_config={{ project_info|safe }};
+    $('select[name="project"]').change(
+            function(){
+                $('select[name="app"]').html(project_config[this.value]);
+            }
+    );
+    seajs._use('sys/cap/1.0.0/main');
+
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/ico"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title style="color: #ffffff">CAP系统</title>
+    <script src="/cap/static/js/jquery-2.1.3.min.js"></script>
+    <script src="/cap/static/js/bootstrap.min.js"></script>
+    <script src="/cap/static/bootstrap-datetimepicker.js"></script>
+    <script src="/cap/static/bootstrap-datetimepicker.zh-CN.js"></script>
+    <link href="/cap/static/bootstrap.min.css" rel="stylesheet">
+    <link href="/cap/static/style_dan.css" rel="stylesheet">
+    <link href="/cap/static/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="/cap/static/jquery.multiselect.css" rel="stylesheet">
+    <meta name="gct-id" value="1">
+</head>
+<body>
+<div data-gct="2">
+    <div data-gct="1">
+        <a href="bb.html" id="1">test1</a>
+        <a href="bb.html" id="11">test2</a>
+    </div>
+    <div data-gct="2">
+        <a href="bbb.html" id="2">bbb</a>
+    </div>
+    <div data-gct="3">
+
+    </div>
+    <div data-gct="3">
+
+    </div>
+</div>
+<script>
+    setTimeout(function(){$("[data-gct]").append("<a href='/abc'>ttttt</a>")},3000);
+
+    a=1;
+    b=2;
+
+    $(document).click(function(e){
+                 console.log("gct start!");
+
+        var ab=a+"."+b;
+        var gct_aprents=$(e.target).parents("[data-gct]");
+        var c=gct_aprents.map(function(){
+            return $(this).attr("data-gct");
+        }).toArray().reverse().join("-");
+        for(var i=0;i<gct_aprents.length;i++)
+        {
+            if(i==0){
+                var hrefs=$(gct_aprents[i]).find("a");
+                hrefs=hrefs.filter(function(){
+                   return  $(this).parent("[data-gct]")[0]==gct_aprents[0];
+                });
+                console.log(hrefs);
+                for(var j=0;j<hrefs.length;j++){
+                    if(e.target ==hrefs[j])
+                    $(hrefs[j]).attr("href","/bb?gct="+ab+"."+c+"."+(j+1))
+                }
+            }
+        }
+    return true;
+    });
+
+
+</script>
+
+</body>
+</html>

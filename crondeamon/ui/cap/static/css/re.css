@@ -1,0 +1,52 @@
+.login{background:#E6E6E6 url('db_eye.jpg') no-repeat center 0}
+.loginBox{text-align:center;padding-top:300px}
+.loginBoxf label{display:inline-block; line-height:44px;vertical-align:middle;font-size:16px;margin-bottom:0}
+.login .loginBox .lgin{height:34px; line-height:34px;vertical-align:middle;margin-right:10px;margin-bottom:0}
+.lgbtn{}
+.error{color:#ff0000}
+.warp{width:1200px;margin:1px auto 0;}
+.sanlie .span4{margin-left:20px;margin-top:20px}
+.table-condensed th,.table-condensed td{word-break:break-all;word-wrap:break-word }
+.w{width:100%;}
+.w:after{content:'.';display:block;height:0;clear:both;visibility:hidden;}
+.w{*zoom:1;}
+.wleft{float:left;width:200px;}
+.wright{float:right;width:980px;}
+.mmiddle{float:left;width:700px;}
+.mright{float:right;width:200px;}
+.wtable-th{}
+.wtable-th{width:500px;}
+
+ul.nav-tabs{
+    width: 140px;
+    margin-top: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+}
+ul.nav-tabs li{
+    margin: 0;
+    border-top: 1px solid #ddd;
+}
+ul.nav-tabs li:first-child {
+    border-top: none;
+}
+ul.nav-tabs li a{
+    margin: 0;
+    padding: 8px 16px;
+    border-radius: 0;
+}
+ul.nav-tabs li.active a, ul.nav-tabs li.active a:hover {
+    color: #fff;
+    background: #0088cc;
+    border: 0px solid #0088cc;
+}
+ul.nav-tabs li:first-child a{
+    border-radius: 4px 4px 0 0;
+}
+ul.nav-tabs li:last-child a{
+    border-radius: 0 0 4px 4px;
+}
+ul.nav-tabs.affix{
+    top: 30px; /* Set the top position of pinned element */
+}

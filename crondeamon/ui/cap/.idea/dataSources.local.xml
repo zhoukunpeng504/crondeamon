@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - cap_gcw@172.17.18.5" uuid="3d25ea12-8565-4bb4-8d9e-506ab4aebf7f">
+      <secret-storage>master_key</secret-storage>
+      <user-name>cap</user-name>
+      <schema-pattern>cap_gcw.*</schema-pattern>
+      <default-schemas>cap_gcw.*</default-schemas>
+    </data-source>
+  </component>
+</project>

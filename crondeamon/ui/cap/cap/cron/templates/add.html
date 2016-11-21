@@ -1,0 +1,123 @@
+{% extends "base_cron.html" %}
+{% block content %}
+    <div class="container main-container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="hd">计划任务（Cron）</h3>
+        </div>
+        <div class="col-md-6">
+            <button type="button" id="create-button" class="btn btn-primary" style="float: right;margin-top: 30px;">创建计划任务</button>
+        </div>
+    </div>
+    <table class="table table-striped table-hover table-bordered table-condensed" id="table">
+    </table>
+    <div id="table-pager"></div>
+</div>
+
+<!-- dialog  -->
+<script type="text/html" id="exampleModal">
+    <form action="{{ request.path }}?data=add" method="post" autocomplete="off" id="form1">
+    {% csrf_token %}
+        <div class="modal-body">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap-ip" class="control-label">IP:</label>
+                    <!--input type="text" class="form-control" name="ip" id="cap-ip"-->
+                    <select name="ip" class="form-control">
+                        {% for i in cronserve %}
+                        <option value="{{ i.ip }}">{{ i.ip }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+             <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">所属应用:</label>
+                    <select name="project" class="form-control">
+                        <option value="">项目</option>
+                        {% for i in cronproj %}
+                        <option value="{{ i.name }}">{{ i.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="app"  class="form-control">
+                        <option value="">应用</option>
+                        {% for i  in appinfo %}
+                        <option value="{{ i.app }}" project="{{ i.proj }}">{{ i.app }}</option>
+
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">类型：</label>
+                    <label ><input type="radio" name="type" value="1" checked>Python</label>
+                    <label><input type="radio" name="type" value="2">PHP </label>
+
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap-name" class="control-label">名称:</label>
+                    <input type="text" class="form-control" name="name" id="cap-name">
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap-rule" class="control-label">时间规则:</label>
+                    <input type="text" class="form-control" name="rule" id="cap-rule">
+                </div>
+            </div>
+
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap-url" class="control-label">SVN url:</label>
+                    <input type="text" class="form-control" name="url" id="cap-url">
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap-version" class="control-label">版本:</label>
+                    <input type="text" class="form-control" name="version" id="cap-version">
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">svn user:</label>
+                    <input  type="text" class="form-control" name="svnuser" id="cap-svnuser" placeholder="用户名">
+                </div>
+            </div>
+             <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">svn passwd:</label>
+                    <input  type="text" class="form-control" name="svnpasswd" id="cap-svnpasswd" placeholder="密码">
+                </div>
+            </div>
+             <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label" for="cap-args">运行参数:</label>
+                    <input type="text" class="form-control" name="args" id="cap-args" >
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="cap-fn" class="control-label">功能:</label>
+                    <textarea class="form-control" name="fn" id="cap-fn" style="height: 70px;width: 195px;"></textarea>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default">取消</button>
+            <button type="submit" class="btn btn-primary">确定</button>
+        </div>
+    </form>
+</script>
+
+<script src="http://cn-style.gcimg.net/static/??seajs/seajs/2.2.1/sea.js,seajs/seajs-style/1.0.2/seajs-style.js,seajs/seajs-plus/1.0.0/seajs-plus.js,jquery/jquery/1.8.2/jquery.js" id="seajsnode"></script>
+<script type="text/javascript">
+    var gridUrl = '{{ request.path }}?data=table';
+
+    seajs._use('sys/cap/1.0.0/main');
+</script>
+{% endblock %}

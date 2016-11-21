@@ -1,0 +1,211 @@
+//带点击的时间输入框弹出日历
+//放到主层里面
+<div class="container main-container ">{# 放到主层里面   #}
+<link href="http://dbeye.xizhi.com/static/css/jquery-ui.css" rel="stylesheet" />
+<script src="http://dbeye.xizhi.com/static/jquery/jquery-ui.min.js"></script>
+<script src="http://dbeye.xizhi.com/static/jquery/jquery-ui-timepicker-addon.js"></script>
+<input type="text" name="start_time" id="id_start_time"  class="form-control" />
+//点击按钮出现模态框,内容在前台定义
+<button type="button" id="create-button" class="btn btn-primary J_addNewItem" style="float: right;margin-top: 30px;">增加</button>
+//删除按钮消息提示
+<a class="btn btn-primary J_ajaxDelete"  href="#">删除</a>
+//点击出现模态框，模态框内容是后台返回的内容
+<a class="btn btn-primary J_ajaxDialog"  href="#">####</a>
+
+<script type="text/html" id="addDialogContent">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" action="#" method="post" autocomplete="off" id="dialogForm"> {% csrf_token %}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">增加</h4>
+                </div>
+                <div class="modal-body">
+{#                模态内容区#}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</script>
+
+
+<div id="dialogModal" class="modal fade"></div>
+
+<script type="text/javascript">
+    //时间框js
+    $('#id_start_time').datetimepicker();
+</script>
+
+    <script type="application/javascript">
+        //绑定已经选择的查询框，点击下一页查询框内容不丢失
+        //configinfo={"proj_name":proj_name,"host_name":host_name,"user_name":user_name,"start_time":start_time,"end_time":end_time}
+    //configinfo=json.dumps(configinfo,ensure_ascii=False)
+    var search_config={{ configinfo|safe }};
+    for(var _name in search_config ){
+        if(_name!= "start_time"&& _name!="end_time")
+        $("select[name=" +_name+"]").val(search_config[_name]);
+        else{
+            $("input[name="+_name+"]").val(search_config[_name]);
+        }
+    }
+    </script>
+        <script type="application/javascript">
+//关联框查询
+// {% for p in user_proj_name_list %}
+//        <option value="{{ p }}" style="width: 140px">{{ p }}</option>
+//   {% endfor %}
+//     {% for p in proj_host_all %}
+//          <option value="{{ p.host }}" style="width: 140px" project="{{ p.proj }}">{{ p.host}}</option>
+//     {% endfor %}
+//   host_list.append({"proj_name":"gcd","host":i})
+
+    $('select[name="proj_name"]').change(function(){
+        var a = this.value;
+        c = $('select[name="host_name"]');
+        d = $("option", c);
+        a ? (c.find("option[project]").hide(), $('option[project="' + a + '"]').show()) : d.show(),
+        d.eq(0).prop("selected", !0)
+    })
+    </script>
+<script>
+    //主要把类名和事件对应住（click，submit）
+    (function ($) {
+        var dialogModal = $('#dialogModal'),
+            content = $('#addDialogContent').html();
+        $(document).on('click', '.J_ajaxDialog', function (e) {
+            e.preventDefault();
+            $.get(this.href, function (data) {
+                //data是后台返回的一个html页面，把他在前台的模态框中显示出来
+                dialogModal.html(data).modal('show');
+            });
+
+        }).on('click', '.J_addNewItem', function (e) {
+            e.preventDefault();
+            dialogModal.html(content).modal('show');
+
+        }).on('submit', '#dialogForm', function (e) {
+            e.preventDefault();////该方法将通知 Web 浏览器不要执行与事件关联的默认动作（如果存在这样的动作)
+
+            $.post(this.action, $(this).serialize(), function (d) {
+                if (d.status) {
+                    dialogModal.modal('hide');
+                    location.reload();
+                } else {
+                    alert(d.message);
+                }
+            }, 'json');
+
+        }).on('click', '.J_ajaxDelete', function (e) {
+            e.preventDefault();
+            var tr = $(this).closest('tr');//最近的一行
+            if (confirm('确定删除？')) {
+                $.getJSON(this.href, function (d) {
+                    if (d.status) {
+                        tr.fadeOut();//隐藏这一行
+                    } else {
+                        alert(d.message);
+                    }
+                });
+            }
+        });
+    })(jQuery);
+
+</script>
+
+//////////////////////////////////////////////////////////
+//下面是自定义的alert和confirm提示层
+
+  <script>
+
+//改写alert
+function alert(txt) {
+    //动态创建alert层
+	var alertFram = document.createElement("DIV");
+	alertFram.id="alertFram";
+	alertFram.style.position = "absolute";
+	alertFram.style.left = "50%";
+	alertFram.style.top = "50%";
+	alertFram.style.marginLeft = "-225px";
+	alertFram.style.marginTop = "-75px";
+	alertFram.style.width = "450px";
+	alertFram.style.height = "150px";
+	alertFram.style.background = "#ccc";
+	alertFram.style.textAlign = "center";
+	alertFram.style.lineHeight = "150px";
+	alertFram.style.zIndex = "10001";
+    //定义层内容
+	strHtml = "<ul style=\"list-style:none;margin:0px;padding:0px;width:100%\">\n";
+	strHtml += " <li style=\"background:#DD828D;text-align:left;padding-left:20px;font-size:14px;font-weight:bold;height:25px;line-height:25px;border:1px solid #F9CADE;\">提示</li>\n";
+	strHtml += " <li style=\"background:#fff;text-align:center;font-size:24px;height:120px;line-height:120px;border-left:1px solid #F9CADE;border-right:1px solid #F9CADE;\">"+txt+"</li>\n";
+    strHtml += " <li style=\"background:#FDEEF4;text-align:right;font-weight:bold;height:35px;line-height:25px; border:1px solid #F9CADE;\"><input  type=\"button\" value=\"确 定\" onclick=\"doOk()\" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>\n";
+    strHtml += "</ul>\n";
+	alertFram.innerHTML = strHtml;
+	document.body.appendChild(alertFram);
+
+function isok()
+    {
+       alertFram.style.display = "none";
+        location.reload();
+    }
+    //设置5秒后自动执行isok函数内容
+    setTimeout(isok,5000)
+    //定义确定按钮的函数
+this.doOk = function(){
+    //隐藏alertFram
+      alertFram.style.display = "none";
+    //重新载入页面
+      location.reload();
+	}
+    alertFram.focus();
+	document.body.onselectstart = function(){return false;};
+}
+function confirm(txt,href) {
+	var confirmFram = document.createElement("DIV");
+	confirmFram.id="confirmFram";
+	confirmFram.style.position = "absolute";
+	confirmFram.style.left = "50%";
+	confirmFram.style.top = "50%";
+	confirmFram.style.marginLeft = "-225px";
+	confirmFram.style.marginTop = "-75px";
+	confirmFram.style.width = "450px";
+	confirmFram.style.height = "150px";
+	confirmFram.style.background = "#ccc";
+	confirmFram.style.textAlign = "center";
+	confirmFram.style.lineHeight = "150px";
+	confirmFram.style.zIndex = "10001";
+	strHtml = "<ul style=\"list-style:none;margin:0px;padding:0px;width:100%\">\n";
+	strHtml += " <li style=\"background:#DD828D;text-align:left;padding-left:20px;font-size:14px;font-weight:bold;height:25px;line-height:25px;border:1px solid #F9CADE;\">提示</li>\n";
+	strHtml += " <li style=\"background:#fff;text-align:center;font-size:24px;height:120px;line-height:120px;border-left:1px solid #F9CADE;border-right:1px solid #F9CADE;\">"+txt+"</li>\n";
+	strHtml += " <li style=\"background:#FDEEF4;text-align:right;font-weight:bold;height:35px;line-height:25px; border:1px solid #F9CADE;\"><input  type=\"button\" value=\"确 定\" onclick=\"doOk()\" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"button\" value=\"取消\" onclick=\"doCancle()\" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>\n";
+    strHtml += "</ul>\n";
+	confirmFram.innerHTML = strHtml;
+	document.body.appendChild(confirmFram);
+	this.doOk = function(){
+        confirmFram.style.display = "none";
+        callback(href);
+	}
+    this.doCancle = function(){
+		confirmFram.style.display = "none";
+	}
+	confirmFram.focus();
+	document.body.onselectstart = function(){return false;};
+}
+function callback(href)
+{
+    $.getJSON(href, function (d)
+    {
+        alert(d.message);
+
+    });
+}
+    (function ($) {
+        $(document).on('click', '.J_ajaxDelete', function (e) {
+            e.preventDefault();
+            confirm(('确定要删除吗？'),this.href);
+        });
+    })(jQuery);
+</script>

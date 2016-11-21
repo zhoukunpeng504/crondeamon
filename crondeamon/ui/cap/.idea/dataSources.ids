@@ -1,0 +1,3714 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - cap_gcw@172.17.18.5" uuid="3d25ea12-8565-4bb4-8d9e-506ab4aebf7f">
+    <database-info product="MySQL" version="5.6.23-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.4">
+      <schema id="1" name="cap_gcw"/>
+      <table id="2" parent="1" name="auth_group"/>
+      <table id="3" parent="1" name="auth_group_permissions"/>
+      <table id="4" parent="1" name="auth_permission"/>
+      <table id="5" parent="1" name="auth_user"/>
+      <table id="6" parent="1" name="auth_user_groups"/>
+      <table id="7" parent="1" name="auth_user_project"/>
+      <table id="8" parent="1" name="auth_user_user_permissions"/>
+      <table id="9" parent="1" name="cap_project"/>
+      <table id="10" parent="1" name="cron_app"/>
+      <table id="11" parent="1" name="cron_cronserve"/>
+      <table id="12" parent="1" name="cron_runlog"/>
+      <table id="13" parent="1" name="cron_task"/>
+      <table id="14" parent="1" name="db_info"/>
+      <table id="15" parent="1" name="django_admin_log"/>
+      <table id="16" parent="1" name="django_content_type"/>
+      <table id="17" parent="1" name="django_migrations"/>
+      <table id="18" parent="1" name="django_session"/>
+      <table id="19" parent="1" name="django_site"/>
+      <table id="20" parent="1" name="gjz_slow_query_review_history"/>
+      <table id="21" parent="1" name="global_query_review_history"/>
+      <table id="22" parent="1" name="host_info"/>
+      <table id="23" parent="1" name="hostname"/>
+      <table id="24" parent="1" name="memcache_access_info"/>
+      <table id="25" parent="1" name="nosql_service_info"/>
+      <table id="26" parent="1" name="operation_info"/>
+      <table id="27" parent="1" name="operation_record"/>
+      <table id="28" parent="1" name="operationrecord"/>
+      <table id="29" parent="1" name="project_tmp"/>
+      <table id="30" parent="1" name="pub_app"/>
+      <table id="31" parent="1" name="pub_app_formalsshinfo"/>
+      <table id="32" parent="1" name="pub_app_testsshinfo"/>
+      <table id="33" parent="1" name="pub_decide"/>
+      <table id="34" parent="1" name="pub_difffilecache"/>
+      <table id="35" parent="1" name="pub_diffpatchcache"/>
+      <table id="36" parent="1" name="pub_emailinfo"/>
+      <table id="37" parent="1" name="pub_filemode"/>
+      <table id="38" parent="1" name="pub_publog"/>
+      <table id="39" parent="1" name="pub_server"/>
+      <table id="40" parent="1" name="pub_svnserver"/>
+      <table id="41" parent="1" name="pub_verifytask"/>
+      <table id="42" parent="1" name="pub_verifytaskbak"/>
+      <table id="43" parent="1" name="pub_versioncontrolsystem"/>
+      <table id="44" parent="1" name="red_black"/>
+      <table id="45" parent="1" name="redblack"/>
+      <table id="46" parent="1" name="ssdb_access_info"/>
+      <table id="47" parent="1" name="sytest_test"/>
+      <table id="48" parent="1" name="sytest_test_1"/>
+      <table id="49" parent="1" name="table_info"/>
+      <table id="50" parent="1" name="task_runlog"/>
+      <table id="51" parent="1" name="task_task"/>
+      <table id="52" parent="1" name="trouble"/>
+      <table id="53" parent="1" name="user_behavior"/>
+      <table id="54" parent="1" name="xz_slow_query_review_history"/>
+      <table id="55" parent="1" name="yw_slow_query_review_history"/>
+      <table id="56" parent="1" name="zwz_slow_query_review_history"/>
+      <column id="57" parent="2" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="58" parent="2" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(80)</data-type>
+      </column>
+      <index id="59" parent="2" name="name">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="60" parent="2" name="name">
+        <columns>name</columns>
+        <underlying-index>name</underlying-index>
+      </key>
+      <key id="61" parent="2" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="62" parent="3" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="63" parent="3" name="group_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="64" parent="3" name="permission_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="65" parent="3" name="auth_group_permissions_1e014c8f">
+        <columns>permission_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="66" parent="3" name="auth_group_permissions_425ae3c4">
+        <columns>group_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="67" parent="3" name="group_id">
+        <columns>group_id
+permission_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="68" parent="3" name="group_id">
+        <columns>group_id
+permission_id</columns>
+        <underlying-index>group_id</underlying-index>
+      </key>
+      <key id="69" parent="3" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="70" parent="3" name="group_id_refs_id_3cea63fe">
+        <columns>group_id</columns>
+        <ref-key>~.auth_group.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="71" parent="3" name="permission_id_refs_id_5886d21f">
+        <columns>permission_id</columns>
+        <ref-key>~.auth_permission.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="72" parent="4" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="73" parent="4" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="74" parent="4" name="content_type_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="75" parent="4" name="codename">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <index id="76" parent="4" name="auth_permission_1bb8f392">
+        <columns>content_type_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="77" parent="4" name="content_type_id">
+        <columns>content_type_id
+codename</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="78" parent="4" name="content_type_id">
+        <columns>content_type_id
+codename</columns>
+        <underlying-index>content_type_id</underlying-index>
+      </key>
+      <key id="79" parent="4" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="80" parent="4" name="content_type_id_refs_id_728de91f">
+        <columns>content_type_id</columns>
+        <ref-key>~.django_content_type.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="81" parent="5" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="82" parent="5" name="username">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="83" parent="5" name="first_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="84" parent="5" name="last_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="85" parent="5" name="email">
+        <mandatory>1</mandatory>
+        <data-type>varchar(75)</data-type>
+      </column>
+      <column id="86" parent="5" name="password">
+        <mandatory>1</mandatory>
+        <data-type>varchar(128)</data-type>
+      </column>
+      <column id="87" parent="5" name="is_staff">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <column id="88" parent="5" name="is_active">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <column id="89" parent="5" name="is_superuser">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <column id="90" parent="5" name="last_login">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="91" parent="5" name="date_joined">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <index id="92" parent="5" name="username">
+        <columns>username</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="93" parent="5" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <key id="94" parent="5" name="username">
+        <columns>username</columns>
+        <underlying-index>username</underlying-index>
+      </key>
+      <column id="95" parent="6" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="96" parent="6" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="97" parent="6" name="group_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="98" parent="6" name="auth_user_groups_403f60f">
+        <columns>user_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="99" parent="6" name="auth_user_groups_425ae3c4">
+        <columns>group_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="100" parent="6" name="user_id">
+        <columns>user_id
+group_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="101" parent="6" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <key id="102" parent="6" name="user_id">
+        <columns>user_id
+group_id</columns>
+        <underlying-index>user_id</underlying-index>
+      </key>
+      <foreign-key id="103" parent="6" name="group_id_refs_id_f116770">
+        <columns>group_id</columns>
+        <ref-key>~.auth_group.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="104" parent="6" name="user_id_refs_id_7ceef80f">
+        <columns>user_id</columns>
+        <ref-key>~.auth_user.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="105" parent="7" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="106" parent="7" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="107" parent="7" name="project_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="108" parent="7" name="auth_user_project_403f60f">
+        <columns>user_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="109" parent="7" name="auth_user_project_499df97c">
+        <columns>project_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="110" parent="7" name="user_id">
+        <columns>user_id
+project_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="111" parent="7" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <key id="112" parent="7" name="user_id">
+        <columns>user_id
+project_id</columns>
+        <underlying-index>user_id</underlying-index>
+      </key>
+      <foreign-key id="113" parent="7" name="project_id_refs_id_bfe6ea5">
+        <columns>project_id</columns>
+        <ref-key>~.cap_project.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="114" parent="7" name="user_id_refs_id_6d8bc7cd">
+        <columns>user_id</columns>
+        <ref-key>~.auth_user.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="115" parent="8" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="116" parent="8" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="117" parent="8" name="permission_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="118" parent="8" name="auth_user_user_permissions_1e014c8f">
+        <columns>permission_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="119" parent="8" name="auth_user_user_permissions_403f60f">
+        <columns>user_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="120" parent="8" name="user_id">
+        <columns>user_id
+permission_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="121" parent="8" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <key id="122" parent="8" name="user_id">
+        <columns>user_id
+permission_id</columns>
+        <underlying-index>user_id</underlying-index>
+      </key>
+      <foreign-key id="123" parent="8" name="permission_id_refs_id_67e79cb">
+        <columns>permission_id</columns>
+        <ref-key>~.auth_permission.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="124" parent="8" name="user_id_refs_id_dfbab7d">
+        <columns>user_id</columns>
+        <ref-key>~.auth_user.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="125" parent="9" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="126" parent="9" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <key id="127" parent="9" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="128" parent="10" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="129" parent="10" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="130" parent="10" name="project_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="131" parent="10" name="cron_app_499df97c">
+        <columns>project_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="132" parent="10" name="cron_app_52094d6e">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="133" parent="10" name="name">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="134" parent="10" name="name">
+        <columns>name</columns>
+        <underlying-index>name</underlying-index>
+      </key>
+      <key id="135" parent="10" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="136" parent="10" name="project_id_refs_id_2e1d08e0">
+        <columns>project_id</columns>
+        <ref-key>~.cap_project.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="137" parent="11" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="138" parent="11" name="ip">
+        <mandatory>1</mandatory>
+        <data-type>char(15)</data-type>
+      </column>
+      <column id="139" parent="11" name="path">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <index id="140" parent="11" name="cron_cronserve_49a8a8f2">
+        <columns>ip</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="141" parent="11" name="ip">
+        <columns>ip</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="142" parent="11" name="ip">
+        <columns>ip</columns>
+        <underlying-index>ip</underlying-index>
+      </key>
+      <key id="143" parent="11" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="144" parent="12" name="rid">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="145" parent="12" name="tid">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="146" parent="12" name="svnpath">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="147" parent="12" name="version">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="148" parent="12" name="crontime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="149" parent="12" name="begintime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="150" parent="12" name="endtime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="151" parent="12" name="status">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="152" parent="12" name="stderror">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="153" parent="12" name="stdout">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="154" parent="12" name="type">
+        <mandatory>1</mandatory>
+        <data-type>int(3)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <index id="155" parent="12" name="cron_runlog_1fc17dc5">
+        <columns>tid</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="156" parent="12" name="status">
+        <columns>status</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="157" parent="12" name="PRIMARY">
+        <columns>rid</columns>
+        <primary>1</primary>
+      </key>
+      <column id="158" parent="13" name="tid">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="159" parent="13" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="160" parent="13" name="project">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="161" parent="13" name="app">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="162" parent="13" name="ip">
+        <mandatory>1</mandatory>
+        <data-type>char(15)</data-type>
+      </column>
+      <column id="163" parent="13" name="addtime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="164" parent="13" name="edittime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="165" parent="13" name="rule">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="166" parent="13" name="status">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="167" parent="13" name="svnpath">
+        <mandatory>1</mandatory>
+        <data-type>varchar(1000)</data-type>
+      </column>
+      <column id="168" parent="13" name="version">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="169" parent="13" name="svnuser">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="170" parent="13" name="svnpasswd">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="171" parent="13" name="info">
+        <mandatory>1</mandatory>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="172" parent="13" name="owner">
+        <mandatory>1</mandatory>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="173" parent="13" name="type">
+        <comment> 1  python  2 php</comment>
+        <mandatory>1</mandatory>
+        <data-type>int(3)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="174" parent="13" name="args">
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="175" parent="13" name="filename">
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="176" parent="13" name="custom">
+        <mandatory>1</mandatory>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="177" parent="13" name="branch">
+        <data-type>varchar(100)</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <index id="178" parent="13" name="cron_task_49a8a8f2">
+        <columns>ip</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="179" parent="13" name="cron_task_52094d6e">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="180" parent="13" name="owner">
+        <columns>owner</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="181" parent="13" name="owner_2">
+        <columns>owner</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="182" parent="13" name="project">
+        <columns>project</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="183" parent="13" name="PRIMARY">
+        <columns>tid</columns>
+        <primary>1</primary>
+      </key>
+      <column id="184" parent="14" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="185" parent="14" name="table_schema">
+        <mandatory>1</mandatory>
+        <data-type>varchar(60)</data-type>
+      </column>
+      <column id="186" parent="14" name="data_length">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="187" parent="14" name="index_length">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="188" parent="14" name="sum_length">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="189" parent="14" name="datetime">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="190" parent="14" name="proj_name">
+        <comment>1中文站2国际站3悉知4运维</comment>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="191" parent="14" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="192" parent="15" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="193" parent="15" name="action_time">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="194" parent="15" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="195" parent="15" name="content_type_id">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="196" parent="15" name="object_id">
+        <data-type>longtext</data-type>
+      </column>
+      <column id="197" parent="15" name="object_repr">
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="198" parent="15" name="action_flag">
+        <mandatory>1</mandatory>
+        <data-type>smallint(5) unsigned</data-type>
+      </column>
+      <column id="199" parent="15" name="change_message">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <index id="200" parent="15" name="django_admin_log_1bb8f392">
+        <columns>content_type_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="201" parent="15" name="django_admin_log_403f60f">
+        <columns>user_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="202" parent="15" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="203" parent="15" name="content_type_id_refs_id_288599e6">
+        <columns>content_type_id</columns>
+        <ref-key>~.django_content_type.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="204" parent="15" name="user_id_refs_id_c8665aa">
+        <columns>user_id</columns>
+        <ref-key>~.auth_user.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="205" parent="16" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="206" parent="16" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="207" parent="16" name="app_label">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="208" parent="16" name="model">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <index id="209" parent="16" name="app_label">
+        <columns>app_label
+model</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="210" parent="16" name="app_label">
+        <columns>app_label
+model</columns>
+        <underlying-index>app_label</underlying-index>
+      </key>
+      <key id="211" parent="16" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="212" parent="17" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="213" parent="17" name="app">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="214" parent="17" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="215" parent="17" name="applied">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <key id="216" parent="17" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="217" parent="18" name="session_key">
+        <mandatory>1</mandatory>
+        <data-type>varchar(40)</data-type>
+      </column>
+      <column id="218" parent="18" name="session_data">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="219" parent="18" name="expire_date">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <index id="220" parent="18" name="django_session_3da3d3d8">
+        <columns>expire_date</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="221" parent="18" name="PRIMARY">
+        <columns>session_key</columns>
+        <primary>1</primary>
+      </key>
+      <column id="222" parent="19" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="223" parent="19" name="domain">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="224" parent="19" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <key id="225" parent="19" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="226" parent="20" name="checksum">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+      </column>
+      <column id="227" parent="20" name="sample">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="228" parent="20" name="ts_min">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
+      </column>
+      <column id="229" parent="20" name="ts_max">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
+      </column>
+      <column id="230" parent="20" name="ts_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="231" parent="20" name="Query_time_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="232" parent="20" name="Query_time_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="233" parent="20" name="Query_time_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="234" parent="20" name="Query_time_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="235" parent="20" name="Query_time_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="236" parent="20" name="Query_time_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="237" parent="20" name="Lock_time_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="238" parent="20" name="Lock_time_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="239" parent="20" name="Lock_time_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="240" parent="20" name="Lock_time_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="241" parent="20" name="Lock_time_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="242" parent="20" name="Lock_time_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="243" parent="20" name="Rows_sent_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="244" parent="20" name="Rows_sent_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="245" parent="20" name="Rows_sent_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="246" parent="20" name="Rows_sent_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="247" parent="20" name="Rows_sent_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="248" parent="20" name="Rows_sent_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="249" parent="20" name="Rows_examined_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="250" parent="20" name="Rows_examined_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="251" parent="20" name="Rows_examined_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="252" parent="20" name="Rows_examined_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="253" parent="20" name="Rows_examined_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="254" parent="20" name="Rows_examined_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="255" parent="20" name="Rows_affected_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="256" parent="20" name="Rows_affected_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="257" parent="20" name="Rows_affected_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="258" parent="20" name="Rows_affected_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="259" parent="20" name="Rows_affected_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="260" parent="20" name="Rows_affected_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="261" parent="20" name="Rows_read_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="262" parent="20" name="Rows_read_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="263" parent="20" name="Rows_read_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="264" parent="20" name="Rows_read_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="265" parent="20" name="Rows_read_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="266" parent="20" name="Rows_read_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="267" parent="20" name="Merge_passes_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="268" parent="20" name="Merge_passes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="269" parent="20" name="Merge_passes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="270" parent="20" name="Merge_passes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="271" parent="20" name="Merge_passes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="272" parent="20" name="Merge_passes_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="273" parent="20" name="InnoDB_IO_r_ops_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="274" parent="20" name="InnoDB_IO_r_ops_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="275" parent="20" name="InnoDB_IO_r_ops_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="276" parent="20" name="InnoDB_IO_r_ops_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="277" parent="20" name="InnoDB_IO_r_ops_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="278" parent="20" name="InnoDB_IO_r_bytes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="279" parent="20" name="InnoDB_IO_r_bytes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="280" parent="20" name="InnoDB_IO_r_bytes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="281" parent="20" name="InnoDB_IO_r_bytes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="282" parent="20" name="InnoDB_IO_r_bytes_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="283" parent="20" name="InnoDB_IO_r_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="284" parent="20" name="InnoDB_IO_r_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="285" parent="20" name="InnoDB_IO_r_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="286" parent="20" name="InnoDB_IO_r_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="287" parent="20" name="InnoDB_IO_r_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="288" parent="20" name="InnoDB_rec_lock_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="289" parent="20" name="InnoDB_rec_lock_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="290" parent="20" name="InnoDB_rec_lock_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="291" parent="20" name="InnoDB_rec_lock_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="292" parent="20" name="InnoDB_rec_lock_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="293" parent="20" name="InnoDB_queue_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="294" parent="20" name="InnoDB_queue_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="295" parent="20" name="InnoDB_queue_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="296" parent="20" name="InnoDB_queue_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="297" parent="20" name="InnoDB_queue_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="298" parent="20" name="InnoDB_pages_distinct_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="299" parent="20" name="InnoDB_pages_distinct_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="300" parent="20" name="InnoDB_pages_distinct_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="301" parent="20" name="InnoDB_pages_distinct_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="302" parent="20" name="InnoDB_pages_distinct_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="303" parent="20" name="QC_Hit_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="304" parent="20" name="QC_Hit_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="305" parent="20" name="Full_scan_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="306" parent="20" name="Full_scan_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="307" parent="20" name="Full_join_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="308" parent="20" name="Full_join_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="309" parent="20" name="Tmp_table_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="310" parent="20" name="Tmp_table_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="311" parent="20" name="Tmp_table_on_disk_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="312" parent="20" name="Tmp_table_on_disk_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="313" parent="20" name="Filesort_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="314" parent="20" name="Filesort_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="315" parent="20" name="Filesort_on_disk_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="316" parent="20" name="Filesort_on_disk_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="317" parent="20" name="hostname_max">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <key id="318" parent="20" name="PRIMARY">
+        <columns>checksum
+ts_min
+ts_max</columns>
+        <primary>1</primary>
+      </key>
+      <column id="319" parent="21" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="320" parent="21" name="hostname_max">
+        <mandatory>1</mandatory>
+        <data-type>varchar(64)</data-type>
+      </column>
+      <column id="321" parent="21" name="db_max">
+        <data-type>varchar(64)</data-type>
+      </column>
+      <column id="322" parent="21" name="checksum">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+      </column>
+      <column id="323" parent="21" name="sample">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="324" parent="21" name="ts_min">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
+      </column>
+      <column id="325" parent="21" name="ts_max">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
+      </column>
+      <column id="326" parent="21" name="ts_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="327" parent="21" name="Query_time_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="328" parent="21" name="Query_time_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="329" parent="21" name="Query_time_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="330" parent="21" name="Query_time_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="331" parent="21" name="Query_time_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="332" parent="21" name="Query_time_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="333" parent="21" name="Lock_time_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="334" parent="21" name="Lock_time_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="335" parent="21" name="Lock_time_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="336" parent="21" name="Lock_time_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="337" parent="21" name="Lock_time_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="338" parent="21" name="Lock_time_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="339" parent="21" name="Rows_sent_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="340" parent="21" name="Rows_sent_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="341" parent="21" name="Rows_sent_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="342" parent="21" name="Rows_sent_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="343" parent="21" name="Rows_sent_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="344" parent="21" name="Rows_sent_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="345" parent="21" name="Rows_examined_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="346" parent="21" name="Rows_examined_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="347" parent="21" name="Rows_examined_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="348" parent="21" name="Rows_examined_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="349" parent="21" name="Rows_examined_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="350" parent="21" name="Rows_examined_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="351" parent="21" name="Rows_affected_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="352" parent="21" name="Rows_affected_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="353" parent="21" name="Rows_affected_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="354" parent="21" name="Rows_affected_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="355" parent="21" name="Rows_affected_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="356" parent="21" name="Rows_affected_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="357" parent="21" name="Rows_read_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="358" parent="21" name="Rows_read_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="359" parent="21" name="Rows_read_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="360" parent="21" name="Rows_read_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="361" parent="21" name="Rows_read_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="362" parent="21" name="Rows_read_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="363" parent="21" name="Merge_passes_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="364" parent="21" name="Merge_passes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="365" parent="21" name="Merge_passes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="366" parent="21" name="Merge_passes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="367" parent="21" name="Merge_passes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="368" parent="21" name="Merge_passes_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="369" parent="21" name="InnoDB_IO_r_ops_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="370" parent="21" name="InnoDB_IO_r_ops_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="371" parent="21" name="InnoDB_IO_r_ops_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="372" parent="21" name="InnoDB_IO_r_bytes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="373" parent="21" name="InnoDB_IO_r_bytes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="374" parent="21" name="InnoDB_IO_r_bytes_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="375" parent="21" name="InnoDB_IO_r_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="376" parent="21" name="InnoDB_IO_r_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="377" parent="21" name="InnoDB_IO_r_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="378" parent="21" name="InnoDB_IO_r_ops_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="379" parent="21" name="InnoDB_IO_r_ops_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="380" parent="21" name="InnoDB_IO_r_bytes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="381" parent="21" name="InnoDB_IO_r_bytes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="382" parent="21" name="InnoDB_IO_r_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="383" parent="21" name="InnoDB_IO_r_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="384" parent="21" name="InnoDB_rec_lock_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="385" parent="21" name="InnoDB_rec_lock_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="386" parent="21" name="InnoDB_rec_lock_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="387" parent="21" name="InnoDB_rec_lock_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="388" parent="21" name="InnoDB_rec_lock_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="389" parent="21" name="InnoDB_queue_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="390" parent="21" name="InnoDB_queue_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="391" parent="21" name="InnoDB_queue_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="392" parent="21" name="InnoDB_queue_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="393" parent="21" name="InnoDB_queue_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="394" parent="21" name="InnoDB_pages_distinct_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="395" parent="21" name="InnoDB_pages_distinct_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="396" parent="21" name="InnoDB_pages_distinct_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="397" parent="21" name="InnoDB_pages_distinct_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="398" parent="21" name="InnoDB_pages_distinct_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="399" parent="21" name="QC_Hit_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="400" parent="21" name="QC_Hit_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="401" parent="21" name="Full_scan_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="402" parent="21" name="Full_scan_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="403" parent="21" name="Full_join_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="404" parent="21" name="Full_join_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="405" parent="21" name="Tmp_table_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="406" parent="21" name="Tmp_table_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="407" parent="21" name="Filesort_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="408" parent="21" name="Filesort_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="409" parent="21" name="Tmp_table_on_disk_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="410" parent="21" name="Tmp_table_on_disk_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="411" parent="21" name="Filesort_on_disk_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="412" parent="21" name="Filesort_on_disk_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="413" parent="21" name="Bytes_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="414" parent="21" name="Bytes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="415" parent="21" name="Bytes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="416" parent="21" name="Bytes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="417" parent="21" name="Bytes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="418" parent="21" name="Bytes_median">
+        <data-type>float</data-type>
+      </column>
+      <index id="419" parent="21" name="checksum">
+        <columns>checksum</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="420" parent="21" name="hostname_max">
+        <columns>hostname_max
+checksum
+ts_min
+ts_max</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="421" parent="21" name="ts_cnt">
+        <columns>ts_cnt</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="422" parent="21" name="ts_min_host_name">
+        <columns>ts_min
+hostname_max</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="423" parent="21" name="hostname_max">
+        <columns>hostname_max
+checksum
+ts_min
+ts_max</columns>
+        <underlying-index>hostname_max</underlying-index>
+      </key>
+      <key id="424" parent="21" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="425" parent="22" name="Hostname">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="426" parent="22" name="IP_address">
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="427" parent="22" name="Uptime">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="428" parent="22" name="System">
+        <data-type>varchar(150)</data-type>
+      </column>
+      <column id="429" parent="22" name="Service_Tag">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="430" parent="22" name="Platform">
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="431" parent="22" name="Rleas">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="432" parent="22" name="Kernel">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="433" parent="22" name="Architecture">
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="434" parent="22" name="Threading">
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="435" parent="22" name="Compiler">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="436" parent="22" name="SELinux">
+        <data-type>varchar(25)</data-type>
+      </column>
+      <column id="437" parent="22" name="Virtualized">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="438" parent="22" name="Processors">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="439" parent="22" name="Speeds">
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="440" parent="22" name="Models">
+        <data-type>varchar(60)</data-type>
+      </column>
+      <column id="441" parent="22" name="processor_caches">
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="442" parent="22" name="Total">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="443" parent="22" name="Free">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="444" parent="22" name="has_used">
+        <data-type>varchar(150)</data-type>
+      </column>
+      <column id="445" parent="22" name="Buffers">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="446" parent="22" name="memory_caches">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="447" parent="22" name="Dirty">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="448" parent="22" name="UsedRSS">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="449" parent="22" name="Swappiness">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="450" parent="22" name="DirtyPolicy">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="451" parent="22" name="DirtyStatus">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="452" parent="22" name="Date">
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="453" parent="22" name="proj_name">
+        <comment>1中文站 2国际站 3悉知 4运维</comment>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="454" parent="22" name="PRIMARY">
+        <columns>Hostname</columns>
+        <primary>1</primary>
+      </key>
+      <column id="455" parent="23" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="456" parent="23" name="proj_name">
+        <comment>1中文站 2国际站 3悉知 4运维</comment>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="457" parent="23" name="host_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="458" parent="23" name="eth0">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="459" parent="23" name="eth1">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="460" parent="23" name="server_property">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <key id="461" parent="23" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="462" parent="24" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="463" parent="24" name="host_ip">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="464" parent="24" name="cluster_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="465" parent="24" name="hit_rate">
+        <mandatory>1</mandatory>
+        <data-type>decimal(6,4)</data-type>
+      </column>
+      <column id="466" parent="24" name="qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="467" parent="24" name="get_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="468" parent="24" name="set_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="469" parent="24" name="time">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="470" parent="24" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="471" parent="25" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="472" parent="25" name="host_ip">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="473" parent="25" name="apply_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(10)</data-type>
+      </column>
+      <column id="474" parent="25" name="apply_port">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="475" parent="25" name="cluster_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <key id="476" parent="25" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="477" parent="26" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="478" parent="26" name="proj_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="479" parent="26" name="user_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="480" parent="26" name="host_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="481" parent="26" name="exec_time">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="482" parent="26" name="command">
+        <mandatory>1</mandatory>
+        <data-type>varchar(400)</data-type>
+      </column>
+      <column id="483" parent="26" name="insert_time">
+        <data-type>datetime</data-type>
+        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
+      </column>
+      <index id="484" parent="26" name="idx_exectime_projname">
+        <columns>exec_time
+proj_name
+host_name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="485" parent="26" name="idx_host">
+        <columns>host_name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="486" parent="26" name="idx_proj_name">
+        <columns>proj_name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="487" parent="26" name="idx_user_host">
+        <columns>user_name
+host_name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="488" parent="26" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="489" parent="27" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="490" parent="27" name="time">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="491" parent="27" name="ip">
+        <mandatory>1</mandatory>
+        <data-type>char(15)</data-type>
+      </column>
+      <column id="492" parent="27" name="operation">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="493" parent="27" name="people">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <key id="494" parent="27" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="495" parent="28" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="496" parent="28" name="time">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="497" parent="28" name="ip">
+        <mandatory>1</mandatory>
+        <data-type>char(15)</data-type>
+      </column>
+      <column id="498" parent="28" name="operation">
+        <comment>1代表加入红名单，2代表加入黑名单,-1代表解除红名单，-2代表解除黑名单</comment>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="499" parent="28" name="username">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <key id="500" parent="28" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="501" parent="29" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="502" parent="29" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <index id="503" parent="29" name="name">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="504" parent="29" name="name">
+        <columns>name</columns>
+        <underlying-index>name</underlying-index>
+      </key>
+      <key id="505" parent="29" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="506" parent="30" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="507" parent="30" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="508" parent="30" name="project_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="509" parent="30" name="source_svn">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="510" parent="30" name="svn_server_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="511" parent="30" name="deploy_to">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="512" parent="30" name="old_version_num">
+        <mandatory>1</mandatory>
+        <data-type>smallint(5) unsigned</data-type>
+      </column>
+      <column id="513" parent="30" name="cmd_after_deploy">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="514" parent="30" name="formalfilemode_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="515" parent="30" name="testfilemode_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="516" parent="30" name="decide">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="517" parent="30" name="clear_after_deploy">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="518" parent="30" name="must_verify">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <index id="519" parent="30" name="FK_decide">
+        <columns>decide</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="520" parent="30" name="name">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="521" parent="30" name="pub_app_2916f1f0">
+        <columns>formalfilemode_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="522" parent="30" name="pub_app_499df97c">
+        <columns>project_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="523" parent="30" name="pub_app_52094d6e">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="524" parent="30" name="pub_app_792fa331">
+        <columns>testfilemode_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="525" parent="30" name="pub_app_f660639">
+        <columns>svn_server_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="526" parent="30" name="name">
+        <columns>name</columns>
+        <underlying-index>name</underlying-index>
+      </key>
+      <key id="527" parent="30" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="528" parent="30" name="FK_decide">
+        <columns>decide</columns>
+        <ref-key>~.pub_decide.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="529" parent="30" name="formalfilemode_id_refs_id_209f2418">
+        <columns>formalfilemode_id</columns>
+        <ref-key>~.pub_filemode.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="530" parent="30" name="project_id_refs_id_24b42766">
+        <columns>project_id</columns>
+        <ref-key>~.cap_project.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="531" parent="30" name="svn_server_id_refs_id_47e58c4c">
+        <columns>svn_server_id</columns>
+        <ref-key>~.pub_svnserver.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="532" parent="30" name="testfilemode_id_refs_id_209f2418">
+        <columns>testfilemode_id</columns>
+        <ref-key>~.pub_filemode.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="533" parent="31" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="534" parent="31" name="app_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="535" parent="31" name="server_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="536" parent="31" name="app_id">
+        <columns>app_id
+server_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="537" parent="31" name="pub_app_formalsshinfo_269da59a">
+        <columns>app_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="538" parent="31" name="pub_app_formalsshinfo_4a752677">
+        <columns>server_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="539" parent="31" name="app_id">
+        <columns>app_id
+server_id</columns>
+        <underlying-index>app_id</underlying-index>
+      </key>
+      <key id="540" parent="31" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="541" parent="31" name="app_id_refs_id_5ae8a485">
+        <columns>app_id</columns>
+        <ref-key>~.pub_app.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="542" parent="31" name="server_id_refs_id_6071d4e">
+        <columns>server_id</columns>
+        <ref-key>~.pub_server.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="543" parent="32" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="544" parent="32" name="app_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="545" parent="32" name="server_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="546" parent="32" name="app_id">
+        <columns>app_id
+server_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="547" parent="32" name="pub_app_testsshinfo_269da59a">
+        <columns>app_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="548" parent="32" name="pub_app_testsshinfo_4a752677">
+        <columns>server_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="549" parent="32" name="app_id">
+        <columns>app_id
+server_id</columns>
+        <underlying-index>app_id</underlying-index>
+      </key>
+      <key id="550" parent="32" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="551" parent="32" name="app_id_refs_id_ce04b20">
+        <columns>app_id</columns>
+        <ref-key>~.pub_app.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="552" parent="32" name="server_id_refs_id_34e560ff">
+        <columns>server_id</columns>
+        <ref-key>~.pub_server.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="553" parent="33" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="554" parent="33" name="decision">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <key id="555" parent="33" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="556" parent="34" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="557" parent="34" name="filename">
+        <mandatory>1</mandatory>
+        <data-type>varchar(1000)</data-type>
+      </column>
+      <column id="558" parent="34" name="pid">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="559" parent="34" name="oldfile">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="560" parent="34" name="newfile">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <key id="561" parent="34" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="562" parent="35" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="563" parent="35" name="pid">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="564" parent="35" name="oldversion">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="565" parent="35" name="newversion">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="566" parent="35" name="data">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <index id="567" parent="35" name="pub_diffpatchcache_4bc57fd7">
+        <columns>pid</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="568" parent="35" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="569" parent="36" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="570" parent="36" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="571" parent="36" name="email">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <index id="572" parent="36" name="pub_emailinfo_52094d6e">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="573" parent="36" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="574" parent="37" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="575" parent="37" name="mode">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+      </column>
+      <column id="576" parent="37" name="owner">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="577" parent="37" name="group">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <key id="578" parent="37" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="579" parent="38" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="580" parent="38" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="581" parent="38" name="oldversion">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="582" parent="38" name="oldmeta">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="583" parent="38" name="newversion">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="584" parent="38" name="newmeta">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="585" parent="38" name="appname">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="586" parent="38" name="operate">
+        <comment>1发布    2回滚  3svn初始化并同步</comment>
+        <mandatory>1</mandatory>
+        <data-type>smallint(5) unsigned</data-type>
+      </column>
+      <column id="587" parent="38" name="environment">
+        <mandatory>1</mandatory>
+        <data-type>varchar(10)</data-type>
+      </column>
+      <column id="588" parent="38" name="operatetime">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="589" parent="38" name="operatelog">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="590" parent="38" name="status">
+        <comment>1  开始   2.进行中  3  完成    4  失败</comment>
+        <mandatory>1</mandatory>
+        <data-type>smallint(5) unsigned</data-type>
+      </column>
+      <column id="591" parent="38" name="reason">
+        <mandatory>1</mandatory>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="592" parent="38" name="projectname">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="593" parent="38" name="progress">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <index id="594" parent="38" name="progress">
+        <columns>progress</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="595" parent="38" name="projectname">
+        <columns>projectname</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="596" parent="38" name="pub_publog_245195bc">
+        <columns>operate</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="597" parent="38" name="pub_publog_2ccf8109">
+        <columns>operatetime</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="598" parent="38" name="pub_publog_36528e23">
+        <columns>status</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="599" parent="38" name="pub_publog_4318a728">
+        <columns>appname</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="600" parent="38" name="pub_publog_52094d6e">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="601" parent="38" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="602" parent="39" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="603" parent="39" name="ip">
+        <mandatory>1</mandatory>
+        <data-type>char(15)</data-type>
+      </column>
+      <column id="604" parent="39" name="user">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="605" parent="39" name="password">
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="606" parent="39" name="group">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="607" parent="39" name="ssh_port">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <index id="608" parent="39" name="ip">
+        <columns>ip</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="609" parent="39" name="pub_server_49a8a8f2">
+        <columns>ip</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="610" parent="39" name="ip">
+        <columns>ip</columns>
+        <underlying-index>ip</underlying-index>
+      </key>
+      <key id="611" parent="39" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="612" parent="40" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="613" parent="40" name="server">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="614" parent="40" name="mainpath">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="615" parent="40" name="syncuser">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="616" parent="40" name="syncpasswd">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="617" parent="40" name="clientuser">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="618" parent="40" name="clientpasswd">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <index id="619" parent="40" name="FK_ID">
+        <columns>server</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="620" parent="40" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="621" parent="40" name="FK_ID">
+        <columns>server</columns>
+        <ref-key>~.pub_server.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="622" parent="41" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="623" parent="41" name="pubid">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="624" parent="41" name="appname">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="625" parent="41" name="version">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="626" parent="41" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="627" parent="41" name="result">
+        <mandatory>1</mandatory>
+        <data-type>smallint(5) unsigned</data-type>
+      </column>
+      <column id="628" parent="41" name="addtime">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="629" parent="41" name="vertifytime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="630" parent="41" name="detail">
+        <mandatory>1</mandatory>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="631" parent="41" name="name1">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+        <default-expression>&apos;NULL&apos;</default-expression>
+      </column>
+      <index id="632" parent="41" name="pub_verifytask_4318a728">
+        <columns>appname</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="633" parent="41" name="pub_verifytask_52094d6e">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="634" parent="41" name="pub_verifytask_55bf6494">
+        <columns>pubid</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="635" parent="41" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="636" parent="42" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="637" parent="42" name="pubid">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="638" parent="42" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="639" parent="42" name="result">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <column id="640" parent="42" name="online">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <column id="641" parent="42" name="detail">
+        <mandatory>1</mandatory>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <index id="642" parent="42" name="pub_verifytask_52094d6e">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="643" parent="42" name="pub_verifytask_55bf6494">
+        <columns>pubid</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="644" parent="42" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="645" parent="43" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="646" parent="43" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <key id="647" parent="43" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="648" parent="44" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="649" parent="44" name="name">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="650" parent="44" name="ip">
+        <mandatory>1</mandatory>
+        <data-type>char(15)</data-type>
+      </column>
+      <column id="651" parent="44" name="jointime">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <index id="652" parent="44" name="ip">
+        <columns>ip</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="653" parent="44" name="ip">
+        <columns>ip</columns>
+        <underlying-index>ip</underlying-index>
+      </key>
+      <key id="654" parent="44" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="655" parent="45" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="656" parent="45" name="username">
+        <comment>操作人</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="657" parent="45" name="ip">
+        <mandatory>1</mandatory>
+        <data-type>char(15)</data-type>
+      </column>
+      <column id="658" parent="45" name="jointime">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="659" parent="45" name="flag">
+        <comment>flag为1时是红名单标记，为0时是黑名单标记</comment>
+        <mandatory>1</mandatory>
+        <data-type>tinyint(4)</data-type>
+      </column>
+      <column id="660" parent="45" name="source">
+        <comment>0代表直接加入，1代表来自红名单，2代表来自黑名单，3代表来自黄名单</comment>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="661" parent="45" name="flag_count">
+        <comment>被标记次数</comment>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <index id="662" parent="45" name="ip">
+        <columns>ip</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="663" parent="45" name="ip">
+        <columns>ip</columns>
+        <underlying-index>ip</underlying-index>
+      </key>
+      <key id="664" parent="45" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="665" parent="46" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="666" parent="46" name="host_ip">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="667" parent="46" name="cluster_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="668" parent="46" name="qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="669" parent="46" name="get_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="670" parent="46" name="set_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="671" parent="46" name="time">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="672" parent="46" name="multi_get_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="673" parent="46" name="multi_set_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="674" parent="46" name="zkeys_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="675" parent="46" name="multi_hget_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="676" parent="46" name="multi_hset_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="677" parent="46" name="hget_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="678" parent="46" name="hset_qps">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <key id="679" parent="46" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="680" parent="47" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="681" parent="47" name="name">
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="682" parent="47" name="name_1">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="683" parent="47" name="age">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="684" parent="47" name="age_1">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="685" parent="47" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="686" parent="48" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="687" parent="48" name="name">
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="688" parent="48" name="name_1">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="689" parent="48" name="path">
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="690" parent="48" name="path_1">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="691" parent="48" name="age">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="692" parent="48" name="age_1">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="693" parent="48" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="694" parent="49" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="695" parent="49" name="hostname">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="696" parent="49" name="table_schema">
+        <mandatory>1</mandatory>
+        <data-type>varchar(60)</data-type>
+      </column>
+      <column id="697" parent="49" name="table_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(60)</data-type>
+      </column>
+      <column id="698" parent="49" name="engine">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="699" parent="49" name="avg_row_length">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="700" parent="49" name="data_length">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="701" parent="49" name="index_length">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="702" parent="49" name="sum_length">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="703" parent="49" name="table_rows">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="704" parent="49" name="datetime">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="705" parent="49" name="proj_name">
+        <comment>1中文站2国际站3悉知4运维</comment>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="706" parent="49" name="idx_datetime_table_schema">
+        <columns>datetime
+table_schema</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="707" parent="49" name="idx_table_schema_datetime">
+        <columns>table_schema
+datetime</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="708" parent="49" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="709" parent="50" name="rid">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="710" parent="50" name="tid">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="711" parent="50" name="svnpath">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="712" parent="50" name="version">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="713" parent="50" name="crontime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="714" parent="50" name="begintime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="715" parent="50" name="endtime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="716" parent="50" name="status">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="717" parent="50" name="stderror">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="718" parent="50" name="stdout">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="719" parent="50" name="type">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <index id="720" parent="50" name="status">
+        <columns>status</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="721" parent="50" name="task_runlog_1fc17dc5">
+        <columns>tid</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="722" parent="50" name="PRIMARY">
+        <columns>rid</columns>
+        <primary>1</primary>
+      </key>
+      <column id="723" parent="51" name="tid">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="724" parent="51" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="725" parent="51" name="project">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="726" parent="51" name="app">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="727" parent="51" name="ip">
+        <mandatory>1</mandatory>
+        <data-type>char(15)</data-type>
+      </column>
+      <column id="728" parent="51" name="addtime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="729" parent="51" name="edittime">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="730" parent="51" name="status">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="731" parent="51" name="svnpath">
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="732" parent="51" name="version">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="733" parent="51" name="svnuser">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="734" parent="51" name="svnpasswd">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="735" parent="51" name="info">
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="736" parent="51" name="owner">
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="737" parent="51" name="type">
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+      </column>
+      <column id="738" parent="51" name="args">
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="739" parent="51" name="filename">
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="740" parent="51" name="custom">
+        <mandatory>1</mandatory>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="741" parent="51" name="branch">
+        <data-type>varchar(100)</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <index id="742" parent="51" name="project">
+        <columns>project</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="743" parent="51" name="task_task_4741fd1b">
+        <columns>owner</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="744" parent="51" name="task_task_49a8a8f2">
+        <columns>ip</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="745" parent="51" name="task_task_52094d6e">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="746" parent="51" name="PRIMARY">
+        <columns>tid</columns>
+        <primary>1</primary>
+      </key>
+      <column id="747" parent="52" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="748" parent="52" name="project">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="749" parent="52" name="start_time">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="750" parent="52" name="end_time">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="751" parent="52" name="duration">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="752" parent="52" name="app_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="753" parent="52" name="trouble_type">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="754" parent="52" name="people_in_charge">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="755" parent="52" name="phenomenon">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="756" parent="52" name="analysis">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="757" parent="52" name="howto_avoid">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="758" parent="52" name="advice">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <index id="759" parent="52" name="idx_start_time">
+        <columns>start_time</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="760" parent="52" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="761" parent="53" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="762" parent="53" name="proj_name">
+        <comment>1中文站2国际站3悉知4运维</comment>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="763" parent="53" name="user_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="764" parent="53" name="host_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="765" parent="53" name="exec_time">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="766" parent="53" name="command">
+        <mandatory>1</mandatory>
+        <data-type>varchar(400)</data-type>
+      </column>
+      <column id="767" parent="53" name="insert_time">
+        <data-type>datetime</data-type>
+        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
+      </column>
+      <index id="768" parent="53" name="idx_exectime_projname">
+        <columns>exec_time
+proj_name
+host_name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="769" parent="53" name="idx_host">
+        <columns>host_name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="770" parent="53" name="idx_proj_name">
+        <columns>proj_name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="771" parent="53" name="idx_user_host">
+        <columns>user_name
+host_name</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="772" parent="53" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="773" parent="54" name="checksum">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+      </column>
+      <column id="774" parent="54" name="sample">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="775" parent="54" name="ts_min">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
+      </column>
+      <column id="776" parent="54" name="ts_max">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
+      </column>
+      <column id="777" parent="54" name="ts_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="778" parent="54" name="Query_time_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="779" parent="54" name="Query_time_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="780" parent="54" name="Query_time_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="781" parent="54" name="Query_time_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="782" parent="54" name="Query_time_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="783" parent="54" name="Query_time_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="784" parent="54" name="Lock_time_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="785" parent="54" name="Lock_time_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="786" parent="54" name="Lock_time_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="787" parent="54" name="Lock_time_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="788" parent="54" name="Lock_time_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="789" parent="54" name="Lock_time_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="790" parent="54" name="Rows_sent_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="791" parent="54" name="Rows_sent_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="792" parent="54" name="Rows_sent_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="793" parent="54" name="Rows_sent_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="794" parent="54" name="Rows_sent_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="795" parent="54" name="Rows_sent_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="796" parent="54" name="Rows_examined_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="797" parent="54" name="Rows_examined_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="798" parent="54" name="Rows_examined_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="799" parent="54" name="Rows_examined_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="800" parent="54" name="Rows_examined_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="801" parent="54" name="Rows_examined_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="802" parent="54" name="Rows_affected_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="803" parent="54" name="Rows_affected_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="804" parent="54" name="Rows_affected_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="805" parent="54" name="Rows_affected_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="806" parent="54" name="Rows_affected_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="807" parent="54" name="Rows_affected_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="808" parent="54" name="Rows_read_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="809" parent="54" name="Rows_read_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="810" parent="54" name="Rows_read_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="811" parent="54" name="Rows_read_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="812" parent="54" name="Rows_read_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="813" parent="54" name="Rows_read_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="814" parent="54" name="Merge_passes_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="815" parent="54" name="Merge_passes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="816" parent="54" name="Merge_passes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="817" parent="54" name="Merge_passes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="818" parent="54" name="Merge_passes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="819" parent="54" name="Merge_passes_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="820" parent="54" name="InnoDB_IO_r_ops_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="821" parent="54" name="InnoDB_IO_r_ops_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="822" parent="54" name="InnoDB_IO_r_ops_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="823" parent="54" name="InnoDB_IO_r_ops_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="824" parent="54" name="InnoDB_IO_r_ops_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="825" parent="54" name="InnoDB_IO_r_bytes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="826" parent="54" name="InnoDB_IO_r_bytes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="827" parent="54" name="InnoDB_IO_r_bytes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="828" parent="54" name="InnoDB_IO_r_bytes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="829" parent="54" name="InnoDB_IO_r_bytes_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="830" parent="54" name="InnoDB_IO_r_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="831" parent="54" name="InnoDB_IO_r_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="832" parent="54" name="InnoDB_IO_r_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="833" parent="54" name="InnoDB_IO_r_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="834" parent="54" name="InnoDB_IO_r_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="835" parent="54" name="InnoDB_rec_lock_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="836" parent="54" name="InnoDB_rec_lock_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="837" parent="54" name="InnoDB_rec_lock_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="838" parent="54" name="InnoDB_rec_lock_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="839" parent="54" name="InnoDB_rec_lock_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="840" parent="54" name="InnoDB_queue_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="841" parent="54" name="InnoDB_queue_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="842" parent="54" name="InnoDB_queue_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="843" parent="54" name="InnoDB_queue_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="844" parent="54" name="InnoDB_queue_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="845" parent="54" name="InnoDB_pages_distinct_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="846" parent="54" name="InnoDB_pages_distinct_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="847" parent="54" name="InnoDB_pages_distinct_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="848" parent="54" name="InnoDB_pages_distinct_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="849" parent="54" name="InnoDB_pages_distinct_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="850" parent="54" name="QC_Hit_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="851" parent="54" name="QC_Hit_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="852" parent="54" name="Full_scan_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="853" parent="54" name="Full_scan_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="854" parent="54" name="Full_join_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="855" parent="54" name="Full_join_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="856" parent="54" name="Tmp_table_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="857" parent="54" name="Tmp_table_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="858" parent="54" name="Tmp_table_on_disk_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="859" parent="54" name="Tmp_table_on_disk_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="860" parent="54" name="Filesort_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="861" parent="54" name="Filesort_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="862" parent="54" name="Filesort_on_disk_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="863" parent="54" name="Filesort_on_disk_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="864" parent="54" name="hostname_max">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <key id="865" parent="54" name="PRIMARY">
+        <columns>checksum
+ts_min
+ts_max</columns>
+        <primary>1</primary>
+      </key>
+      <column id="866" parent="55" name="checksum">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+      </column>
+      <column id="867" parent="55" name="sample">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="868" parent="55" name="ts_min">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
+      </column>
+      <column id="869" parent="55" name="ts_max">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
+      </column>
+      <column id="870" parent="55" name="ts_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="871" parent="55" name="Query_time_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="872" parent="55" name="Query_time_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="873" parent="55" name="Query_time_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="874" parent="55" name="Query_time_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="875" parent="55" name="Query_time_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="876" parent="55" name="Query_time_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="877" parent="55" name="Lock_time_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="878" parent="55" name="Lock_time_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="879" parent="55" name="Lock_time_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="880" parent="55" name="Lock_time_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="881" parent="55" name="Lock_time_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="882" parent="55" name="Lock_time_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="883" parent="55" name="Rows_sent_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="884" parent="55" name="Rows_sent_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="885" parent="55" name="Rows_sent_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="886" parent="55" name="Rows_sent_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="887" parent="55" name="Rows_sent_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="888" parent="55" name="Rows_sent_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="889" parent="55" name="Rows_examined_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="890" parent="55" name="Rows_examined_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="891" parent="55" name="Rows_examined_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="892" parent="55" name="Rows_examined_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="893" parent="55" name="Rows_examined_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="894" parent="55" name="Rows_examined_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="895" parent="55" name="Rows_affected_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="896" parent="55" name="Rows_affected_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="897" parent="55" name="Rows_affected_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="898" parent="55" name="Rows_affected_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="899" parent="55" name="Rows_affected_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="900" parent="55" name="Rows_affected_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="901" parent="55" name="Rows_read_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="902" parent="55" name="Rows_read_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="903" parent="55" name="Rows_read_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="904" parent="55" name="Rows_read_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="905" parent="55" name="Rows_read_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="906" parent="55" name="Rows_read_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="907" parent="55" name="Merge_passes_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="908" parent="55" name="Merge_passes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="909" parent="55" name="Merge_passes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="910" parent="55" name="Merge_passes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="911" parent="55" name="Merge_passes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="912" parent="55" name="Merge_passes_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="913" parent="55" name="InnoDB_IO_r_ops_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="914" parent="55" name="InnoDB_IO_r_ops_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="915" parent="55" name="InnoDB_IO_r_ops_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="916" parent="55" name="InnoDB_IO_r_ops_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="917" parent="55" name="InnoDB_IO_r_ops_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="918" parent="55" name="InnoDB_IO_r_bytes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="919" parent="55" name="InnoDB_IO_r_bytes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="920" parent="55" name="InnoDB_IO_r_bytes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="921" parent="55" name="InnoDB_IO_r_bytes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="922" parent="55" name="InnoDB_IO_r_bytes_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="923" parent="55" name="InnoDB_IO_r_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="924" parent="55" name="InnoDB_IO_r_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="925" parent="55" name="InnoDB_IO_r_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="926" parent="55" name="InnoDB_IO_r_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="927" parent="55" name="InnoDB_IO_r_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="928" parent="55" name="InnoDB_rec_lock_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="929" parent="55" name="InnoDB_rec_lock_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="930" parent="55" name="InnoDB_rec_lock_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="931" parent="55" name="InnoDB_rec_lock_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="932" parent="55" name="InnoDB_rec_lock_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="933" parent="55" name="InnoDB_queue_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="934" parent="55" name="InnoDB_queue_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="935" parent="55" name="InnoDB_queue_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="936" parent="55" name="InnoDB_queue_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="937" parent="55" name="InnoDB_queue_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="938" parent="55" name="InnoDB_pages_distinct_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="939" parent="55" name="InnoDB_pages_distinct_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="940" parent="55" name="InnoDB_pages_distinct_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="941" parent="55" name="InnoDB_pages_distinct_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="942" parent="55" name="InnoDB_pages_distinct_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="943" parent="55" name="QC_Hit_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="944" parent="55" name="QC_Hit_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="945" parent="55" name="Full_scan_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="946" parent="55" name="Full_scan_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="947" parent="55" name="Full_join_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="948" parent="55" name="Full_join_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="949" parent="55" name="Tmp_table_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="950" parent="55" name="Tmp_table_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="951" parent="55" name="Tmp_table_on_disk_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="952" parent="55" name="Tmp_table_on_disk_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="953" parent="55" name="Filesort_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="954" parent="55" name="Filesort_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="955" parent="55" name="Filesort_on_disk_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="956" parent="55" name="Filesort_on_disk_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="957" parent="55" name="hostname_max">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <key id="958" parent="55" name="PRIMARY">
+        <columns>checksum
+ts_min
+ts_max</columns>
+        <primary>1</primary>
+      </key>
+      <column id="959" parent="56" name="checksum">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+      </column>
+      <column id="960" parent="56" name="sample">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="961" parent="56" name="ts_min">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
+      </column>
+      <column id="962" parent="56" name="ts_max">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
+      </column>
+      <column id="963" parent="56" name="ts_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="964" parent="56" name="Query_time_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="965" parent="56" name="Query_time_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="966" parent="56" name="Query_time_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="967" parent="56" name="Query_time_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="968" parent="56" name="Query_time_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="969" parent="56" name="Query_time_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="970" parent="56" name="Lock_time_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="971" parent="56" name="Lock_time_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="972" parent="56" name="Lock_time_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="973" parent="56" name="Lock_time_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="974" parent="56" name="Lock_time_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="975" parent="56" name="Lock_time_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="976" parent="56" name="Rows_sent_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="977" parent="56" name="Rows_sent_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="978" parent="56" name="Rows_sent_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="979" parent="56" name="Rows_sent_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="980" parent="56" name="Rows_sent_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="981" parent="56" name="Rows_sent_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="982" parent="56" name="Rows_examined_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="983" parent="56" name="Rows_examined_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="984" parent="56" name="Rows_examined_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="985" parent="56" name="Rows_examined_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="986" parent="56" name="Rows_examined_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="987" parent="56" name="Rows_examined_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="988" parent="56" name="Rows_affected_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="989" parent="56" name="Rows_affected_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="990" parent="56" name="Rows_affected_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="991" parent="56" name="Rows_affected_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="992" parent="56" name="Rows_affected_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="993" parent="56" name="Rows_affected_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="994" parent="56" name="Rows_read_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="995" parent="56" name="Rows_read_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="996" parent="56" name="Rows_read_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="997" parent="56" name="Rows_read_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="998" parent="56" name="Rows_read_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="999" parent="56" name="Rows_read_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="1000" parent="56" name="Merge_passes_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="1001" parent="56" name="Merge_passes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="1002" parent="56" name="Merge_passes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="1003" parent="56" name="Merge_passes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="1004" parent="56" name="Merge_passes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="1005" parent="56" name="Merge_passes_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="1006" parent="56" name="InnoDB_IO_r_ops_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="1007" parent="56" name="InnoDB_IO_r_ops_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="1008" parent="56" name="InnoDB_IO_r_ops_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="1009" parent="56" name="InnoDB_IO_r_ops_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="1010" parent="56" name="InnoDB_IO_r_ops_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="1011" parent="56" name="InnoDB_IO_r_bytes_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="1012" parent="56" name="InnoDB_IO_r_bytes_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="1013" parent="56" name="InnoDB_IO_r_bytes_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="1014" parent="56" name="InnoDB_IO_r_bytes_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="1015" parent="56" name="InnoDB_IO_r_bytes_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="1016" parent="56" name="InnoDB_IO_r_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="1017" parent="56" name="InnoDB_IO_r_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="1018" parent="56" name="InnoDB_IO_r_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="1019" parent="56" name="InnoDB_IO_r_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="1020" parent="56" name="InnoDB_IO_r_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="1021" parent="56" name="InnoDB_rec_lock_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="1022" parent="56" name="InnoDB_rec_lock_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="1023" parent="56" name="InnoDB_rec_lock_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="1024" parent="56" name="InnoDB_rec_lock_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="1025" parent="56" name="InnoDB_rec_lock_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="1026" parent="56" name="InnoDB_queue_wait_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="1027" parent="56" name="InnoDB_queue_wait_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="1028" parent="56" name="InnoDB_queue_wait_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="1029" parent="56" name="InnoDB_queue_wait_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="1030" parent="56" name="InnoDB_queue_wait_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="1031" parent="56" name="InnoDB_pages_distinct_min">
+        <data-type>float</data-type>
+      </column>
+      <column id="1032" parent="56" name="InnoDB_pages_distinct_max">
+        <data-type>float</data-type>
+      </column>
+      <column id="1033" parent="56" name="InnoDB_pages_distinct_pct_95">
+        <data-type>float</data-type>
+      </column>
+      <column id="1034" parent="56" name="InnoDB_pages_distinct_stddev">
+        <data-type>float</data-type>
+      </column>
+      <column id="1035" parent="56" name="InnoDB_pages_distinct_median">
+        <data-type>float</data-type>
+      </column>
+      <column id="1036" parent="56" name="QC_Hit_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="1037" parent="56" name="QC_Hit_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="1038" parent="56" name="Full_scan_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="1039" parent="56" name="Full_scan_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="1040" parent="56" name="Full_join_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="1041" parent="56" name="Full_join_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="1042" parent="56" name="Tmp_table_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="1043" parent="56" name="Tmp_table_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="1044" parent="56" name="Tmp_table_on_disk_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="1045" parent="56" name="Tmp_table_on_disk_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="1046" parent="56" name="Filesort_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="1047" parent="56" name="Filesort_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="1048" parent="56" name="Filesort_on_disk_cnt">
+        <data-type>float</data-type>
+      </column>
+      <column id="1049" parent="56" name="Filesort_on_disk_sum">
+        <data-type>float</data-type>
+      </column>
+      <column id="1050" parent="56" name="hostname_max">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <index id="1051" parent="56" name="idx_checksum">
+        <columns>checksum</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="1052" parent="56" name="idx_ts_min_hostname">
+        <columns>ts_min
+hostname_max</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="1053" parent="56" name="PRIMARY">
+        <columns>checksum
+ts_min
+ts_max</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
+  </data-source>
+</component>

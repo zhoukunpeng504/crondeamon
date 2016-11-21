@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block style %}
+        <style>
+        html,body{height: 100%;}
+        body{background: #f7f7f7;}
+        .main-container{padding-top: 60px;font-family: "microsoft yahei",arial, sans serif;background: #fff;min-height: 100%;box-sizing: border-box;}
+        .hd{padding: 6px 0 6px 10px;border-left: 2px solid #337ab7;margin-bottom: 20px;}
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="modal fade" id="modaldialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" style="width: 700px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="title">
+                    </h4>
+                </div>
+                <div class="modal-body" id="content">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" id="begin" style="width: 120px">
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/html" id="modalcontent">
+
+    <form class="form-horizontal" role="form" action="/user_manager/change/" method="post" id="user_change">
+        {% csrf_token %}
+
+<div class="form-group">
+    <label for="lastname" class="col-sm-3 control-label">项目：</label>
+    <div class="col-sm-9">
+        {% for proj  in  projects %}
+        <label class="checkbox-inline"><input type="checkbox" name="project" value="{{ proj.id }}" id="project_{{ proj.id }}" >{{ proj.name }}</label>
+        {% endfor %}
+    </div>
+</div>
+        <div class="form-group">
+    <label for="lastname" class="col-sm-3 control-label">用户组：</label>
+    <div class="col-sm-9">
+        {% for group in  allgroup %}
+        <label class="checkbox-inline"><input type="radio" name="group" value="{{ group.id }}"
+                                              {% if forloop.counter == 1 %}checked {% endif %} id="group_{{ group.id }}">{{ group.name }}</label>
+        {% endfor %}
+    </div>
+</div>
+
+</form>
+
+
+    </script>
+    <script type="text/javascript">
+    $("#modaldialog").on("hide.bs.modal",function(){
+        location.reload(true);
+    });
+    function deleteuser(id,name){
+        $("#content").html("确定要删除"+name+"这个用户么?");
+        $("#modaldialog").modal("show");
+        $("#begin").unbind("click").one("click", function () {
+            $("#content").load("/user_manager/delete/?id="+id);
+        });
+
+    }
+    function change(id,element){
+        $.get("/user_manager/info/?id="+id,function(data) {
+                    data["project"].forEach(function (e) {
+                        $("#project_" + e).attr("checked", "checked");
+                    });
+                    $("#group_" + data["group"]).attr("checked", "checked");
+                },'json');
+        $("#title").html("修改用户"+$(element).attr("username")+":");
+        $("#content").html($("#modalcontent").html());
+        //$(".project").lo
+        $("#begin").unbind("click").one("click",function(){
+            $.post($("#user_change").attr("action")+"?id="+id,$("#user_change").serialize(),function(data){
+                $("#content").html(data);
+                return false;
+            },'json')
+        });
+
+        $("#modaldialog").modal("show");
+    }
+    </script>
+
+
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="hd">用户列表
+                </h3>
+            </div>
+
+        </div>
+
+   <table align="center" class="table table-bordered" >
+   <colgroup>
+       <col style="width:10%;">
+       <col style="width:10%;">
+       <col style="width:10%;">
+       <col style="width:10%;">
+       <col style="width:10%;">
+   </colgroup>
+        <tr><th>用户名</th><th>用户类型</th><th>用户状态</th></tr>
+ {% for user in username_list %}
+        <tr>
+       <td>{{ user.username}}</td>
+        <td>{{ user.usertype }}</td>
+        <td><label class="label label-primary">{{ user.useractive }}</label>
+            <a href="#" style="padding-left: 5px" onclick="deleteuser({{ user.id }},'{{ user.username }}')">删除</a></td>
+
+        </tr>
+
+{% endfor %}{{ zhongwen }}{{ zhongwen_user }}
+   {% if not usertype and not proj_name %}
+    </table>
+<div align="center">
+<ul class="pagination" >
+    {% if contacts.has_previous %}
+
+        <li><a class='paginator' title='上一页' href='/user_manager/user_list/?page={{ contacts.previous_page_number }}'>上一页<span class="sr-only">(current)</span></a></li>
+        {% else %}
+        <li class="active"><a href="">首页<span class="sr-only">(current)</span></a></li>
+    {% endif %}
+    {% for p in contacts.paginator.page_range %}
+     {% if p == contacts.number %}
+        <li class="active"> <a class="active" title='当前页:{{ p }}'>{{ p }}<span class="sr-only">(current)</span></a></li>
+     {% else %}
+         <li><a  href='?page={{ p }}' title='{{ p }}'>{{ p }}</a></li>
+     {% endif %}
+ {% endfor %}
+ {% if contacts.has_next %}
+     <li><a class='paginator' title='下一页' href='/user_manager/user_list/?page={{ contacts.next_page_number }}'>下一页</a></li>
+     {% else %}
+    <li class="disabled"><a href="#">下一页</a></li>
+ {% endif %}
+  </ul>
+    </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

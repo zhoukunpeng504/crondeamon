@@ -1,0 +1,39 @@
+@charset "utf-8";
+/*
+ * @update 2015-06-18
+ */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: #f7f7f7;
+}
+
+.main-container {
+    padding-top: 60px;
+    font-family: "microsoft yahei", arial, sans serif;
+    background: #fff;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+.form-inline {
+    padding-bottom: 6px;
+}
+
+.form-inline .form-group .control-label {
+    display: inline-block;
+    width: 90px;
+}
+
+.modal-body {
+    padding: 10px 70px;
+}
+
+.hd {
+    padding: 6px 0 6px 10px;
+    border-left: 2px solid #337ab7;
+    margin-bottom: 20px;
+}

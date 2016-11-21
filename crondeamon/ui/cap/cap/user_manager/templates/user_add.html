@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block style %}
+        <style>
+        html,body{height: 100%;}
+        body{background: #f7f7f7;}
+        .main-container{padding-top: 60px;font-family: "microsoft yahei",arial, sans serif;background: #fff;min-height: 100%;box-sizing: border-box;}
+        .hd{padding: 6px 0 6px 10px;border-left: 2px solid #337ab7;margin-bottom: 20px;}
+    </style>
+{% endblock %}
+{% block content %}
+
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="hd">添加用户</h3>
+            </div>
+
+        </div>
+    <form class="form-horizontal" role="form" action="/user_manager/user_add/" method="post" id="user_add">
+        {% csrf_token %}
+          <div class="form-group">
+      <label for="oldpwd" class="col-sm-4 control-label ">用户名：</label>
+      <div class="col-sm-4">
+         <input type="username" class="form-control" id="username" name="username"
+            placeholder="请输入用户名"  required>
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="firstname" class="col-sm-4 control-label ">密码：</label>
+      <div class="col-sm-4">
+         <input type="password" class="form-control"  name="pwd"
+            placeholder="请输入新密码"  required>
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="lastname" class="col-sm-4 control-label">确认密码：</label>
+      <div class="col-sm-4">
+         <input type="password" class="form-control"  name="confirm_pwd"
+            placeholder="请再次输入密码" required>
+      </div>
+   </div>
+
+   <div class="form-group">
+      <div class="col-sm-offset-5 col-sm-2">
+         <button type="submit" class="btn btn-info btn-block" id="_submit" >确定</button>
+      </div>
+   </div>
+</form>
+    </div>
+    <!--script type="application/javascript">
+    $("#_submit").click(function(){
+        $("#changepwd").submit(function(){
+
+        })
+    })
+    </script-->
+{% endblock %}

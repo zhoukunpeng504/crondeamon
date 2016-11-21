@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+        {% block style %}
+        <style type="text/css">
+<!--
+body,td,th {
+	font-size: 13px;
+}
+a:link {
+	color: #000099;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #0000CC;
+}
+a:hover {
+	text-decoration: none;
+	color: #0000FF;
+}
+a:active {
+	text-decoration: none;
+	color: #0000CC;
+}
+-->
+</style>
+{% endblock %}
+
+    {% block content %}
+
+    <div class="container main-container">
+<h2 style="color:red">{{ message }},8秒后自动跳转原页面!</h2>
+        </div>
+<script type="text/javascript">
+    function delayURL() {
+    setTimeout(top.location.href="{{ url }}", 8000);
+}
+ delayURL();
+</script>
+      {% endblock %}

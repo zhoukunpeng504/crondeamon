@@ -1,0 +1,20 @@
+              <ul class="pagination">
+              {% if page_obj %}
+              <li><a href="?{{ page_mark }}=1">首页</a> </li>
+              {% if page_obj.has_previous %}
+                  <li><a title="上一页" href="?{{ page_mark }}={{ page_obj.previous_page_number }}">&lt;&lt;</a> </li>
+              {% endif %}
+              {% for i in page_range %}
+                  <li
+                          {% ifequal i page_obj.number %}
+                          class="active"
+                          {% endifequal %}><a href="{{ request.path }}?{{ page_mark }}={{ i }}" >{{ i }}</a></li>
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <li><a title="下一页" href="?{{ page_mark }}={{ page_obj.next_page_number }}">&gt;&gt;</a> </li>
+
+              {% endif %}
+              <li><a href="?{{ page_mark }}={{ page_obj.paginator.num_pages }}">尾页</a> </li>
+              {% endif %}
+
+        </ul>

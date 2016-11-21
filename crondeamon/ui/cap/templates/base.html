@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/ico"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title style="color: #ffffff">CAP系统</title>
+    <script src="/static/js/jquery-2.1.3.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap-datetimepicker.js"></script>
+    <script src="/static/bootstrap-datetimepicker.zh-CN.js"></script>
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/style_dan.css" rel="stylesheet">
+    <link href="/static/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="/static/jquery.multiselect.css" rel="stylesheet">
+    <meta name="gct-id" value="1">
+    {% block style %}
+    {% endblock %}
+</head>
+<body data-spy="scroll" data-target="#myScrollspy" data-gct="1">
+
+<div class="navbar navbar-inverse navbar-fixed-top gct" >
+    <div class="container ">
+        <ul class="nav navbar-nav gct">
+            <li style="padding-right: 50px;color: #ffffff"> <a href="/" style="color: #ffffff"><b style="color: #fffff0">CAP系统</b></a></li>
+
+            <li class="dropdown gct" >
+                <a href="/cron/" class="droptown-toggle" data-toggle="dropdown">扩展服务<b class="caret"></b> </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/cron/manage/">计划任务</a> </li>
+                    <li><a href="/task/manage/">后台任务</a> </li>
+                </ul>
+            </li>
+
+            {% if request.user.is_superuser%}
+{#            <li class="dropdown gct">#}
+{#                <a href="/group_manager/" class="dropdown-toggle" data-toggle="dropdown">项目管理<b class="caret"></b></a>#}
+{#                <ul class="dropdown-menu">#}
+{#                    <li><a href="/group_manager/project/">项目</a></li>#}
+{#                    <li><a href="/user_manager/app/">应用</a></li>#}
+{#                    <li><a href="/hostminor/trouble/">故障记录</a></li>#}
+{#                    <li><a href="/hostminor/trouble_analysis/">故障分析</a></li>#}
+{##}
+{#                </ul>#}
+{#            </li>#}
+            <li class="dropdown gct">
+                <a href="/user_manager/" class="dropdown-toggle" data-toggle="dropdown">用户管理<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/user_manager/user_add">添加用户</a></li>
+                    <li><a href="/user_manager/user_list">用户列表</a></li>
+                </ul>
+            </li>
+            {% endif %}
+        </ul>
+        <div >
+            <p class="navbar-text navbar-right">欢迎：<b style="color: #ffffff">{{ user.username }}</b> / <a href="/changepwd/" class="navbar-link">修改密码</a>
+                / <a href="/logout/" class="navbar-link">注销</a>
+            </p>
+        </div>
+
+    </div>
+</div>
+<div >
+{% block content %}
+{% endblock %}
+</div>
+</body>
+</html>
+

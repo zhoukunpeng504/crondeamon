@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>登录</title>
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    * {margin: 0;padding: 0;}
+    body {background: #444 url(http://sandbox.runjs.cn/uploads/rs/418/nkls38xx/carbon_fibre_big.png);}
+    .loginBox {width: 420px;height: 280px;padding: 0 20px;border: 1px solid #fff;color: #000;border-radius: 8px;background: white;box-shadow: 0 0 15px #222;background: -moz-linear-gradient(top, #fff, #efefef 8%);background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#f4f4f4));font: 11px/1.5em 'Microsoft YaHei';position: absolute;left: 50%;top: 50%;margin-left: -210px;margin-top: -165px;}
+    .loginBox h2 {height: 45px;font-size: 20px;font-weight: normal;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="loginBox row">
+        <h2 class="text-center">登录</h2>
+        <form id="wyccn" name="wyccn" action="/login/?next={{ next }}" method="post" class="form-horizontal">
+            {% csrf_token %}
+            <div class="form-group has-success">
+                <label for="username" class="col-sm-2 col-md-2 control-label">用户名</label>
+                <div class="col-sm-10 col-md-10">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="用户名" value="">
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <label for="password" class="col-sm-2 col-md-2 control-label">密码</label>
+                <div class="col-sm-10 col-md-10">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-10" style="color: #990033;"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-10 col-md-10">
+                    <input type="hidden" name="url" value="/admin"/>
+                    <button class="btn btn-info" data-loading-text="正在登录..." type="submit">登 录</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-info" type="reset">清 空</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

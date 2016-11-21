@@ -1,0 +1,10 @@
+<uwsgi>
+    <socket>127.0.0.1:9069</socket>
+    <master>true</master>
+    <harakiri>10</harakiri>
+    <chdir>./</chdir>
+    <module>django_wsgi</module>
+    <processes>4</processes> <!-- 进程数 -->
+    <pidfile>/home/nginx/logs/uwsgi_cap.pid</pidfile>
+    <daemonize>/home/nginx/logs/uwsgi_cap.log</daemonize>
+</uwsgi>

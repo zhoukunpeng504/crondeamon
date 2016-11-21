@@ -1,0 +1,25 @@
+{% extends "base_cron.html" %}
+{% block content %}
+        <div class="container main-container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="hd">运行日志</h3>
+        </div>
+    </div>
+        <div  class="row">
+            <div style="padding-bottom: 10px">
+                <label class="label label-info" >标准输出：</label>
+            </div>
+
+            <pre ><span class="text-info">{{ stdout }}</span> </pre>
+        </div>
+        <div class="row">
+            <div style="padding-bottom: 10px">
+                <label class="label label-danger">标准错误：</label>
+            </div>
+
+            <pre><span class="text-warning">{{ stderr }}</span> </pre>
+        </div>
+
+</div>
+{% endblock %}

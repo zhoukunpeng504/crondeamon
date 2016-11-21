@@ -1,0 +1,78 @@
+td { width: 50%; }
+th { background:#F0F0F0; }
+pre {
+    font-family: monospace;
+    font-size: 10pt;
+    border:none;
+    padding: 2px;
+    margin: 2px;
+}
+.norm { background:none; }
+.del { background:#FF9797; }
+.ins { background:#A6FFA6; }
+.rep { background:#FFFFCE; }
+
+ol.index li {
+    padding: 2px 0;
+}
+ol.index li a.dimmed {
+    color: #ababab;
+}
+
+.sidebyside {
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #c0c0c0;
+    border-collapse: collapse;
+    margin: 20px;
+    padding: 2px;
+    width: 100%;
+}
+.sidebyside col.line {
+    border-right: 1px solid #c0c0c0;
+    width: 1%;
+}
+.sidebyside col.left {
+    border-right: 1px solid #c0c0c0;
+    width: 50%;
+}
+.sidebyside col.right {
+    width: 50%;
+}
+.sidebyside thead th.rev {
+    font-size: 100%;
+}
+.sidebyside thead th {
+    background: none repeat scroll 0 0 #f0f0f0;
+    border-bottom: 1px solid #c0c0c0;
+    font-size: 120%;
+    font-weight: bold;
+    padding: 4px 8px;
+    text-align: left;
+    text-overflow: ellipsis;
+}
+
+.sidebyside tbody tr.selected * {
+background: none repeat scroll 0 0 #e2e2e2;
+}
+.sidebyside tbody.disappear { display: none; }
+
+.sidebyside tbody tr.selected td .diff-collapse-btn {
+background: none repeat scroll 0 0 #e4d9cb;
+}
+
+.sidebyside tbody tr.first td, .sidebyside tbody tr.first th {
+    border-top: 1px solid #d0d0d0;
+}
+
+.sidebyside tbody tr.last td, .sidebyside tbody tr.last th {
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.sidebyside tbody tr td {
+    vertical-align: top;
+    padding: 1px;
+}
+
+.sidebyside tbody.replace .h1 {
+    background: none repeat scroll 0 0 #eff23d;
+}
