@@ -3,7 +3,6 @@ __author__ = 'zhoukunpeng'
 # --------------------------------
 # Created by zhoukunpeng  on 2015/6/4.
 # ---------------------------------
-#运行在各宿主服务器上，提供run   init等接口供conrserve调度
 from twisted.web import  http_headers,html,http
 from twisted.web import  xmlrpc,server,resource
 from twisted.internet import  reactor,task,defer,threads
