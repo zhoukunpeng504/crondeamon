@@ -8,6 +8,7 @@ from twisted.web import  xmlrpc,server,resource
 from twisted.internet import  reactor,task,defer
 from twisted.enterprise import  adbapi
 import  ConfigParser
+
 SUBPORT=8014
 MYSQLCONFIG={}
 def mysql_config_init():
@@ -279,5 +280,3 @@ class MainRpc(xmlrpc.XMLRPC):
                     buff[str(i)]=None
 
             defer.returnValue(buff)
-# reactor.listenTCP(8017,server.Site(MainRpc(allowNone=True)),interface="172.17.13.202")#
-# reactor.run()
