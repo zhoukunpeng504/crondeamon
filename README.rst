@@ -38,6 +38,23 @@ ui: 192.168.8.94
 
 slave安装：
 
+192.168.8.94：
+ ::
+
+  [root@hadoop94 /]# pip install  git+git://github.com/zhoukunpeng504/crondeamon.git
+  [root@hadoop94 /]# vim /etc/crondeamon/slave.ini                                                                                                          
+  [crondeamon]
+  host = 192.168.8.94
+  mysqlhost = 192.168.15.34
+  mysqlport = 3306
+  mysqldb = crondeamon
+  user = zhou
+  passwd = zhou                                                                                                            
+  charset = utf8
+
+end
+
+
 
 
 
