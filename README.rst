@@ -26,7 +26,11 @@ mysql
 ***************
 3.安装
 ***************
-三台机器，192.168.8.94   192.168.8.95  192.168.8.96   系统环境：centos 6   python版本：2.7.10  ， 数据库：host = 192.168.15.34  port = 3306  user = zhou   password =zhou  database = crondeamon 
+三台机器，192.168.8.94   192.168.8.95  192.168.8.96  
+
+系统环境：centos 6   python版本：2.7.10 
+
+数据库：host = 192.168.15.34  port = 3306  user = zhou   password =zhou  database = crondeamon 
 
 角色规划：
 
