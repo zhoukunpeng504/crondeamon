@@ -92,5 +92,31 @@ slave安装：
   charset = utf8
   [root@hadoop96 ~]# python -m crondeamon.sbin.slave -c start 
 
+master安装：
+ ::
 
+  [root@hadoop94 /]# vim /etc/crondeamon/master.ini
+  [crondeamon]
+  host=192.168.8.94
+  mysqlhost = 192.168.15.34
+  mysqlport = 3306
+  mysqldb = crondeamon
+  user = zhou
+  passwd = zhou
+  charset = utf8
+  [root@hadoop94 /]# python -m crondeamon.sbin.master -c start
+  start success!
+ui安装：
+ui部分是基于django的，第一次启动ui时需要先syncdb，   syncdb过程中需要创建一个超级用户， 按照提示输入即可，该用户用于第一次登录系统。
+ ::
 
+  [root@hadoop94 /]# python -m crondeamon.ui.cap.manage  syncdb 
+  [root@hadoop94 /]# python -m crondeamon.ui.cap.manage  runserver   0.0.0.0:8035
+  Validating models...
+
+  0 errors found
+  Django version 1.4.16, using settings 'cap.settings'
+  Development server is running at http://0.0.0.0:8035/
+  Quit the server with CONTROL-C.
+  
+  
