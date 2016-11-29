@@ -52,6 +52,13 @@ slave安装：
   passwd = zhou                                                                                                            
   charset = utf8
 
+  [root@hadoop94 /]# python -m crondeamon.sbin.slave -c start
+  /usr/local/lib/python2.7/site-packages/crondeamon/common/valid_mysql.py:112: Warning: Duplicate index 'owner_2' defined on the table 'crondeamon.cron_task'. This is deprecated and will be disallowed in a future release.
+  cursor.execute(i)
+  start success!
+  [root@hadoop94 /]# ps aux|grep twistd
+  root     31664  0.0  0.3 475548 20116 ?        Sl   09:56   0:00 /usr/local/bin/python2.7 /usr/local/bin/twistd --pidfile /data/crondeamon/slave/pid/crondeamon-slave.pid --logfile /data/crondeamon/slave/log/crondeamon-slave.log crondeamon-slave
+  root     31697  0.0  0.0 103248   892 pts/0    S+   09:56   0:00 grep twistd
 end
 
 
