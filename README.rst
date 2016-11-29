@@ -59,10 +59,38 @@ slave安装：
   [root@hadoop94 /]# ps aux|grep twistd
   root     31664  0.0  0.3 475548 20116 ?        Sl   09:56   0:00 /usr/local/bin/python2.7 /usr/local/bin/twistd --pidfile /data/crondeamon/slave/pid/crondeamon-slave.pid --logfile /data/crondeamon/slave/log/crondeamon-slave.log crondeamon-slave
   root     31697  0.0  0.0 103248   892 pts/0    S+   09:56   0:00 grep twistd
-end
 
+192.168.8.95:
+::
 
+  [root@hadoop95 ~]# pip install  git+git://github.com/zhoukunpeng504/crondeamon.git
+  [root@hadoop95 ~]# mkdir /etc/crondeamon
+  [root@hadoop95 ~]# vim  /etc/crondeamon/slave.ini
+  [crondeamon]
+  host=192.168.8.95                                                                                                        
+  mysqlhost = 192.168.15.34
+  mysqlport = 3306
+  mysqldb = crondeamon
+  user = zhou
+  passwd = zhou
+  charset = utf8 
+  [root@hadoop95 ~]# python -m crondeamon.sbin.slave -c start
+  start success!
+192.168.8.96:
+ ::
 
+  [root@hadoop96 ~]# pip install  git+git://github.com/zhoukunpeng504/crondeamon.git
+  [root@hadoop96 ~]# vim /etc/crondeamon/slave.ini
+
+  [crondeamon]
+  host=192.168.8.96                                                                                                        
+  mysqlhost = 192.168.15.34
+  mysqlport = 3306
+  mysqldb = crondeamon
+  user = zhou
+  passwd = zhou
+  charset = utf8
+  [root@hadoop96 ~]# python -m crondeamon.sbin.slave -c start 
 
 
 
