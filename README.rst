@@ -93,6 +93,7 @@ slave安装：
   [root@hadoop96 ~]# python -m crondeamon.sbin.slave -c start 
 
 master安装：
+192.168.8.94
  ::
 
   [root@hadoop94 /]# vim /etc/crondeamon/master.ini
@@ -108,6 +109,7 @@ master安装：
   start success!
 ui安装：
 ui部分是基于django的，第一次启动ui时需要先syncdb，   syncdb过程中需要创建一个超级用户， 按照提示输入即可，该用户用于第一次登录系统。
+192.168.8.94
  ::
 
   [root@hadoop94 /]# python -m crondeamon.ui.cap.manage  syncdb 
