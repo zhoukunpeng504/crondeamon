@@ -335,11 +335,8 @@ class Valid(object):
                     if "  " in args[i]:
                         return  False,"运行参数中间以单个空格分隔！"
             elif i=="filename":
-                if len(args[i])==0:
-                    return  False,"执行文件名不能为空"
-                else:
-                    if " " in args[i]:
-                        return  False,"运行文件名中不允许有空格！"
+                if len(args[i])==0 or args[i].strip()=="":
+                    return  False,"执行命令不能为空"
         return True
 
     def valid_deaadd(self,name,svnpath,version,svnuser,svnpasswd,info,args,filename):
@@ -368,8 +365,8 @@ class Valid(object):
                     if "  " in args[i]:
                         return  False,"运行参数中间以单个空格分隔！"
             elif i=="filename":
-                if " " in args[i]:
-                    return  False,"执行文件名中不可包含空格！"
+                if args[i].strip()=="":
+                    return  False,"执行命令不能为空！"
         return True
 
 class CronMgr(object):
