@@ -431,8 +431,10 @@ class CronMgr(object):
             if valid_result!=True:
                 defer.returnValue(valid_result)
             def operatedb(cursor,args):
-                cursor.execute('''insert into    cron_task(name,  ip, addtime, edittime, rule, status, svnpath, version, svnuser, svnpasswd, info, owner,args,filename)
-                                  VALUES(%s,%s,%s,%s,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),%s,0,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',args)
+                cursor.execute('''insert into    cron_task(name,  ip, addtime, edittime,
+                                rule, status, svnpath, version, svnuser, svnpasswd, info, owner,args,filename)
+                                  VALUES(%s,%s,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),
+                                  %s,0,%s,%s,%s,%s,%s,%s,%s,%s)''',args)
                 return cursor.lastrowid
             tid= yield  run_conn_fun("runInteraction",operatedb,(name,ip,rule,svnpath,svnversion,svnuser,svnpasswd,info,owner,args,filename))
             tid=int(tid)
@@ -644,8 +646,10 @@ class DaeMgr(object):
             if valid_result!=True:
                 defer.returnValue(valid_result)
             def operate_db(cursor,args):
-                cursor.execute('''insert into   task_task(name,  ip, addtime, edittime, status, svnpath, version, svnuser, svnpasswd, info, owner,args,filename )
-                                  VALUES(%s,%s,%s,%s,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',args)
+                cursor.execute('''insert into   task_task(name,  ip, addtime, edittime, status,
+                                 svnpath, version, svnuser, svnpasswd, info, owner,args,filename )
+                                  VALUES(%s,%s,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,
+                                  %s,%s,%s,%s,%s,%s,%s,%s)''',args)
                 return  cursor.lastrowid
             tid= yield  run_conn_fun("runInteraction",operate_db,(name,ip,svnpath,int(svnversion),svnuser,svnpasswd,info,owner,args,filename))
             tid=int(tid)
