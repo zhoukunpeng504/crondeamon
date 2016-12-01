@@ -145,10 +145,6 @@ def manage(request):
                 int(status)
             except:
                 del result["status"]
-            try:
-                int(type)
-            except:
-                del result["type"]
             if info=='':
                 del result["info"]
             if result.has_key("info"):
