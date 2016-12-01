@@ -541,16 +541,18 @@ class CronMgr(object):
             exist_result=yield  cls._valid_exist(tid,status=1)
             if exist_result!=True:
                 defer.returnValue(exist_result)
-            result=yield  run_conn_fun("runQuery","select ip,svnpath,version,args from   cron_task WHERE  tid=%s",(tid,))
             print "start runQuery "
+            result=yield  run_conn_fun("runQuery","select ip,svnpath,version,args from   cron_task WHERE  tid=%s",(tid,))
+
             svnpath,version,args=result[0][1:]
             def _add(cursor,args):
                 cursor.execute('''insert into   cron_runlog(tid, svnpath, version, crontime, begintime, endtime, status, stderror, stdout,`type`)
                                   VALUES(%s,%s,%s,UNIX_TIMESTAMP(),0,0,0,'','',%s)
                                ''',args)
                 return cursor.lastrowid
-            rid=yield  run_conn_fun("runInteraction",_add,(tid,svnpath,int(version),0 if manual==False  else 1))
             print "start runInteraction"
+            rid=yield  run_conn_fun("runInteraction",_add,(tid,svnpath,int(version),0 if manual==False  else 1))
+
             result= yield  SubRpc().xmlrpc_run(tid,rid,args)
             defer.returnValue(result)
         except Exception as e :
