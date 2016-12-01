@@ -221,7 +221,7 @@ class SubRpc(xmlrpc.XMLRPC):
             filename_path="./task/"+filename_path
         argument=map(lambda i:i.encode("utf-8") ,argument)
         print "argument:",argument
-        reactor.spawnProcess(p,argument[0],argument[1:],env=os.environ,path=filename_path)
+        reactor.spawnProcess(p,argument[0],argument,env=os.environ,path=filename_path)
         defer.returnValue(True)
 
     def xmlrpc_stop(self,tid,mode="cron"):
