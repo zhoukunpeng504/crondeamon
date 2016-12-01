@@ -9,6 +9,6 @@ setup(
     name="crondeamon",
     packages=list(set(list(find_packages())+["twisted.plugins"])),
     version='0.1.1',
-    install_requires=["setuptools", "MySQL-python","twisted","txscheduling","psutil","django==1.4.16"],
+    install_requires=["setuptools", "MySQL-python","twisted","txscheduling","psutil","django==1.4.22"],
     include_package_data=True
 )
