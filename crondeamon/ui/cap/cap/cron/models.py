@@ -43,7 +43,6 @@ class Task(models.Model):
     svnpasswd=models.CharField(verbose_name="SVN密码",max_length=50)
     info=models.CharField(verbose_name="说明",max_length=300)
     owner=models.CharField(verbose_name="所属人",db_index=True,max_length=300)
-    type=models.SmallIntegerField(verbose_name="类型",default=0)    # 1 python   2   php
     args=models.CharField(verbose_name="参数",max_length=500)   #运行参数
     filename=models.CharField(verbose_name="文件名",max_length=500) #可执行文件名
 
@@ -56,6 +55,7 @@ class Task(models.Model):
 
     def get_status(self):
         return {-1:"禁用",1:"启用",0:"待部署",2:"正在部署",3:"部署失败"}[self.status]
+
     def get_info(self):
         info=""
         num=0

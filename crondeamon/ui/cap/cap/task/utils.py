@@ -108,7 +108,7 @@ def valid_ip_list(ip_list):
         return False
     else:
         return True
-def valid_input(ip,_type,name,project,app,svnpath,version,svnuser,svnpasswd,info,args,filename):
+def valid_input(ip,name,svnpath,version,svnuser,svnpasswd,info,args,filename):
     args=locals()
     _config={"rule":"时间规则","svnpath":"SVN url","svnuser":"svn user","svnpasswd":"svn passwd","info":"功能描述",
              "project":"所属应用-项目","app":"所属应用-应用","name":"名称"}

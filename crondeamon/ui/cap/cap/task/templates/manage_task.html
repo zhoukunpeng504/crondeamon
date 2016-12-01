@@ -71,53 +71,15 @@
                     </select>
                 </div>
             </div>
-            <div class="form-inline">
-                <div class="form-group">
-                    <label class="control-label">类型：</label>
-                    <label ><input type="radio" name="type" value="1" checked>Python</label>
-                    <label><input type="radio" name="type" value="2">PHP </label>
 
-                </div>
-            </div>
             <div class="form-inline">
                 <div class="form-group">
                     <label for="cap-name" class="control-label">名称:</label>
                     <input type="text" class="form-control" name="name" id="cap-name" placeholder="名称(以*2结尾可创建2个任务)" style="width: 250px">
                 </div>
             </div>
-            <div class="form-inline">
-                <div class="form-group">
-                    <label class="control-label">所属组:</label>
-                    <select name="project" class="form-control">
-                        <option value="">项目</option>
-                        {% for i in cronproj %}
-                        <option value="{{ i.name }}">{{ i.name }}</option>
-                        {% endfor %}
-                    </select>
-                    <select name="app"  class="form-control" style="width: 160px">
-                        <option value="" style="width: 160px">组</option>
-                        {% for i  in appinfo %}
-                        <option value="{{ i.app }}" project="{{ i.proj }}" style="width: 160px">{{ i.app }}</option>
 
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div class="form-inline" style="display: none">
-                <div class="form-group">
-                    <label for="vcs" class="control-label">版本控制:</label>
-                    <select name="vcs" class="form-control" id="vcs" onclick="_vcs(this)" onchange="_vcs(this)">
-                        <option value="1" selected >SVN</option>
-                        <option value="2" >Git</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-inline" id="branchdiv"  style="display: none">
-                <div class="form-group">
-                    <label for="branch" class="control-label">分支:</label>
-                    <input type="text" class="form-control" name="branch" id="branch" style="width: 250px">
-                </div>
-            </div>
+
             <div class="form-inline">
                 <div class="form-group">
                     <label for="cap-url" class="control-label">版本库url:</label>
@@ -132,32 +94,20 @@
             </div>
             <div class="form-inline">
                 <div class="form-group">
-                    <label class="control-label">版本库用户:</label>
+                    <label class="control-label">svn用户:</label>
                     <input  type="text" class="form-control" name="svnuser" id="cap-svnuser" placeholder="用户名">
                 </div>
             </div>
              <div class="form-inline">
                 <div class="form-group">
-                    <label class="control-label">版本库密码:</label>
+                    <label class="control-label">svn密码:</label>
                     <input  type="text" class="form-control" name="svnpasswd" id="cap-svnpasswd" placeholder="密码">
-                </div>
-            </div>
-             <div class="form-inline" style="display: none">
-                <div class="form-group">
-                    <label class="control-label" for="cap-custom">预处理命令：</label>
-                    <input type="text" class="form-control" name="custom" id="custom" >
                 </div>
             </div>
              <div class="form-inline">
                 <div class="form-group">
                     <label class="control-label" for="cap-filename">执行文件名：</label>
                     <input type="text" class="form-control" name="filename" id="cap-filename" >
-                </div>
-            </div>
-            <div class="form-inline">
-                <div class="form-group">
-                    <label class="control-label" for="cap-args">运行参数:</label>
-                    <input type="text" class="form-control" name="args" id="cap-args" >
                 </div>
             </div>
             <div class="form-inline">
@@ -194,29 +144,8 @@
                 {% endfor %}
             </select>
         </div>
-        <div class="form-group">
-            <label>组：</label>
-            <select class="form-control" name="project"  style="width: 95px">
-                <option value="">项目</option>
-                {% for i in cronproj %}
-                <option value="{{ i.name }}">{{ i.name }}</option>
-                {% endfor %}
-                <!--option value="2">国际站</option>
-                <option value="3">悉知</option>
-                <option value="4">运维</option-->
-            </select>
-        </div>
 
-        <div class="form-group">
-            <select name="app" class="form-control" style="width: 120px">
-                <option value="">组</option>
-                {% for i in appinfo %}
-                <option value="{{ i.app }}" project="{{ i.proj }}">{{ i.app }}</option>
-                {% endfor %}
-                <!--option value="2">en.xxx</option>
-                <option value="3">xz.xxx</option-->
-            </select>
-        </div>
+
 
         <div class="form-group">
             <label>状态：</label>
@@ -229,15 +158,8 @@
                 <option value="3">部署失败</option>
             </select>
         </div>
-        <div class="form-group">
-            <label>语言：</label>
-            <select name="lan" class="form-control" style="width: 100px">
-                <option value="">请选择</option>
-                <option value="1">Python</option>
-                <option value="2">PHP</option>
-            </select>
-        </div>
-{#    {% if request.user.group == "管理员" %}#}
+
+
         <div class="form-group">
             <label>创建人：</label>
             <select name="owner" class="form-control" style="width: 100px">
@@ -251,13 +173,7 @@
             <label>功能：</label>
             <input type="text" class="form-control" name="fn" style="width: 120px"/>
         </div>
-{#     {% else %}#}
-{#         <div class="form-group">#}
-{#            <label>功能：</label>#}
-{#            <input type="text" class="form-control" name="fn" style="width: 270px"/>#}
-{#        </div>#}
-{##}
-{#    {% endif %}#}
+
         <div class="form-group">
             <button type="submit" class="btn btn-primary">查询</button>
         </div>
@@ -275,7 +191,6 @@
 <script src="http://static.gcimg.net/??seajs/seajs/2.2.1/sea.js,seajs/seajs-style/1.0.2/seajs-style.js,seajs/seajs-plus/1.0.0/seajs-plus.js,jquery/jquery/1.8.2/jquery.js" id="seajsnode"></script>
 <script type="text/javascript">
     var gridUrl = '{{ request.path }}?data=table';
-    var project_config={{ project_info|safe }};
     seajs._use('sys/cap/1.0.0/main');
 </script>
 {% endblock %}

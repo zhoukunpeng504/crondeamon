@@ -125,9 +125,9 @@ def manage(request):
             except:
                 task_list=task_pagiobj.page(task_pagiobj.num_pages)
             buff["page"]=task_list.number
-            buff["rows"]=[{"cell":[i.tid,i.get_name(),i.get_status(),i.rule,i.project,i.app,i.get_info(),i.owner ,i.ip]}  for i in task_list]
+            buff["rows"]=[{"cell":[i.tid,i.get_name(),i.get_status(),i.rule,"","",i.get_info(),i.owner ,i.ip]}  for i in task_list]
             return  HttpResponse(json.dumps(buff,ensure_ascii=False),mimetype="application/javascript")
-    elif getinfo.has_key("project"):
+    elif getinfo.has_key("ip"):
         #检索
         ip=getinfo.get("ip")
         status=getinfo.get("status")
@@ -167,7 +167,7 @@ def manage(request):
         except:
             task_list=task_pagiobj.page(1)
         buff["page"]=task_list.number
-        buff["rows"]=[{"cell":[i.tid,i.get_name(),i.get_status(),i.rule,i.project,i.app,i.get_info(),i.get_owner_and_type() ,i.ip]} for  i in task_list]
+        buff["rows"]=[{"cell":[i.tid,i.get_name(),i.get_status(),i.rule,"","",i.get_info(),i.owner  ,i.ip]} for  i in task_list]
         return  HttpResponse(json.dumps(buff,ensure_ascii=False),mimetype="application/javascript")
         pass
     cronserve=CronServe.objects.all().order_by("ip")
