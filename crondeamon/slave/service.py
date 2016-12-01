@@ -407,7 +407,9 @@ class CronMgr(object):
         "验证一个tid的task是否存在"
         try:
             tid= int(tid)
+            print "--------123"
             info=yield  run_conn_fun("runQuery","select ip,svnpath,version,svnuser,svnpasswd,rule,status  from   cron_task WHERE  tid=%s",(tid,))
+            print "---------456"
             if len(info)==0:
                 defer.returnValue((False,"该cron不存在！"))
             if status==None:
