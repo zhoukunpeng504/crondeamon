@@ -36,9 +36,7 @@ create_table_sql_list=[
   PRIMARY KEY (`tid`),
   KEY `cron_task_52094d6e` (`name`),
   KEY `cron_task_49a8a8f2` (`ip`),
-  KEY `owner` (`owner`(255)),
-  KEY `owner_2` (`owner`(255)),
-  KEY `project` (`project`)
+  KEY `owner` (`owner`(255))
 ) ENGINE=InnoDB AUTO_INCREMENT=1427 DEFAULT CHARSET=utf8''',
 
 
@@ -78,8 +76,7 @@ create_table_sql_list=[
   PRIMARY KEY (`tid`),
   KEY `task_task_52094d6e` (`name`),
   KEY `task_task_49a8a8f2` (`ip`),
-  KEY `task_task_4741fd1b` (`owner`),
-  KEY `project` (`project`)
+  KEY `task_task_4741fd1b` (`owner`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1792 DEFAULT CHARSET=utf8''',
             ]
 def valid(host,port,db,user,passwd):
