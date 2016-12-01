@@ -58,40 +58,29 @@ class SubRpc(xmlrpc.XMLRPC):
     def xmlrpc_test(self):
         return "test"
     @defer.inlineCallbacks
-    def xmlrpc_init(self,tid,svnpath,svnversion,svnuser,svnpasswd,mode="cron",branch=""):
+    def xmlrpc_init(self,tid,svnpath,svnversion,svnuser,svnpasswd,mode="cron"):
         '''初始化task
         参数说明：
         tid  int
         返回True 代表已初始化
         返回False 代表启动初始化失败'''
         tid=int(tid)
-        if branch=="":
-            vcs="svn"
-        else:
-            vcs="git"
 
-        def _init(project,app,name,custom):
+        def _init():
             print "begin init"
             if mode=="cron":
                 run_conn_fun("runOperation","update   cron_task set status=2 WHERE  tid=%s",(tid,))   #正在部署
             else:
                 run_conn_fun("runOperation","update   task_task set status=2 WHERE  tid=%s",(tid,))   #正在部署
             print "begin mkdir"
-            dirname="%s-%s-%s-%s"%(project,app,name,tid)
+            dirname="-%s-"%(tid)
             dirname=dirname.encode("utf-8")
             if mode=="cron":
                 pass
             else:
                 dirname="task/"+dirname
-            if vcs=="svn":
-                containname=svnpath.strip("/").split("/")[-1]
-            else:
-                if svnpath.strip("/").endswith(".git"):
-                    containname=svnpath.strip("/")[:-4].split("/")[-1]
-            if vcs=="svn":
-                version=svnversion
-            else:
-                version=int_to_hexstring(int(svnversion))
+            containname=svnpath.strip("/").split("/")[-1]
+            version=svnversion
             mkdircommand=("mkdir -p ./%s"%dirname)
             rmcommand=("rm ./%s/* -rf"%dirname)
             print mkdircommand,  rmcommand
@@ -100,22 +89,16 @@ class SubRpc(xmlrpc.XMLRPC):
             print "result",result
             assert  result==0
             print "begin check"
-            if vcs=="svn":
-                command="cd ./%s && svn checkout  -r %s  %s  --username %s --password %s --no-auth-cache --non-interactive"%(dirname,version,svnpath,svnuser,svnpasswd)
-                customcommand="cd ./%s && cd %s && %s"%(dirname,containname,custom if custom.strip()!='' else "pwd")
-            else:
-                command="cd ./%s && git clone https://%s:%s@%s  -b  %s    && cd  %s &&   git reset --hard   %s"%(
-                    dirname,svnuser,svnpasswd,svnpath.lstrip("https://"), branch,containname,version)
-                customcommand="cd ./%s && cd %s && %s"%(dirname,containname,custom if custom.strip()!='' else "pwd")
+            command="cd ./%s && svn checkout  -r %s  %s  --username %s --password %s --no-auth-cache --non-interactive"%(dirname,version,svnpath,svnuser,svnpasswd)
+            customcommand="cd ./%s && cd %s && %s"%(dirname,containname,"pwd")
             print command
             print "end init"
             assert  result==0
             assert os.system(command)==0
             assert os.system(customcommand)==0
-        taskinfo= yield run_conn_fun("runQuery","select project ,app,name,custom  from    %s  WHERE  tid=%%s"%("cron_task" if mode=="cron" else "task_task",),(tid,))
-        project,app,name,custom=taskinfo[0]
+
         try:
-            yield threads.deferToThread(_init,project,app,name,custom)
+            yield threads.deferToThread(_init)
         except Exception as e :
             print e
             if mode=="cron":
@@ -128,10 +111,12 @@ class SubRpc(xmlrpc.XMLRPC):
                 yield run_conn_fun("runOperation","update   cron_task set status=1 WHERE  tid=%s",(tid,))
             else:
                 yield run_conn_fun("runOperation","update   task_task set status=1 WHERE  tid=%s",(tid,))
+
             result=True
         defer.returnValue(result)
+
     @defer.inlineCallbacks
-    def xmlrpc_run(self,tid,rid,type,args,mode="cron"):
+    def xmlrpc_run(self,tid,rid,args,mode="cron"):
         "运行task "
         yield self.xmlrpc_stop(tid,mode)
         class SubProcessProtocol(protocol.ProcessProtocol):
@@ -224,36 +209,22 @@ class SubRpc(xmlrpc.XMLRPC):
                 pass
         p=SubProcessProtocol()
         tid=int(tid)
-        taskinfo= yield run_conn_fun("runQuery","select project ,app,name,svnpath,filename,branch from    %s  WHERE  tid=%%s"%("cron_task" if mode=="cron" else "task_task",),(tid,))
-        project,app,name,svnpath,filename,branch=taskinfo[0]
-        def mstrip(_string,chars):
-            if _string.endswith(chars):
-                _string=_string[:-len(chars)]
-            if _string.startswith(chars):
-                _string=_string[len(chars):]
-            return _string
-        filename_path="%s-%s-%s-%s/%s"%(project,app,name,tid,svnpath.strip("/").split("/")[-1]   if branch=='' else  mstrip(svnpath.strip("/"),".git").split("/")[-1])
+        taskinfo= yield run_conn_fun("runQuery","select svnpath,filename from    %s  WHERE  tid=%%s"%("cron_task" if mode=="cron" else "task_task",),(tid,))
+        svnpath,filename=taskinfo[0]
+        filename_path="-%s-/%s"%(tid,svnpath.strip("/").split("/")[-1])
         filename_path=filename_path.encode("utf-8")
         print filename_path
-        if type==1:
-            argument=["python",filename] +   ([] if args.strip()=="" else args.strip().split(" "))
-        elif type==2:
-            argument=["/usr/local/php/bin/php",filename] +([] if args.strip()=="" else args.strip().split(" "))
-        else:
-            argument=["sh",filename] +([] if args.strip()=="" else args.strip().split(" "))
+        argument=[_ for _ in args.strip().split(" ") if _ != ""]
+
         if mode=="cron":
             filename_path="./"+filename_path
         else:
             filename_path="./task/"+filename_path
         argument=map(lambda i:i.encode("utf-8") ,argument)
         print "argument:",argument
-        if type==1:
-            reactor.spawnProcess(p,'python',argument,env=os.environ,path=filename_path)
-        elif type==2:
-            reactor.spawnProcess(p,"/usr/local/php/bin/php",argument,env=os.environ,path=filename_path)
-        elif type==3:
-            reactor.spawnProcess(p,"sh",argument,env=os.environ,path=filename_path)
+        reactor.spawnProcess(p,argument[0],argument[1:],env=os.environ,path=filename_path)
         defer.returnValue(True)
+
     def xmlrpc_stop(self,tid,mode="cron"):
         "停止一个tid的所有任务"
         if mode=="cron":
@@ -319,13 +290,17 @@ class SubRpc(xmlrpc.XMLRPC):
             else:
                 result=False
         return  result
+
+
 class Valid(object):
+
     def valid_ip(self,ip):
         try:
             socket.inet_aton(ip)
             return True
         except:
             return False
+
     def valid_cronrule(self,rule):
         rule=rule.strip()
         try:
@@ -334,7 +309,8 @@ class Valid(object):
             return (False,"时间规则不符合要求")
         else:
             return True
-    def valid_cronadd(self,_type,name,rule,project,app,svnpath,version,svnuser,svnpasswd,info,args,filename):
+
+    def valid_cronadd(self,name,rule,svnpath,version,svnuser,svnpasswd,info,args,filename):
         "cronadd 是的参数验证"
         args=locals()
         _config={"rule":"时间规则","svnpath":"SVN url","svnuser":"svn user","svnpasswd":"svn passwd","info":"功能描述",
@@ -351,13 +327,6 @@ class Valid(object):
                     int(args[i])
                 except:
                     return False,"svn版本不合法！"
-            elif i =="_type":
-                try:
-                    int(args[i])
-                except:
-                    return  False,"类型不合法！"
-                if int(args[i]) not in (1,2,3):
-                    return False,"类型不合法！"
             elif i =="args":
                 if len(args[i])>0 :
                     if args[i][0]==" ":
@@ -373,7 +342,8 @@ class Valid(object):
                     if " " in args[i]:
                         return  False,"运行文件名中不允许有空格！"
         return True
-    def valid_deaadd(self,_type,name,project,app,svnpath,version,svnuser,svnpasswd,info,args,filename):
+
+    def valid_deaadd(self,name,svnpath,version,svnuser,svnpasswd,info,args,filename):
         "daeman process 的参数验证"
         args=locals()
         _config={"rule":"时间规则","svnpath":"SVN url","svnuser":"svn user","svnpasswd":"svn passwd","info":"功能描述",
@@ -387,9 +357,6 @@ class Valid(object):
                     int(args[i])
                 except:
                     return False,"svn版本不合法！"
-            elif i =="_type":
-                if args[i] not in ("1","2"):
-                    return False,"非法类型参数！"
             elif i =="ip":
                 if self.valid_ip(args[i])==False:
                     return False,"IP非法！"
@@ -405,6 +372,7 @@ class Valid(object):
                 if " " in args[i]:
                     return  False,"执行文件名中不可包含空格！"
         return True
+
 class CronMgr(object):
     "计划任务管理器"
     BUFF={}
@@ -414,10 +382,10 @@ class CronMgr(object):
     def _init(cls,tid,initcode=True):
         try:
             tid=int(tid)
-            result=yield  run_conn_fun("runQuery","select ip,svnpath,svnuser,svnpasswd,version,rule,branch     from   cron_task WHERE  tid=%s",(tid,))
-            ip,svnpath,svnuser,svnpasswd,svnversion,rule,branch =result[0]
+            result=yield  run_conn_fun("runQuery","select ip,svnpath,svnuser,svnpasswd,version,rule    from   cron_task WHERE  tid=%s",(tid,))
+            ip,svnpath,svnuser,svnpasswd,svnversion,rule=result[0]
             if  initcode==True:
-                _defer =SubRpc().xmlrpc_init(int(tid),svnpath,int(svnversion),svnuser,svnpasswd,branch=branch)
+                _defer =SubRpc().xmlrpc_init(int(tid),svnpath,int(svnversion),svnuser,svnpasswd)
                 set_time_out(2,_defer)
                 try:
                     yield  _defer
@@ -459,31 +427,32 @@ class CronMgr(object):
 
     @classmethod
     @defer.inlineCallbacks
-    def add(cls,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom='',branch=''):
+    def add(cls,name,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,args,filename):
         "增加"
         try:
-            valid_result= Valid().valid_cronadd(_type,name,rule,project,app,svnpath,svnversion,svnuser,svnpasswd,info,args,filename)
+            valid_result= Valid().valid_cronadd(name,rule,svnpath,svnversion,svnuser,svnpasswd,info,args,filename)
             ip=localip
             if valid_result!=True:
                 defer.returnValue(valid_result)
             def operatedb(cursor,args):
-                cursor.execute('''insert into    cron_task(name, project, app, ip, addtime, edittime, rule, status, svnpath, version, svnuser, svnpasswd, info, owner,type,args,filename,custom,branch)
+                cursor.execute('''insert into    cron_task(name,  ip, addtime, edittime, rule, status, svnpath, version, svnuser, svnpasswd, info, owner,args,filename)
                                   VALUES(%s,%s,%s,%s,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),%s,0,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',args)
                 return cursor.lastrowid
-            tid= yield  run_conn_fun("runInteraction",operatedb,(name,project,app,ip,rule,svnpath,svnversion,svnuser,svnpasswd,info,owner,int(_type),args,filename,str(custom),branch))
+            tid= yield  run_conn_fun("runInteraction",operatedb,(name,ip,rule,svnpath,svnversion,svnuser,svnpasswd,info,owner,args,filename))
             tid=int(tid)
             result= yield  cls._init(tid)
             defer.returnValue(result)
         except Exception as e:
             defer.returnValue((False,str(e)))
+
     @classmethod
     @defer.inlineCallbacks
-    def modify(cls,tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom='',branch=''):
+    def modify(cls,tid,name,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,args,filename):
         "修改cron"
         try:
             print "modify~!!!"
             tid=int(tid)
-            valid_result= Valid().valid_cronadd(_type,name,rule,project,app,svnpath,svnversion,svnuser,svnpasswd,info,args,filename)
+            valid_result= Valid().valid_cronadd(name,rule,svnpath,svnversion,svnuser,svnpasswd,info,args,filename)
             ip=localip
             if valid_result!=True:
                 defer.returnValue(valid_result)
@@ -491,25 +460,20 @@ class CronMgr(object):
             exist_result=yield cls._valid_exist(tid,status=[-1,1,3])
             if exist_result!=True:
                 defer.returnValue(exist_result)
-            result=yield  run_conn_fun("runQuery","select ip,svnpath,version,svnuser,svnpasswd,rule,status,custom,branch    from   cron_task WHERE  tid=%s",(tid,))
+            result=yield  run_conn_fun("runQuery","select ip,svnpath,version,svnuser,svnpasswd,rule,status   from   cron_task WHERE  tid=%s",(tid,))
             print "start updatedb"
-            yield  run_conn_fun("runOperation","update   cron_task  SET  name=%s,project=%s,app=%s,ip=%s,svnpath=%s,version=%s,svnuser=%s,svnpasswd=%s,rule=%s,info=%s,owner=%s,type=%s,args=%s ,filename=%s ,custom=%s ,branch=%s WHERE tid=%s",
-                        (name,project,app,ip,svnpath,int(svnversion),svnuser,svnpasswd,rule,info,owner,_type,args,filename,str(custom),branch ,int(tid)))
+            yield  run_conn_fun("runOperation","update   cron_task  SET  name=%s,ip=%s,svnpath=%s,version=%s,svnuser=%s,svnpasswd=%s,rule=%s,info=%s,owner=%s,args=%s ,filename=%s  WHERE tid=%s",
+                        (name,ip,svnpath,int(svnversion),svnuser,svnpasswd,rule,info,owner,args,filename ,int(tid)))
             status=result[0][6]
-            _custom=result[0][7]
-            _branch=result[0][8]
-            if _custom!=custom or _branch!=branch:
-                _result=yield cls._init(tid,initcode=True)
+            if status ==3:
+                _result=True
+                if result[0:5]!=(ip,svnpath,svnversion,svnuser,svnpasswd):
+                    _result=yield  cls._init(tid,initcode=True)
             else:
-                if status ==3:
-                    _result=True
-                    if result[0:5]!=(ip,svnpath,svnversion,svnuser,svnpasswd):
-                        _result=yield  cls._init(tid,initcode=True)
+                if result[0][0:3]==(ip,svnpath,svnversion):
+                    _result= yield  cls._init(tid,initcode=False)
                 else:
-                    if result[0][0:3]==(ip,svnpath,svnversion):
-                        _result= yield  cls._init(tid,initcode=False)
-                    else:
-                        _result= yield cls._init(tid)
+                    _result= yield cls._init(tid)
             defer.returnValue(_result)
         except Exception as e:
             defer.returnValue((False,str(e)))
@@ -578,16 +542,16 @@ class CronMgr(object):
             exist_result=yield  cls._valid_exist(tid,status=1)
             if exist_result!=True:
                 defer.returnValue(exist_result)
-            result=yield  run_conn_fun("runQuery","select ip,svnpath,version,type,args from   cron_task WHERE  tid=%s",(tid,))
-            svnpath,version,_type,args=result[0][1:]
-            _type=int(_type)
+            result=yield  run_conn_fun("runQuery","select ip,svnpath,version,args from   cron_task WHERE  tid=%s",(tid,))
+            svnpath,version,args=result[0][1:]
+
             def _add(cursor,args):
                 cursor.execute('''insert into   cron_runlog(tid, svnpath, version, crontime, begintime, endtime, status, stderror, stdout,type)
                                   VALUES(%s,%s,%s,UNIX_TIMESTAMP(),0,0,0,'','',%s)
                                ''',args)
                 return cursor.lastrowid
             rid=yield  run_conn_fun("runInteraction",_add,(tid,svnpath,version,0 if manual==False  else 1))
-            result= yield  SubRpc().xmlrpc_run(tid,rid,_type,args)
+            result= yield  SubRpc().xmlrpc_run(tid,rid,args)
             defer.returnValue(result)
         except Exception as e :
             defer.returnValue((False,str(e)))
@@ -620,10 +584,10 @@ class DaeMgr(object):
     def _init(cls,tid,initcode=True):
         try:
             tid=int(tid)
-            result=yield  run_conn_fun("runQuery","select ip,svnpath,svnuser,svnpasswd,version,branch      from   task_task WHERE  tid=%s",(tid,))
-            ip,svnpath,svnuser,svnpasswd,svnversion,branch =result[0]
+            result=yield  run_conn_fun("runQuery","select ip,svnpath,svnuser,svnpasswd,version      from   task_task WHERE  tid=%s",(tid,))
+            ip,svnpath,svnuser,svnpasswd,svnversion =result[0]
             if  initcode==True:
-                _defer =SubRpc().xmlrpc_init(tid,svnpath,svnversion,svnuser,svnpasswd,mode="task",branch=branch)
+                _defer =SubRpc().xmlrpc_init(tid,svnpath,svnversion,svnuser,svnpasswd,mode="task")
                 set_time_out(2,_defer)
                 try:
                     yield  _defer
@@ -655,8 +619,8 @@ class DaeMgr(object):
             valid_exist=yield  cls._valid_exist(tid,status=1)
             if valid_exist!=True:
                 defer.returnValue(valid_exist)
-            result=yield  run_conn_fun("runQuery","select ip,tid,type,args,svnpath,version  from   task_task WHERE  tid=%s",(int(tid),))
-            ip,tid,_type,args,svnpath,svnversion=map(lambda i:int(i) if type(i) not  in (str,unicode) else i  ,result[0])
+            result=yield  run_conn_fun("runQuery","select ip,tid,args,svnpath,version  from   task_task WHERE  tid=%s",(int(tid),))
+            ip,tid,args,svnpath,svnversion=map(lambda i:int(i) if type(i) not  in (str,unicode) else i  ,result[0])
             tidstatus=yield  SubRpc().xmlrpc_getstatus(tid,mode="task")
             print tid,tidstatus
             if tidstatus==False:
@@ -666,7 +630,7 @@ class DaeMgr(object):
                     a= cursor.lastrowid
                     return a
                 rid=yield  run_conn_fun("runInteraction",operate_db,(tid,svnpath,svnversion))
-                yield   SubRpc().xmlrpc_run(tid,rid,_type,args,"task")
+                yield   SubRpc().xmlrpc_run(tid,rid,args,"task")
                 defer.returnValue(True)
             else:
                 pass
@@ -676,18 +640,18 @@ class DaeMgr(object):
 
     @classmethod
     @defer.inlineCallbacks
-    def add(cls,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,owner,_type,args,filename,custom='',branch=""):
+    def add(cls,name,svnpath,svnversion,svnuser,svnpasswd,info,owner,args,filename):
         "增加"
         try:
-            valid_result= Valid().valid_deaadd(_type,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,args,filename)
+            valid_result= Valid().valid_deaadd(name,svnpath,svnversion,svnuser,svnpasswd,info,args,filename)
             ip=localip
             if valid_result!=True:
                 defer.returnValue(valid_result)
             def operate_db(cursor,args):
-                cursor.execute('''insert into   task_task(name, project, app, ip, addtime, edittime, status, svnpath, version, svnuser, svnpasswd, info, owner, type, args,filename,custom,branch )
+                cursor.execute('''insert into   task_task(name,  ip, addtime, edittime, status, svnpath, version, svnuser, svnpasswd, info, owner,args,filename )
                                   VALUES(%s,%s,%s,%s,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',args)
                 return  cursor.lastrowid
-            tid= yield  run_conn_fun("runInteraction",operate_db,(name,project,app,ip,svnpath,int(svnversion),svnuser,svnpasswd,info,owner,_type,args,filename,str(custom),branch ))
+            tid= yield  run_conn_fun("runInteraction",operate_db,(name,ip,svnpath,int(svnversion),svnuser,svnpasswd,info,owner,args,filename))
             tid=int(tid)
             result= yield  cls._init(tid)
             defer.returnValue(result)
@@ -695,11 +659,11 @@ class DaeMgr(object):
             defer.returnValue((False,str(e)))
     @classmethod
     @defer.inlineCallbacks
-    def modify(cls,tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,_type,args,filename,custom='',branch=''):
+    def modify(cls,tid,name,svnpath,svnversion,svnuser,svnpasswd,info,args,filename):
         "修改"
         try:
             tid=int(tid)
-            valid_result= Valid().valid_deaadd(_type,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,args,filename)
+            valid_result= Valid().valid_deaadd(name,svnpath,svnversion,svnuser,svnpasswd,info,args,filename)
             ip=localip
             if valid_result!=True :
                 defer.returnValue(valid_result)
@@ -707,29 +671,27 @@ class DaeMgr(object):
             if exist_result!=True:
                 defer.returnValue(exist_result)
             svnversion=int(svnversion)
-            result=yield  run_conn_fun("runQuery","select ip,svnpath,version,svnuser,svnpasswd,filename,args,status,custom,branch   from   task_task WHERE  tid=%s",(tid,))
-            yield  run_conn_fun("runOperation","update   task_task set name=%s, project=%s, app=%s,ip=%s,svnpath=%s,version=%s,svnuser=%s, svnpasswd=%s,info=%s,type=%s,args=%s , filename=%s ,custom=%s ,branch=%s WHERE  tid=%s",
-                                      (name,project,app,ip,svnpath,svnversion,svnuser,svnpasswd,info,_type,args,filename,str(custom),branch ,tid))
-            _ip,_svnpath,_version,_svnuser,_svnpasswd,_filename,_args,status,_custom,_branch=result[0]
-            if _custom!=custom or _branch!=branch:
-                _result=yield cls._init(tid,initcode=True)
-            else:
-                if status==1:
-                    _result=True
-                    if (svnpath,svnversion)!=(_svnpath,_version) or (filename,args)!=(_filename,_args) :
-                        yield  SubRpc().xmlrpc_stop(tid,mode="task")
-                        if (svnpath,svnversion)!=(_svnpath,_version):
-                            _result=yield cls._init(tid,initcode=True)
-                        else:
-                            _result=yield cls._init(tid,initcode=False)
-                elif status==-1:
-                    _result=True
+            result=yield  run_conn_fun("runQuery","select ip,svnpath,version,svnuser,svnpasswd,filename,args,status  from   task_task WHERE  tid=%s",(tid,))
+            yield  run_conn_fun("runOperation","update   task_task set name=%s,ip=%s,svnpath=%s,version=%s,svnuser=%s, svnpasswd=%s,info=%s,args=%s , filename=%s  WHERE  tid=%s",
+                                      (name,ip,svnpath,svnversion,svnuser,svnpasswd,info,args,filename ,tid))
+            _ip,_svnpath,_version,_svnuser,_svnpasswd,_filename,_args,status=result[0]
+
+            if status==1:
+                _result=True
+                if (svnpath,svnversion)!=(_svnpath,_version) or (filename,args)!=(_filename,_args) :
+                    yield  SubRpc().xmlrpc_stop(tid,mode="task")
                     if (svnpath,svnversion)!=(_svnpath,_version):
-                        _result=yield  cls._init(tid,initcode=True)
-                elif status==3:
-                    _result=True
-                    if (svnpath,svnversion,svnuser,svnpasswd)!=(_svnpath,_version,_svnuser,_svnpasswd):
-                        _result=yield  cls._init(tid,initcode=True)
+                        _result=yield cls._init(tid,initcode=True)
+                    else:
+                        _result=yield cls._init(tid,initcode=False)
+            elif status==-1:
+                _result=True
+                if (svnpath,svnversion)!=(_svnpath,_version):
+                    _result=yield  cls._init(tid,initcode=True)
+            elif status==3:
+                _result=True
+                if (svnpath,svnversion,svnuser,svnpasswd)!=(_svnpath,_version,_svnuser,_svnpasswd):
+                    _result=yield  cls._init(tid,initcode=True)
             defer.returnValue(_result)
         except Exception as e:
             defer.returnValue((False,str(e)))
@@ -805,12 +767,13 @@ class DaeMgr(object):
                 del cls.BUFF[tid]
             yield  SubRpc().xmlrpc_stop(tid,mode="task")
             result=yield  cls._init(tid,initcode=False)
-            #yield cls._check(tid)
             if result==True:
                 yield run_conn_fun("runOperation","update   task_task  set  status=1 WHERE  tid=%s",(tid,))
             defer.returnValue(result)
         except Exception as e :
             defer.returnValue((False,str(e)))
+
+
 class MainRpc(xmlrpc.XMLRPC):
     def __init__(self):
         xmlrpc.XMLRPC.__init__(self,allowNone=True)
