@@ -60,9 +60,6 @@ def valid_input(ip,name,rule,svnpath,version,svnuser,svnpasswd,info,args,filenam
                 if "  " in args[i]:
                     return  False,"运行参数中间以单个空格分隔！"
         elif i=="filename":
-            if len(args[i])==0:
-                return  False,"执行文件名不能为空"
-            else:
-                if " " in args[i]:
-                    return  False,"运行文件名中不允许有空格！"
+            if len(args[i])==0 or args[i].strip()=="":
+                return  False,"执行命令不能为空"
     return True
