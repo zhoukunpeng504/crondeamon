@@ -5,9 +5,6 @@ __author__ = 'zhoukunpeng'
 # ---------------------------------
 from django.db import models
 from django.contrib.auth.models import  User
-import  datetime
-import time
-from cap.models import Project
 import  time,datetime
 
 

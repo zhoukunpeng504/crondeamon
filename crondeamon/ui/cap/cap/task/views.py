@@ -11,8 +11,7 @@ from django.shortcuts import  render_to_response
 from django.core.paginator import  Paginator,InvalidPage
 from django.contrib.auth.decorators import login_required
 from models import Task,Runlog
-from cap.cron.models import  CronServe,App
-from cap.models import  Project
+from cap.cron.models import  CronServe
 from django.db.models.query import  Q,QuerySet
 from  utils import  add_fail_count_to_tasklist,valid_input,get_task_serve,add_run_status_to_tasklist
 from utils import valid_tid,run_serve_fun
