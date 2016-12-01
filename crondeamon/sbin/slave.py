@@ -16,8 +16,12 @@ def get_pid():
         return None
 def start():
     old_pid=get_pid()
-    if old_pid:
+    try:
         process=psutil.Process(pid=old_pid)
+    except psutil.NoSuchProcess as  e :
+        process=None
+        os.system("rm -rf /data/crondeamon/slave/pid/crondeamon-slave.pid")
+    if old_pid and process:
         cmd_line=process.cmdline()
         mask=0
         for j in cmd_line:
