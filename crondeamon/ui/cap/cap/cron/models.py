@@ -108,8 +108,6 @@ class  RunLog(models.Model):
         "获取代码信息"
         if task==None:
             pass
-        elif task.branch!='' :
-            return  "版本{0}".format(int_to_hexstring(int(self.version)))
         return "版本{0}".format(self.version)
     def get_crondatetime(self):
         _time=datetime.datetime.fromtimestamp(self.crontime)
