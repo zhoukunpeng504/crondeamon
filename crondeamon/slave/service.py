@@ -34,7 +34,7 @@ def run_conn_fun(fun,*args):
     try:
         global conn
         result=yield  getattr(conn,fun)(*args)
-    except MySQLdb.OperationalError:
+    except (MySQLdb.OperationalError,adbapi.ConnectionLost):
         try:
             conn.close()
         except:
