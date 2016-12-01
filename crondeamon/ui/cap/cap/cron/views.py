@@ -9,8 +9,7 @@ from django.template.response import RequestContext
 from django.shortcuts import  render_to_response
 from django.core.paginator import  Paginator,InvalidPage
 from django.contrib.auth.decorators import login_required
-from models import   Task ,RunLog,CronServe,App
-from cap.models import Project
+from models import   Task ,RunLog,CronServe
 import  socket
 from  utils import  get_cron_serve,valid_input,valid_ip
 from django.db.models import Q,F
@@ -18,6 +17,7 @@ from django.db.models import  ObjectDoesNotExist
 from django.contrib.admin.models import User
 import  json,random
 from cap.utils import valid_group_required,get_svn_top_version
+
 import  sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -61,44 +61,21 @@ def add(request):
         elif datatype=="add":
             "增加计划任务"
             ip=postinfo.get("ip")
-            ip_list=postinfo.getlist("ip")
             name=postinfo.get("name")
             rule=postinfo.get("rule")
-            project=postinfo.get("project")
-            app=postinfo.get("app")
             svnpath=postinfo.get("url").strip()
             version=postinfo.get("version")
             svnuser=postinfo.get("svnuser")
             svnpasswd=postinfo.get("svnpasswd")
             info=postinfo.get("fn")
             _type=postinfo.get("type")
-            args=postinfo.get("args")
+            args=""
             filename=postinfo.get("filename")
-            custom=postinfo.get("custom")
-            vcs=int(postinfo.get("vcs","1"))
-            branch=postinfo.get("branch","")
             buff={}
-            '''if version=="*"    :
-                versioninfo=get_svn_top_version(svnurl=svnpath,svnuser=svnuser,svnpasswd=svnpasswd)
-                if versioninfo[0]==False:
-                    buff["status"],buff["message"]=versioninfo
-                else:
-                    version=versioninfo[1]'''
-            if vcs==1:
-                branch=''
-            if vcs==2:
-                try:
-                    version=version[:10]
-                    version=int(version,16)
-                except:
-                    pass
-            valie_result=valid_input(ip if len(ip_list)==1 else ip_list ,_type,name,rule,project,app,svnpath,version,svnuser,svnpasswd,info,args,filename)
+
+            valie_result=valid_input(ip  ,name,rule,svnpath,version,svnuser,svnpasswd,info,args,filename)
             if  valie_result!=True:
                 buff["status"],buff["message"]=valie_result
-            elif   vcs==2 and  branch == ""  :
-                buff["status"],buff["message"]=(False,"请输入分支！")
-            elif vcs==2  and  version=="*":
-                buff["status"],buff["message"]=(False,"请输入正确的版本号！")
             else:
                 if version=="*":
                     versioninfo=get_svn_top_version(svnurl=svnpath,svnuser=svnuser,svnpasswd=svnpasswd)
@@ -109,41 +86,16 @@ def add(request):
                 if buff=={}:
                     server=get_cron_serve()
 
-                    if  len(ip_list)==1:
-                        result=server.addcron(ip,name,project,app,svnpath,str(version),svnuser,svnpasswd,rule,info,request.user.username,int(_type),args,filename,custom,branch)
-                        if result!=True:
-                            buff["status"],buff["message"]=result
-                        else:
-                            buff["status"]=True
-                            buff["message"]="Success!"
+                    result=server.addcron(ip,name,svnpath,str(version),svnuser,svnpasswd,rule,info,
+                                              request.user.username,args,filename)
+                    if result!=True:
+                        buff["status"],buff["message"]=result
                     else:
-                        result=server.multiaddcron(ip_list,name,project,app,svnpath,str(version),svnuser,svnpasswd,rule,info,request.user.username,int(_type),args,filename,custom,branch)
-
-                        failedip=""
-                        for i,j  in  zip(ip_list,result):
-                            if j ==False:
-                                if failedip=="":
-                                    failedip+=i
-                                else:
-                                    failedip+="、%s"%i
                         buff["status"]=True
-                        buff["message"]="成功%s个，失败%s个(%s)！"%(result.count(True),result.count(False),failedip)
-        elif datatype=="proj":
-            projectname=getinfo.get("project")
-            appinfo=[]
-            apps=App.objects.filter(project__name=projectname)
-            for i in apps:
-                appinfo.append(i.name)
-            buff=appinfo
-        return  HttpResponse(json.dumps(buff,ensure_ascii=False),mimetype="application/javascript")
+                        buff["message"]="Success!"
+            return HttpResponse(json.dumps(buff,ensure_ascii=False),mimetype="application/javascript")
+
     else:
-        cronserve=CronServe.objects.all().values()
-        cronproj=Project.objects.filter(~Q(name="空"))
-        appinfo=[]
-        for i in cronproj:
-            cronapp=App.objects.filter(project=i).values("name")
-            for j in cronapp:
-                appinfo.append({"proj":i.name,"app":j["name"]})
         return  render_to_response("add.html",locals(),context_instance=RequestContext(request))
 
 #--------------------------------计划任务管理
@@ -173,27 +125,20 @@ def manage(request):
             except:
                 task_list=task_pagiobj.page(task_pagiobj.num_pages)
             buff["page"]=task_list.number
-            buff["rows"]=[{"cell":[i.tid,i.get_name(),i.get_status(),i.rule,i.project,i.app,i.get_info(),i.get_owner_and_type() ,i.ip]}  for i in task_list]
+            buff["rows"]=[{"cell":[i.tid,i.get_name(),i.get_status(),i.rule,i.project,i.app,i.get_info(),i.owner ,i.ip]}  for i in task_list]
             return  HttpResponse(json.dumps(buff,ensure_ascii=False),mimetype="application/javascript")
     elif getinfo.has_key("project"):
         #检索
         ip=getinfo.get("ip")
-        project=getinfo.get("project")
-        app=getinfo.get("app")
         status=getinfo.get("status")
-        _type=getinfo.get("lan")
         owner=getinfo.get("owner")
         info=getinfo.get("fn")
         rows=getinfo.get("rows","15")
         page=getinfo.get("page","1")
-        def handleparam(ip,project,app,status,type,info,owner):
+        def handleparam(ip,status,info,owner):
             result=locals()
             if ip=='':
                 del result["ip"]
-            if project=='':
-                del result["project"]
-            if app=='':
-                del result["app"]
             if owner=="" or owner==None:
                 del result["owner"]
             try:
@@ -210,7 +155,7 @@ def manage(request):
                 del  result["info"]
                 result["info__icontains"]=info
             return  result
-        args=handleparam(ip,project,app,status,_type,info,owner)
+        args=handleparam(ip,status,info,owner)
         task_queryset=Task.objects.filter(**args)
         task_queryset= task_queryset.order_by("-tid")
         task_pagiobj=Paginator(task_queryset,int(rows))
@@ -226,28 +171,7 @@ def manage(request):
         return  HttpResponse(json.dumps(buff,ensure_ascii=False),mimetype="application/javascript")
         pass
     cronserve=CronServe.objects.all().order_by("ip")
-    cronproj=Project.objects.filter(~Q(name="空"))
-    appinfo=[]
-    for i in cronproj:
-        cronapp=App.objects.filter(project=i).order_by("-name").values("name")
-        for j in cronapp:
-            appinfo.append({"proj":i.name,"app":j["name"]})
-    project_info={}
-    for i in  appinfo:
-        if not  project_info.has_key(i["proj"]):
-            project_info[i["proj"]]=[i["app"]]
-        else:
-            project_info[i["proj"]].append(i["app"])
 
-    for i in project_info:
-        project_info[i]="   ".join(map(lambda k: '''<option value="%s">%s</option>'''%(k,k) ,project_info[i]))
-    project_info['']=u"<option value=''>组</option>"+ "   ".join(project_info.values())
-    for j in cronproj:
-        if project_info.has_key(j.name):
-            project_info[j.name]=u"<option value=''>组</option>"+project_info[j.name]
-        else:
-            project_info[j.name]=u"<option value=''>组</option>"
-    project_info=json.dumps(project_info,ensure_ascii=False)
     userinfo=User.objects.all().values("username")
     return  render_to_response("manage.html",locals(), context_instance=RequestContext(request))
 
@@ -429,10 +353,10 @@ def crondetail(request):
 
     tid=int(tid)
     cron=Task.objects.get(pk=tid)
-    buff={"ip":cron.ip,"name":cron.name,"rule":cron.rule,"project":cron.project,"app":cron.app,
-          "url":cron.svnpath,"version":cron.realversion,"branch":cron.branch,"vcs":cron.vcs,
+    buff={"ip":cron.ip,"name":cron.name,"rule":cron.rule,
+          "url":cron.svnpath,"version":cron.realversion,
           "svnuser":cron.svnuser,"svnpasswd":cron.svnpasswd,
-          "fn":cron.info,"type":cron.type,"args":cron.args,"filename":cron.filename,"custom":cron.custom}
+          "fn":cron.info,"filename":cron.filename}
     return  HttpResponse(json.dumps(buff,ensure_ascii=False,indent=True),mimetype="application/javascript")
 
 @login_required
@@ -442,31 +366,17 @@ def modifycron(request):
     postinfo=request.POST
     tid=getinfo.get("tid")
     _ip=postinfo.get("ip")
-    ip_list=postinfo.getlist("ip")
     name=postinfo.get("name")
     rule=postinfo.get("rule")
-    project=postinfo.get("project")
-    app=postinfo.get("app")
+
     svnpath=postinfo.get("url").strip()
     version=postinfo.get("version")
     svnuser=postinfo.get("svnuser")
     svnpasswd=postinfo.get("svnpasswd")
     info=postinfo.get("fn")
-    _type=postinfo.get("type")
-    args=postinfo.get("args")
+    args=""
     filename=postinfo.get("filename")
-    custom=postinfo.get("custom")
-    vcs=postinfo.get("vcs","1")
-    vcs=int(vcs)
-    branch=postinfo.get("branch","")
-    if vcs==1:
-        branch=''
-    if vcs==2:
-        try:
-            version=version[:10]
-            version=int(version,16)
-        except:
-            pass
+
     serve=get_cron_serve()
     buff={}
     try:
@@ -482,21 +392,11 @@ def modifycron(request):
         elif  name!=task.name:
             buff["status"]=False
             buff["message"]="不允许修改计划任务名！"
-        elif app!=task.app or project!=task.project:
-            buff["status"]=False
-            buff["message"]="不允许修改所属项目/应用！"
-        elif len(ip_list)>1:
-            buff["status"],buff["message"]=False,"不可选择多台主机！"
-        elif vcs!=task.vcs:
-            buff["status"],buff["message"]=(False,"不可修改版本控制方式！")
+
         else:
-            valid_result=valid_input(ip,_type,name,rule,project,app,svnpath,version,svnuser,svnpasswd,info,args,filename)
+            valid_result=valid_input(ip,name,rule,svnpath,version,svnuser,svnpasswd,info,args,filename)
             if valid_result!=True:
                 buff["status"],buff["message"]=valid_result
-            elif   vcs==2 and  branch == ""  :
-                buff["status"],buff["message"]=(False,"请输入分支！")
-            elif vcs==2  and  version=="*":
-                buff["status"],buff["message"]=(False,"请输入正确的版本号！")
             else:
                 if   version=="*":
                     versioninfo=get_svn_top_version(svnpath,svnuser,svnpasswd)
@@ -505,13 +405,12 @@ def modifycron(request):
                     else:
                         version=versioninfo[1]
                 if buff=={}:
-                    result= serve.modifycron(ip,tid,name,project,app,svnpath,str(version),svnuser,svnpasswd,rule,info,request.user.username,int(_type),args,filename,custom,branch)
+                    result= serve.modifycron(ip,tid,name,svnpath,str(version),svnuser,svnpasswd,rule,info,request.user.username,args,filename)
                     if result!=True:
                         buff["status"],buff["message"]=result
                     else:
                         buff["status"]=True
                         buff["message"]="Success!"
-            #buff={"status":True,"message":"Success!!"}
     return  HttpResponse(json.dumps(buff,ensure_ascii=False,indent=True),mimetype="application/javascript")
 
 

@@ -27,12 +27,11 @@ class CronServe(models.Model):
         verbose_name_plural="crondeamon宿主服务器"
     def __unicode__(self):
         return  self.ip
+
 class Task(models.Model):
     "计划任务的抽象"
     tid=models.AutoField(primary_key=True)
     name=models.CharField(max_length=50,db_index=True,verbose_name="名称")
-    project=models.CharField(max_length=20,verbose_name="项目",db_index=True)
-    app=models.CharField(max_length=30,verbose_name="所属应用")
     ip=models.IPAddressField(db_index=True,verbose_name="目标机器")
     addtime=models.IntegerField(verbose_name="创建时间")
     edittime=models.IntegerField(verbose_name="修改时间")
@@ -47,36 +46,17 @@ class Task(models.Model):
     type=models.SmallIntegerField(verbose_name="类型",default=0)    # 1 python   2   php
     args=models.CharField(verbose_name="参数",max_length=500)   #运行参数
     filename=models.CharField(verbose_name="文件名",max_length=500) #可执行文件名
-    custom=models.CharField(verbose_name="预处理命令",max_length=300)
-    branch=models.CharField(verbose_name="分支",max_length=100)
 
 
-    @property
-    def realversion(self):
-        if self.branch=="":
-            return self.version
-        else:
-            return int_to_hexstring(self.version)
-    @property
-    def vcs(self):
-        if self.branch=="":
-            return  1
-        else:
-            return 2
     class Meta:
         verbose_name="计划任务"
         verbose_name_plural="所有计划任务"
     def save(self, force_insert=False, force_update=False, using=None):
         models.Model.save(self,force_insert,force_update,using)
+
     def get_status(self):
         return {-1:"禁用",1:"启用",0:"待部署",2:"正在部署",3:"部署失败"}[self.status]
     def get_info(self):
-        # info=self.info[0:10] +('' if len(self.info)<10 else ".."  )
-        # a=[i for i in info if len(str(i))==1]
-        # if info.endswith(".."):
-        #     info=info[:-2]+self.info[10:10+len(a)]
-        #     if len(self.info)>len(info):
-        #         info+='..'
         info=""
         num=0
         for i  in self.info:
@@ -89,11 +69,8 @@ class Task(models.Model):
                 info+=".."
                 break
         return info
-    def get_type(self):
-        _config={1:"Python",2:"PHP",3:"Shell"}
-        return _config[self.type]
-    def get_owner_and_type(self):
-        return "%s(%s)"%(self.owner,self.get_type())
+
+
     def get_name(self):
         name=""
         num=0
@@ -112,21 +89,7 @@ class Task(models.Model):
             return self.name
         return name[0:-1]+".."
 
-class App(models.Model):
-    "计划任务所属APP的抽象"
-    name=models.CharField(max_length=30,db_index=True,verbose_name="组名",unique=True)
-    project=models.ForeignKey(to=Project,verbose_name="所属项目",related_name="cronproj")
-    class Meta:
-        verbose_name="crondeamon 组"
-        verbose_name_plural="crondeamon 组"
-    def __unicode__(self):
-        return  "%s||%s"%(self.project,self.name)
-    def save(self, force_insert=False, force_update=False, using=None):
-        "去空格和斜线"
-        self.name =self.name.replace(" ","")
-        self.name = self.name.replace("/","")
-        self.name=self.name.replace("\\","")
-        models.Model.save(self,force_insert=force_insert,force_update=force_update,using=using)
+
 
 class  RunLog(models.Model):
     "计划任务运行日志"
