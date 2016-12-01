@@ -272,7 +272,7 @@ def taskdetail(request):
         buff={}
     else:
         task=info[1]
-        buff={"ip":task.ip,"type":task.type,"name":task.name,"url":task.svnpath,"version":task.realversion,
+        buff={"ip":task.ip,"type":task.type,"name":task.name,"url":task.svnpath,"version":task.version,
 
               "svnuser":task.svnuser,"svnpasswd":task.svnpasswd,"fn":task.info,"filename":task.filename}
     return HttpResponse(json.dumps(buff,ensure_ascii=False,indent=True),mimetype="application/javascript")

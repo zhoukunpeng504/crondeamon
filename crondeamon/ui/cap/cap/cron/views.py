@@ -350,7 +350,7 @@ def crondetail(request):
     tid=int(tid)
     cron=Task.objects.get(pk=tid)
     buff={"ip":cron.ip,"name":cron.name,"rule":cron.rule,
-          "url":cron.svnpath,"version":cron.realversion,
+          "url":cron.svnpath,"version":cron.version,
           "svnuser":cron.svnuser,"svnpasswd":cron.svnpasswd,
           "fn":cron.info,"filename":cron.filename}
     return  HttpResponse(json.dumps(buff,ensure_ascii=False,indent=True),mimetype="application/javascript")
