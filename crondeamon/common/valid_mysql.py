@@ -6,23 +6,7 @@ __author__ = 'admin'
 import  MySQLdb
 
 # create  table sql list
-create_table_sql_list=['''CREATE TABLE if not EXISTS `cap_project` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8''',
-
-                       '''CREATE TABLE if not EXISTS `cron_app` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `project_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `cron_app_52094d6e` (`name`),
-  KEY `cron_app_499df97c` (`project_id`),
-  CONSTRAINT `project_id_refs_id_2e1d08e0` FOREIGN KEY (`project_id`) REFERENCES `cap_project` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=194 DEFAULT CHARSET=utf8''',
-
+create_table_sql_list=[
                        '''CREATE TABLE if not EXISTS `cron_cronserve` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ip` char(15) NOT NULL,
@@ -32,11 +16,10 @@ create_table_sql_list=['''CREATE TABLE if not EXISTS `cap_project` (
   KEY `cron_cronserve_49a8a8f2` (`ip`)
 ) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8 ''',
 
+
                        '''CREATE TABLE  if not EXISTS `cron_task` (
   `tid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `project` varchar(20) NOT NULL,
-  `app` varchar(30) NOT NULL,
   `ip` char(15) NOT NULL,
   `addtime` int(11) NOT NULL,
   `edittime` int(11) NOT NULL DEFAULT '0',
@@ -48,7 +31,6 @@ create_table_sql_list=['''CREATE TABLE if not EXISTS `cap_project` (
   `svnpasswd` varchar(50) NOT NULL,
   `info` varchar(300) NOT NULL,
   `owner` varchar(300) NOT NULL,
-  `type` int(3) NOT NULL DEFAULT '0' COMMENT ' 1  python  2 php',
   `args` varchar(500) NOT NULL,
   `filename` varchar(500) NOT NULL,
   `custom` varchar(300) NOT NULL,
@@ -60,6 +42,7 @@ create_table_sql_list=['''CREATE TABLE if not EXISTS `cap_project` (
   KEY `owner_2` (`owner`(255)),
   KEY `project` (`project`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1427 DEFAULT CHARSET=utf8''',
+
 
                  '''CREATE TABLE  if not EXISTS  `cron_runlog` (
   `rid` int(11) NOT NULL AUTO_INCREMENT,
