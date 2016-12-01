@@ -544,11 +544,11 @@ class CronMgr(object):
             svnpath,version,args=result[0][1:]
 
             def _add(cursor,args):
-                cursor.execute('''insert into   cron_runlog(tid, svnpath, version, crontime, begintime, endtime, status, stderror, stdout,type)
+                cursor.execute('''insert into   cron_runlog(tid, svnpath, version, crontime, begintime, endtime, status, stderror, stdout,`type`)
                                   VALUES(%s,%s,%s,UNIX_TIMESTAMP(),0,0,0,'','',%s)
                                ''',args)
                 return cursor.lastrowid
-            rid=yield  run_conn_fun("runInteraction",_add,(tid,svnpath,version,0 if manual==False  else 1))
+            rid=yield  run_conn_fun("runInteraction",_add,(tid,svnpath,int(version),0 if manual==False  else 1))
             result= yield  SubRpc().xmlrpc_run(tid,rid,args)
             defer.returnValue(result)
         except Exception as e :
@@ -623,11 +623,11 @@ class DaeMgr(object):
             print tid,tidstatus
             if tidstatus==False:
                 def operate_db(cursor,args):
-                    cursor.execute('''insert into   task_runlog(tid, svnpath, version, crontime, begintime, endtime, status, stderror, stdout, type)
+                    cursor.execute('''insert into   task_runlog(tid, svnpath, version, crontime, begintime, endtime, status, stderror, stdout, `type`)
                                       VALUES(%s,%s,%s,UNIX_TIMESTAMP(),0,0,0,'','',0)''',args)
                     a= cursor.lastrowid
                     return a
-                rid=yield  run_conn_fun("runInteraction",operate_db,(tid,svnpath,svnversion))
+                rid=yield  run_conn_fun("runInteraction",operate_db,(tid,svnpath,int(svnversion)))
                 yield   SubRpc().xmlrpc_run(tid,rid,args,"task")
                 defer.returnValue(True)
             else:
