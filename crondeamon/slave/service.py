@@ -3,19 +3,16 @@ __author__ = 'zhoukunpeng'
 # --------------------------------
 # Created by zhoukunpeng  on 2015/6/4.
 # ---------------------------------
-from twisted.web import  http_headers,html,http
-from twisted.web import  xmlrpc,server,resource
+from twisted.web import  xmlrpc
 from twisted.internet import  reactor,task,defer,threads
 from twisted.enterprise import  adbapi
-import  os,multiprocessing,subprocess,commands
 from txscheduling.cron import CronSchedule
 from txscheduling.task import  ScheduledCall
-import  MySQLdb
 from twisted.internet import  protocol
-from twisted.application import  service,internet
 import  MySQLdb
 import psutil
 import  sys
+
 reactor.suggestThreadPoolSize(500)   #线程池改为500， 防止线程占满
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -45,6 +42,7 @@ def run_conn_fun(fun,*args):
         conn=adbapi.ConnectionPool("MySQLdb",host=MYSQLCONFIG["host"],user=MYSQLCONFIG["user"],passwd=MYSQLCONFIG["passwd"],charset=MYSQLCONFIG["charset"],port=MYSQLCONFIG["port"],db=MYSQLCONFIG["db"],cp_reconnect=True)
         result=yield  getattr(conn,fun)(*args)
     defer.returnValue(result)
+
 def set_time_out(seconds,deferjob):
     "给一个deferjob添加一个超时时间,防止一个xmlrpc运行时间过长。"
     def _handle(deferjob):
@@ -55,6 +53,7 @@ def set_time_out(seconds,deferjob):
     seconds=int(seconds)
     reactor.callLater(seconds,_handle,deferjob)
     return  True
+
 class SubRpc(xmlrpc.XMLRPC):
     def xmlrpc_test(self):
         return "test"
