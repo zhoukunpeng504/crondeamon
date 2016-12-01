@@ -84,24 +84,12 @@ class MainRpc(xmlrpc.XMLRPC):
 
     # ——---------------------------------cron--------------------------------
     @defer.inlineCallbacks
-    def xmlrpc_addcron(self,ip,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom='',branch=''):
+    def xmlrpc_addcron(self,ip,name,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,args,filename):
         "增加一个Cron, 返回值 True,123  或者False,‘失败’ "
-        if branch!='':
-            result=yield self._run("addcron",ip,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom,branch)
-        else:
-            result=yield self._run("addcron",ip,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom)
+        result=yield self._run("addcron",ip,name,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,args,filename)
         defer.returnValue(result)
-    @defer.inlineCallbacks
-    def xmlrpc_multiaddcron(self,iplist,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom='',branch=''):
-        "批量增加Cron， 返回值True,[1,2,3] 或者False,'失败' "
-        if branch!='':
-            defer_list=[self._run("addcron",ip,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom,branch )    for ip in  iplist]
-        else:
-            defer_list=[self._run("addcron",ip,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom)    for ip in  iplist]
 
-        results=yield  defer.DeferredList(defer_list,consumeErrors=True)
-        buff=  map(lambda i:True if i==(True,True) else False  ,results   )
-        defer.returnValue(buff)
+
 
     @defer.inlineCallbacks
     def xmlrpc_removecron(self,tid):
@@ -113,14 +101,12 @@ class MainRpc(xmlrpc.XMLRPC):
             ip=info
             result=yield self._run("removecron",ip,tid)
             defer.returnValue(result)
+
     @defer.inlineCallbacks
-    def xmlrpc_modifycron(self,ip, tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom="",branch=''):
+    def xmlrpc_modifycron(self,ip, tid,name,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,args,filename):
         "更改一个cron"
         print locals()
-        if branch!='':
-            result=yield self._run("modifycron",ip,tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom,branch )
-        else:
-            result=yield self._run("modifycron",ip,tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom)
+        result=yield self._run("modifycron",ip,tid,name,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,args,filename )
         defer.returnValue(result)
 
     @defer.inlineCallbacks
@@ -144,6 +130,7 @@ class MainRpc(xmlrpc.XMLRPC):
             ip=info
             result=yield self._run("startcron",ip ,tid)
             defer.returnValue(result)
+
     @defer.inlineCallbacks
     def xmlrpc_runcron(self,tid):
         "立刻触发这个cron"
@@ -154,47 +141,16 @@ class MainRpc(xmlrpc.XMLRPC):
             ip=info
             result=yield  self._run("runcron",ip ,tid)
             defer.returnValue(result)
+
     # -----------------------------------后台任务------------------------------
     @defer.inlineCallbacks
-    def xmlrpc_adddaemon(self,ip, name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,owner,_type,args,filename,custom='',num=1,branch=''):
+    def xmlrpc_adddaemon(self,ip, name,svnpath,svnversion,svnuser,svnpasswd,info,owner,args,filename):
         "增加一个后台任务  "
-        print "num:",num
-        if branch!="":
-            if custom!='':
-                defer_list=[self._run("adddaemon",ip, name,project,app,svnpath,svnversion,svnuser,svnpasswd ,info,owner,_type,args,filename,custom,branch) for i in ([""]*num)]
-            else:
-                defer_list=[self._run("adddaemon",ip, name,project,app,svnpath,svnversion,svnuser,svnpasswd ,info,owner,_type,args,filename,'',branch) for i in ([""]*num)]
-        else:
-            if custom!='':
-                defer_list=[self._run("adddaemon",ip, name,project,app,svnpath,svnversion,svnuser,svnpasswd ,info,owner,_type,args,filename,custom) for i in ([""]*num)]
-            else:
-                defer_list=[self._run("adddaemon",ip, name,project,app,svnpath,svnversion,svnuser,svnpasswd ,info,owner,_type,args,filename,'') for i in ([""]*num)]
+        defer_list=[self._run("adddaemon",ip, name,svnpath,svnversion,svnuser,svnpasswd ,info,owner,args,filename) for i in ([""]*1)]
         results=yield  defer.DeferredList(defer_list,consumeErrors=True)
         buff=map(lambda i:True if i ==(True,True) else False,results)
         defer.returnValue(buff)
-    @defer.inlineCallbacks
-    def xmlrpc_multiadddaemon(self,iplist,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,owner,_type,args,filename,custom='',num=1,branch=''):
-        "批量增加后台任务"
-        defer_list=[]
-        if branch!='':
-            if custom!='':
-                for i in [""]*num:
-                    defer_list+=[self._run("adddaemon",ip, name,project,app,svnpath,svnversion,svnuser,svnpasswd ,info,owner,_type,args,filename,custom,branch)   for ip in iplist ]
-            else:
-                for i in [""]*num:
-                    defer_list+=[self._run("adddaemon",ip, name,project,app,svnpath,svnversion,svnuser,svnpasswd ,info,owner,_type,args,filename,'',branch)   for ip in iplist ]
-        else:
-            if custom!='':
-                for i in [""]*num:
-                    defer_list+=[self._run("adddaemon",ip, name,project,app,svnpath,svnversion,svnuser,svnpasswd ,info,owner,_type,args,filename,custom)   for ip in iplist ]
-            else:
-                for i in [""]*num:
-                    defer_list+=[self._run("adddaemon",ip, name,project,app,svnpath,svnversion,svnuser,svnpasswd ,info,owner,_type,args,filename,'')   for ip in iplist ]
-        print defer_list
-        results=yield  defer.DeferredList(defer_list,consumeErrors=True)
-        print results
-        buff=  map(lambda i:True if i==(True,True) else False  ,results)
-        defer.returnValue(buff)
+
 
     @defer.inlineCallbacks
     def xmlrpc_removedaemon(self,tid):
@@ -206,14 +162,13 @@ class MainRpc(xmlrpc.XMLRPC):
             ip=info
             result=yield  self._run("removedaemon",ip,tid)
             defer.returnValue(result)
+
     @defer.inlineCallbacks
-    def xmlrpc_modifydaemon(self,ip, tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,_type,args,filename,custom='',branch=''):
+    def xmlrpc_modifydaemon(self,ip, tid,name,svnpath,svnversion,svnuser,svnpasswd,info,args,filename):
         "修改一个后台任务"
-        if branch!="":
-            result= yield  self._run("modifydaemon",ip , tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,_type,args,filename,custom,branch)
-        else:
-            result= yield  self._run("modifydaemon",ip , tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,_type,args,filename,custom)
+        result= yield  self._run("modifydaemon",ip , tid,name,svnpath,svnversion,svnuser,svnpasswd,info,args,filename)
         defer.returnValue(result)
+
     @defer.inlineCallbacks
     def xmlrpc_stopdaemon(self,tid):
         "禁用一个后台任务"
@@ -224,6 +179,7 @@ class MainRpc(xmlrpc.XMLRPC):
             ip=info
             result=yield self._run("stopdaemon",ip ,tid)
             defer.returnValue(result)
+
     @defer.inlineCallbacks
     def xmlrpc_startdaemon(self,tid):
         "启用一个后台任务"
@@ -234,6 +190,7 @@ class MainRpc(xmlrpc.XMLRPC):
             ip=info
             result=yield  self._run("startdaemon",ip  ,tid)
             defer.returnValue(result)
+
     @defer.inlineCallbacks
     def xmlrpc_restartdaemon(self,tid):
         "重启一个后台任务"
@@ -244,6 +201,7 @@ class MainRpc(xmlrpc.XMLRPC):
             ip=info
             result=yield  self._run("restartdaemon",ip ,tid)
             defer.returnValue(result)
+
     @defer.inlineCallbacks
     def xmlrpc_getstatusdaemon(self,tid,ip=None):
         if ip ==None:
@@ -256,6 +214,7 @@ class MainRpc(xmlrpc.XMLRPC):
             pass
         result=yield  self._run("getstatusdaemon",ip,tid)
         defer.returnValue(result)
+
     @defer.inlineCallbacks
     def xmlrpc_mgetstatusdaemon(self,tidlist):
         result=yield  self._mget_ip(tidlist,"dae")

@@ -779,6 +779,7 @@ class MainRpc(xmlrpc.XMLRPC):
         xmlrpc.XMLRPC.__init__(self,allowNone=True)
         self.cronmgr=CronMgr()
         self.deamgr=DaeMgr()
+
     @defer.inlineCallbacks
     def _run(self,funname,mode,*args):
         try:
@@ -792,9 +793,9 @@ class MainRpc(xmlrpc.XMLRPC):
 
     # ——---------------------------------cron--------------------------------
     @defer.inlineCallbacks
-    def xmlrpc_addcron(self,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom='',branch=''):
+    def xmlrpc_addcron(self,name,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,args,filename):
         "增加一个Cron, 返回值 True,123  或者False,‘失败’ "
-        result=yield self._run("add","cron",name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom,branch)
+        result=yield self._run("add","cron",name,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,args,filename)
         defer.returnValue(result)
 
     @defer.inlineCallbacks
@@ -802,11 +803,13 @@ class MainRpc(xmlrpc.XMLRPC):
         "删除一个cron"
         result=yield self._run("remove","cron",tid)
         defer.returnValue(result)
+
     @defer.inlineCallbacks
-    def xmlrpc_modifycron(self,tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom='',branch=''):
+    def xmlrpc_modifycron(self,tid,name,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,args,filename):
         "更改一个cron"
         print "modifycron!"
-        result=yield self._run("modify","cron",tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,rule,info,owner,_type,args,filename,custom,branch)
+        result=yield self._run("modify","cron",tid,name,svnpath,svnversion,svnuser,svnpasswd,rule,info,
+                               owner,args,filename)
         defer.returnValue(result)
 
     @defer.inlineCallbacks
@@ -826,46 +829,52 @@ class MainRpc(xmlrpc.XMLRPC):
         defer.returnValue(result)
     # -----------------------------------后台任务------------------------------
     @defer.inlineCallbacks
-    def xmlrpc_adddaemon(self,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,owner,_type,args,filename,custom='',branch=''):
+    def xmlrpc_adddaemon(self,name,svnpath,svnversion,svnuser,svnpasswd,info,owner,args,filename):
         "增加一个后台任务  "
-        result=yield  self._run("add","dae", name,project,app,svnpath,svnversion,svnuser,svnpasswd ,info,owner,_type,args,filename,custom,branch )
+        result=yield  self._run("add","dae", name,svnpath,svnversion,svnuser,svnpasswd ,info,owner,args,filename )
         defer.returnValue(result)
+
     @defer.inlineCallbacks
     def xmlrpc_removedaemon(self,tid):
         "删除一个后台任务"
         result=yield  self._run("remove","dae",tid)
         defer.returnValue(result)
     @defer.inlineCallbacks
-    def xmlrpc_modifydaemon(self,tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,_type,args,filename,custom='',branch=''):
+    def xmlrpc_modifydaemon(self,tid,name,svnpath,svnversion,svnuser,svnpasswd,info,args,filename):
         "修改一个后台任务"
         "print modify"
-        result= yield  self._run("modify","dae", tid,name,project,app,svnpath,svnversion,svnuser,svnpasswd,info,_type,args,filename,custom,branch)
+        result= yield  self._run("modify","dae", tid,name,svnpath,svnversion,svnuser,svnpasswd,info,args,filename)
         defer.returnValue(result)
+
     @defer.inlineCallbacks
     def xmlrpc_stopdaemon(self,tid):
         "禁用一个后台任务"
         result=yield self._run("stop","dae",tid)
         defer.returnValue(result)
+
     @defer.inlineCallbacks
     def xmlrpc_startdaemon(self,tid):
         "启用一个后台任务"
         result=yield  self._run("start","dae",tid)
         defer.returnValue(result)
+
     @defer.inlineCallbacks
     def xmlrpc_restartdaemon(self,tid):
         "重启一个后台任务"
         result=yield  self._run("restart","dae",tid)
         defer.returnValue(result)
+
     def xmlrpc_getstatusdaemon(self,tid):
         "获取一个应用当前的运行状态"
         return SubRpc().xmlrpc_getstatus(tid,"task")
+
 import socket
 import fcntl
 import struct
 import  os
-
 localip=None
 import  ConfigParser
+
 @defer.inlineCallbacks
 def init():
     cfg=ConfigParser.ConfigParser()
