@@ -163,8 +163,6 @@ def manage(request):
 
 
     cronserve=CronServe.objects.all().order_by("ip")
-    cronproj=Project.objects.filter(~Q(name="空"))
-
     userinfo=User.objects.all().values("username")
     return  render_to_response("manage_task.html",locals(),context_instance=RequestContext(request))
 @login_required
