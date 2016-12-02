@@ -73,7 +73,7 @@ class SubRpc(xmlrpc.XMLRPC):
             else:
                 run_conn_fun("runOperation","update   task_task set status=2 WHERE  tid=%s",(tid,))   #正在部署
             print "begin mkdir"
-            dirname="-%s-"%(tid)
+            dirname="%s"%(tid)
             dirname=dirname.encode("utf-8")
             if mode=="cron":
                 pass
@@ -211,7 +211,7 @@ class SubRpc(xmlrpc.XMLRPC):
         tid=int(tid)
         taskinfo= yield run_conn_fun("runQuery","select svnpath,filename from    %s  WHERE  tid=%%s"%("cron_task" if mode=="cron" else "task_task",),(tid,))
         svnpath,filename=taskinfo[0]
-        filename_path="-%s-/%s"%(tid,svnpath.strip("/").split("/")[-1])
+        filename_path="%s/%s"%(tid,svnpath.strip("/").split("/")[-1])
         filename_path=filename_path.encode("utf-8")
         print filename_path
         argument=[_ for _ in filename.strip().split(" ") if _ != ""]
