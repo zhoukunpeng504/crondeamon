@@ -14,7 +14,6 @@ from django.views.decorators.csrf import csrf_exempt
 import datetime,time,math
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
-from  cap.models import Project
 from django.db.models.query import  Q
 from cap.utils import status,supervisor_required,valid_group_required
 from utils import  valid_add_input
@@ -31,7 +30,6 @@ def add(request):
         else:
             return status(request,message="Success!")
     else:
-        projects=Project.objects.filter(~Q(name="空"))
         allgroup=Group.objects.all()
         return render_to_response('user_add.html',locals(), context_instance=RequestContext(request))
 
@@ -44,7 +42,6 @@ def list(request):
     proj_name=request.POST.get('proj_name','')
     a=int(request.GET.get('page','1'))
     allgroup = Group.objects.all()#获取所有组
-    projects = Project.objects.filter(~Q(name="空"))
     p=Paginator(username,10)
     try:
         contacts=p.page(a)
@@ -57,11 +54,9 @@ def list(request):
         user_group=Group.objects.get(name=usertype)
         username_list=User.objects.filter(groups=user_group)
     elif proj_name and not usertype:#筛选出某一项目类型的用户列表
-        projects_name=Project.objects.get(name=proj_name)
         username_list=User.objects.filter(project=projects_name)
     elif usertype and proj_name:#筛选用户组和用户类型的联合查询
         user_group=Group.objects.get(name=usertype)
-        projects_name=Project.objects.get(name=proj_name)
         username_list=User.objects.filter(groups=user_group,project=projects_name)
     else:
         username_list=p.page(a)
