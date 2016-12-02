@@ -12,6 +12,8 @@ crondeamon是用来管理计划任务及后台任务的项目， 其功能相当
 
 3.ui     ui主要是提供web界面
 
+注：master  ui必须部署在同一台机器上
+
 ***************
 2.依赖
 ***************
@@ -28,7 +30,7 @@ mysql
 ***************
 三台机器，192.168.8.94   192.168.8.95  192.168.8.96  
 
-系统环境：centos 6   python版本：2.7.10 
+系统环境：centos 6   python版本：2.7.10  且支持 git  svn    pip easy_install系统命令。
 
 数据库：host = 192.168.15.34  port = 3306  user = zhou   password =zhou  database = crondeamon 
 
