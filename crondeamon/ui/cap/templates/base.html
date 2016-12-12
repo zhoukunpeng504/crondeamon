@@ -14,11 +14,10 @@
     <link href="/static/style_dan.css" rel="stylesheet">
     <link href="/static/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="/static/jquery.multiselect.css" rel="stylesheet">
-    <meta name="gct-id" value="1">
     {% block style %}
     {% endblock %}
 </head>
-<body data-spy="scroll" data-target="#myScrollspy" data-gct="1">
+<body data-spy="scroll" data-target="#myScrollspy" >
 
 <div class="navbar navbar-inverse navbar-fixed-top gct" >
     <div class="container ">
@@ -32,7 +31,6 @@
                     <li><a href="/task/manage/">后台任务</a> </li>
                 </ul>
             </li>
-
             {% if request.user.is_superuser%}
             <li class="dropdown gct">
                 <a href="/user_manager/" class="dropdown-toggle" data-toggle="dropdown">用户管理<b class="caret"></b></a>
