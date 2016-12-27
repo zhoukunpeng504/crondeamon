@@ -70,7 +70,6 @@ create_table_sql_list=[
   `svnpasswd` varchar(50) NOT NULL,
   `info` varchar(500) NOT NULL,
   `owner` varchar(200) NOT NULL,
-  `type` smallint(6) NOT NULL,
   `args` varchar(500) NOT NULL,
   `filename` varchar(500) NOT NULL,
   PRIMARY KEY (`tid`),
