@@ -7,10 +7,19 @@ import sys
 import  os
 import  psutil
 from _kill import  killpid
+import  ConfigParser
+
+cfg=ConfigParser.ConfigParser()
+result=cfg.read("/etc/crondeamon.ini")
+assert  result==["/etc/crondeamon.ini"]
+assert cfg.sections()==["crondeamon"]
+config=dict(cfg.items("crondeamon"))
+datadir=config["datadir"]
+slave_dir=os.path.join(datadir,"slave")
 
 def get_pid():
     try:
-        pid=open("/data/crondeamon/slave/pid/crondeamon-slave.pid","r").read()
+        pid=open(os.path.join(datadir,"/slave/pid/crondeamon-slave.pid"),"r").read()
         return  int(pid)
     except:
         return None
@@ -20,7 +29,7 @@ def start():
         process=psutil.Process(pid=old_pid)
     except psutil.NoSuchProcess as  e :
         process=None
-        os.system("rm -rf /data/crondeamon/slave/pid/crondeamon-slave.pid")
+        os.system("rm -rf %s/pid/crondeamon-slave.pid"%slave_dir)
     if old_pid and process:
         cmd_line=process.cmdline()
         mask=0
@@ -30,20 +39,20 @@ def start():
         if mask>=2:
             print "server is running ! "
         else:
-            os.system("mkdir -p /data/crondeamon/slave/pid")
-            os.system("mkdir -p /data/crondeamon/slave/log")
-            os.system("twistd --pidfile /data/crondeamon/slave/pid/crondeamon-slave.pid --logfile /data/crondeamon/slave/log/crondeamon-slave.log crondeamon-slave")
+            os.system("mkdir -p %s/pid"%slave_dir)
+            os.system("mkdir -p %s/log"%slave_dir)
+            os.system("twistd --pidfile %s/pid/crondeamon-slave.pid --logfile %s/log/crondeamon-slave.log crondeamon-slave"%(slave_dir,slave_dir))
             print "start success!"
     else:
-        os.system("mkdir -p /data/crondeamon/slave/pid")
-        os.system("mkdir -p /data/crondeamon/slave/log")
-        os.system("twistd --pidfile /data/crondeamon/slave/pid/crondeamon-slave.pid --logfile /data/crondeamon/slave/log/crondeamon-slave.log crondeamon-slave")
+        os.system("mkdir -p %s/pid"%slave_dir)
+        os.system("mkdir -p %s/log"%slave_dir)
+        os.system("twistd --pidfile %s/pid/crondeamon-slave.pid --logfile %s/log/crondeamon-slave.log crondeamon-slave"%(slave_dir,slave_dir))
         print "start success!"
 def stop():
     old_pid=get_pid()
     if old_pid:
         killpid(old_pid)
-        os.system("rm -rf  /data/crondeamon/slave/pid/crondeamon-slave.pid")
+        os.system("rm -rf  %s/pid/crondeamon-slave.pid"%slave_dir)
         print "stop success!"
     else:
         print "server is not running!"
