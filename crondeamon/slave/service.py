@@ -870,6 +870,10 @@ class MainRpc(xmlrpc.XMLRPC):
         "获取一个应用当前的运行状态"
         return SubRpc().xmlrpc_getstatus(tid,"task")
 
+    def xmlrpc_mgetstatusdaemon(self,tidlist):
+        "获取多个应用当前的运行状态"
+        return dict( [ (tid,SubRpc().xmlrpc_getstatus(tid,"task")) for tid in  tidlist])
+
 import socket
 import fcntl
 import struct
@@ -880,9 +884,9 @@ import  ConfigParser
 @defer.inlineCallbacks
 def init():
     cfg=ConfigParser.ConfigParser()
-    result=cfg.read("/etc/crondeamon/slave.ini")
+    result=cfg.read("/etc/crondeamon.ini")
     try:
-        assert  result==["/etc/crondeamon/slave.ini"]
+        assert  result==["/etc/crondeamon.ini"]
         assert cfg.sections()==["crondeamon"]
         config=dict(cfg.items("crondeamon"))
         mysqlhost=config["mysqlhost"]

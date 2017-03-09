@@ -7,9 +7,9 @@ LOGIN_URL="/login/"
 LANGUAGE_CODE="zh-CN"
 import  ConfigParser
 cfg=ConfigParser.ConfigParser()
-result=cfg.read("/etc/crondeamon/ui.ini")
+result=cfg.read("/etc/crondeamon.ini")
 
-assert  result== ["/etc/crondeamon/ui.ini"]
+assert  result== ["/etc/crondeamo.ini"]
 assert cfg.sections()==["crondeamon"]
 config=dict(cfg.items("crondeamon"))
 host=config["host"]
@@ -20,6 +20,8 @@ mysqldb=config["mysqldb"]
 mysqluser=config["user"]
 mysqlpasswd=config["passwd"]
 mysqlcharset=config["charset"]
+slaveport=config["slaveport"]
+slaveport=int(slaveport)
 
 DATABASES = {
     'default': {
@@ -35,9 +37,9 @@ DATABASES = {
 
 # ----------------------------------------
 CRON_SERVER={"host":host,
-             "port":8017}
+             "port":int(slaveport)}
 TASK_SERVE={"host":host,
-            "port":8017}
+            "port":int(slaveport)}
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["*"]

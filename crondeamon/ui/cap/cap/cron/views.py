@@ -86,7 +86,7 @@ def add(request):
                 if buff=={}:
                     server=get_cron_serve()
 
-                    result=server.addcron(ip,name,svnpath,str(version),svnuser,svnpasswd,rule,info,
+                    result=server.addcron(name,svnpath,str(version),svnuser,svnpasswd,rule,info,
                                               request.user.username,args,filename)
                     if result!=True:
                         buff["status"],buff["message"]=result

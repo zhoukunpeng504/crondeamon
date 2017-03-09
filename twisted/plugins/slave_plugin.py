@@ -27,7 +27,7 @@ class MyServiceMaker(object):
     options=Options
     def makeService(self, options):
         cfg=ConfigParser.ConfigParser()
-        result=cfg.read("/etc/crondeamon/slave.ini")
+        result=cfg.read("/etc/crondeamon.ini")
         try:
             assert  result== ["/etc/crondeamon/slave.ini"]
             assert cfg.sections()==["crondeamon"]
@@ -40,11 +40,12 @@ class MyServiceMaker(object):
             mysqluser=config["user"]
             mysqlpasswd=config["passwd"]
             mysqlcharset=config["charset"]
+            slaveport=config["slaveport"]
         except:
             raise Exception("Config File /etc/crondeamon/slave.ini is error please recheck it!")
         else:
             from  crondeamon.slave import  service as subrpc
             serverfactory = server.Site(subrpc.MainRpc())
-            return TCPServer(8014,serverfactory,interface=host)
+            return TCPServer(slaveport,serverfactory,interface=host)
 
 serviceMaker = MyServiceMaker()

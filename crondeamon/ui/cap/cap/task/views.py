@@ -78,7 +78,7 @@ def add(request):
                 if buff=={}:
                     serve=get_task_serve()
                     try:
-                        result=serve.adddaemon(ip,name,svnpath,str(version),svnuser,svnpasswd,info,request.user.username,args,filename)
+                        result=serve.adddaemon(name,svnpath,str(version),svnuser,svnpasswd,info,request.user.username,args,filename)
                         if True in result:
                             buff["status"],buff["message"]= True,u"共成功%s个,共失败%s个"%(result.count(True),result.count(False))
                         else:
