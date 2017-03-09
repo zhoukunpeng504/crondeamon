@@ -907,7 +907,8 @@ def init():
         MYSQLCONFIG["charset"]=mysqlcharset
         global  localip
         localip=host
-    except:
+    except Exception as e :
+        print str(e)
         raise Exception("Config File /etc/crondeamon/slave.ini is error please recheck it!")
     else:
         global conn
