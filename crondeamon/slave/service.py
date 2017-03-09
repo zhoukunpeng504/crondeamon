@@ -79,24 +79,24 @@ class SubRpc(xmlrpc.XMLRPC):
                 pass
             else:
                 dirname="task/"+dirname
+            real_dir=os.path.join(datadir,dirname)
             containname=svnpath.strip("/").split("/")[-1]
             version=svnversion
-            mkdircommand=("mkdir -p ./%s"%dirname)
-            rmcommand=("rm ./%s/* -rf"%dirname)
+            mkdircommand=("mkdir -p %s"%real_dir)
+            rmcommand=("rm  %s/* -rf"%real_dir)
             print mkdircommand,  rmcommand
             result=os.system(mkdircommand)
             os.system(rmcommand)
             print "result",result
             assert  result==0
             print "begin check"
-            command="cd ./%s && svn checkout  -r %s  %s  --username %s --password %s --no-auth-cache --non-interactive"%(dirname,version,svnpath,svnuser,svnpasswd)
-            customcommand="cd ./%s && cd %s && %s"%(dirname,containname,"pwd")
+            command="cd %s && svn checkout  -r %s  %s  --username %s --password %s --no-auth-cache --non-interactive"%(real_dir,version,svnpath,svnuser,svnpasswd)
+            customcommand="cd %s && cd %s && %s"%(real_dir,containname,"pwd")
             print command
             print "end init"
             assert  result==0
             assert os.system(command)==0
             assert os.system(customcommand)==0
-
         try:
             yield threads.deferToThread(_init)
         except Exception as e :
@@ -127,7 +127,6 @@ class SubRpc(xmlrpc.XMLRPC):
                 global RID_BUFF_TASK
                 self.stdout=''
                 self.stderr=''
-                #yield stop(tid,mode)
                 if mode=="cron":
                     RID_BUFF[(tid,rid)]=self.transport
                     try:
@@ -216,9 +215,9 @@ class SubRpc(xmlrpc.XMLRPC):
         print filename_path
         argument=[_ for _ in filename.strip().split(" ") if _ != ""]
         if mode=="cron":
-            filename_path="./"+filename_path
+            filename_path=os.path.join(datadir,filename_path)
         else:
-            filename_path="./task/"+filename_path
+            filename_path=os.path.join(datadir,"task",filename_path)
         argument=map(lambda i:i.encode("utf-8") ,argument)
         print "argument:",argument
         reactor.spawnProcess(p,argument[0],argument,env=os.environ,path=filename_path)
@@ -894,6 +893,8 @@ def init():
         mysqldb=config["mysqldb"]
         mysqluser=config["user"]
         mysqlpasswd=config["passwd"]
+        datadir=config["datadir"]
+        globals()["datadir"]=datadir
         host=config["host"]
         assert  host !="127.0.0.1"
         assert  host != "localhost"

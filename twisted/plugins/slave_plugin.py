@@ -42,7 +42,7 @@ class MyServiceMaker(object):
             mysqlcharset=config["charset"]
             slaveport=config["slaveport"]
         except:
-            raise Exception("Config File /etc/crondeamon/slave.ini is error please recheck it!")
+            raise Exception("Config File /etc/crondeamon.ini is error please recheck it!")
         else:
             from  crondeamon.slave import  service as subrpc
             serverfactory = server.Site(subrpc.MainRpc())
