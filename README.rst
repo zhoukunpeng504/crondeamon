@@ -22,29 +22,52 @@ pip   svn   git
 pip install crondeamon
 
 ***************
-4.运行
+4.配置详解
 ***************
-192.168.8.94：
+配置文件：  /etc/crondeamon.ini
+[crondeamon]
+mysqlhost=192.168.15.34        # mysql IP
+mysqlport=3306                 # mysql 端口
+mysqldb=mycrondeamon           # mysql 数据库名
+user=root                      # mysql 用户名
+passwd=123456                  # mysql 密码
+charset=utf8                   # mysql 编码 ，最好设为为utf8
+host=192.168.8.137             # 服务绑定的IP
+datadir=/data/test/crondeamon  # 服务data目录
+slaveport=8023                 # 服务中slave模块绑定端口
+uiport=8024                    # 服务中ui模块绑定端口
+注：
+
+
+***************
+5.运行
+***************
+
+以192.168.8.137机器为例：
  ::
 
-  [root@hadoop94 /]# pip install  git+git://github.com/zhoukunpeng504/crondeamon.git
-  [root@hadoop94 /]# vim /etc/crondeamon/slave.ini                                                                                                          
-  [crondeamon]
-  host = 192.168.8.94
-  mysqlhost = 192.168.15.34
-  mysqlport = 3306
-  mysqldb = crondeamon
-  user = zhou
-  passwd = zhou                                                                                                            
-  charset = utf8
+  [root@bogon ~]# pip install crondeamon
+  DEPRECATION: Python 2.6 is no longer supported by the Python core team, please upgrade your Python. A future version of pip will drop support for Python 2.6
+  Collecting crondeamon
+  Installing collected packages: crondeamon
+  Running setup.py install for crondeamon ... done
+  Successfully installed crondeamon-0.1.2
 
-  [root@hadoop94 /]# python -m crondeamon.sbin.slave -c start
-  /usr/local/lib/python2.7/site-packages/crondeamon/common/valid_mysql.py:112: Warning: Duplicate index 'owner_2' defined on the table 'crondeamon.cron_task'. This is deprecated and will be disallowed in a future release.
-  cursor.execute(i)
+  [root@bogon ~]# vim /etc/crondeamon.ini
+  [crondeamon]
+  mysqlhost=192.168.15.34
+  mysqlport=3306
+  mysqldb=mycrondeamon
+  user=root
+  passwd=123456
+  charset=utf8
+  host=192.168.8.137
+  datadir=/data/test/crondeamon
+  slaveport=8023
+  uiport=8024
+
+  [root@bogon ~]# python -m crondeamon.sbin.main -c start
   start success!
-  [root@hadoop94 /]# ps aux|grep twistd
-  root     31664  0.0  0.3 475548 20116 ?        Sl   09:56   0:00 /usr/local/bin/python2.7 /usr/local/bin/twistd --pidfile /data/crondeamon/slave/pid/crondeamon-slave.pid --logfile /data/crondeamon/slave/log/crondeamon-slave.log crondeamon-slave
-  root     31697  0.0  0.0 103248   892 pts/0    S+   09:56   0:00 grep twistd
 
 192.168.8.95:
 ::
