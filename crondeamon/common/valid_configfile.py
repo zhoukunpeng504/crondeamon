@@ -72,5 +72,14 @@ u'''Error! /etc/crondeamon.ini 中 mysql配置项错误，连接mysql失败！
 u'''Error ! /etc/crondeamon.ini 中slaveport配置项错误！
 '''
         )
+    try:
+        ui_port = config["uiport"]
+        ui_port = int(ui_port)
+    except:
+        raise Exception(
+            u'''Error ! /etc/crondeamon.ini 中uiport配置项错误！
+            '''
+        )
     config["slaveport"]=int(config["slaveport"])
+    config["uiport"]=int(config["uiport"])
     return config
