@@ -79,6 +79,21 @@ create_table_sql_list=[
   KEY `task_task_49a8a8f2` (`ip`),
   KEY `task_task_4741fd1b` (`owner`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1792 DEFAULT CHARSET=utf8 ;''',
+    '''CREATE TABLE if not EXISTS `task_runlog` (
+  `rid` int(11) NOT NULL AUTO_INCREMENT,
+  `tid` int(11) NOT NULL,
+  `svnpath` varchar(100) NOT NULL,
+  `version` int(11) NOT NULL,
+  `crontime` int(11) NOT NULL,
+  `begintime` int(11) NOT NULL,
+  `endtime` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `stderror` longtext NOT NULL,
+  `stdout` longtext NOT NULL,
+  `type` smallint(6) NOT NULL,
+  PRIMARY KEY (`rid`),
+  KEY `task_runlog_e03e823b` (`tid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8''',
             '''CREATE TABLE  if not EXISTS `auth_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) NOT NULL,

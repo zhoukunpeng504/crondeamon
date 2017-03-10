@@ -79,10 +79,10 @@ def add(request):
                     serve=get_task_serve()
                     try:
                         result=serve.adddaemon(name,svnpath,str(version),svnuser,svnpasswd,info,request.user.username,args,filename)
-                        if True in result:
-                            buff["status"],buff["message"]= True,u"共成功%s个,共失败%s个"%(result.count(True),result.count(False))
+                        if True == result:
+                            buff["status"],buff["message"]= True,u"创建成功！"
                         else:
-                            buff["status"],buff["message"]=False,u"创建失败！请稍后再试！%s"%(str(result))
+                            buff["status"],buff["message"]=False,u"创建失败！"
                     except Exception as e:
                         buff["status"],buff["message"]=False,str(e)
         return HttpResponse(json.dumps(buff,ensure_ascii=False),mimetype="application/javascript")
