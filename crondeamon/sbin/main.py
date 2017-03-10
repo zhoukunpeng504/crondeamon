@@ -15,7 +15,7 @@ datadir=config["datadir"]
 
 def get_pid():
     try:
-        pid=open(os.path.join(datadir,"/pid/crondeamon.pid"),"r").read()
+        pid=open(os.path.join(datadir,"pid/crondeamon.pid"),"r").read()
         return  int(pid)
     except:
         return None

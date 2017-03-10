@@ -76,17 +76,18 @@ def add_run_status_to_tasklist(tasklist):
         pass
         return True
     else:
-        try:
-            mstatus=get_task_serve().mgetstatusdaemon(tid_list)
-            for  i in mstatus:
-                if mstatus[i]==True:
-                    mstatus[i]=1
-                elif mstatus[i]==False:
-                    mstatus[i]=2
-                else:
-                    mstatus[i]=0
-        except:
-            mstatus=None
+        # try:
+        mstatus=get_task_serve().mgetstatusdaemon(tid_list)
+        for  i in mstatus:
+            if mstatus[i]==True:
+                mstatus[i]=1
+            elif mstatus[i]==False:
+                mstatus[i]=2
+            else:
+                mstatus[i]=0
+        print mstatus
+        # except:
+        #     mstatus=None
         for i in tasklist:
             if mstatus!=None:
                 i.running=mstatus[str(i.tid)]
