@@ -871,7 +871,7 @@ class MainRpc(xmlrpc.XMLRPC):
 
     def xmlrpc_mgetstatusdaemon(self,tidlist):
         "获取多个应用当前的运行状态"
-        return dict( [ (tid,SubRpc().xmlrpc_getstatus(tid,"task")) for tid in  tidlist])
+        return dict( [ (str(tid),SubRpc().xmlrpc_getstatus(tid,"task")) for tid in  tidlist])
 
 import socket
 import  os
