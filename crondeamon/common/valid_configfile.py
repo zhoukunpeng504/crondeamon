@@ -10,7 +10,7 @@ def valid_config():
         assert  result== ["/etc/crondeamon.ini"]
     except:
         raise Exception(
-u'''Error！　未找到配置文件 /etc/crondeamon.ini !!，请新建配置文件。
+u'''Error！　未找到配置文件 /etc/crondeamon.ini !!，请新建配置文件
 请参照如下配置格式：
 [crondeamon]
 mysqlhost=192.168.15.34
@@ -56,14 +56,12 @@ u'''Error！/etc/crondeamon.ini 中 host配置项错误，　host不能为127.0.
         mysqluser=config["user"]
         mysqlpasswd=config["passwd"]
         mysqlcharset=config["charset"]
-        conn=MySQLdb.connect(host=mysqlhost,port=mysqlport,db=mysqldb,mysqluser=mysqluser,mysqlpasswd=mysqlpasswd,
+        conn=MySQLdb.connect(host=mysqlhost,port=mysqlport,db=mysqldb,user=mysqluser,passwd=mysqlpasswd,
                              charset=mysqlcharset)
         conn.close()
     except:
         raise  Exception(
-u'''Error! /etc/crondeamon.ini 中 mysql配置项错误，连接mysql失败！
-'''
-        )
+u'''Error! /etc/crondeamon.ini 中 mysql配置项错误，连接mysql失败！''')
     try:
         slaveport=config["slaveport"]
         slaveport=int(slaveport)
@@ -83,3 +81,4 @@ u'''Error ! /etc/crondeamon.ini 中slaveport配置项错误！
     config["slaveport"]=int(config["slaveport"])
     config["uiport"]=int(config["uiport"])
     return config
+#valid_config()
