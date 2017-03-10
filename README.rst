@@ -5,6 +5,7 @@ crondeamon
 1.介绍
 ***************
 crondeamon是用来管理计划任务及后台任务的项目， 其功能相当于supervisor+crontab，  基于twisted   django 框架。通过crondeamon可以在web页面中完成计划任务或后台任务的管理。
+
 .. image:: docs/image/main.png
 
 ***************
