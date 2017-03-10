@@ -42,7 +42,7 @@ pip install crondeamon
   slaveport=8023                 # 服务中slave模块绑定端口
   uiport=8024                    # 服务中ui模块绑定端口, 安装完成后可通过192.168.8.137:8024打开web管理页面
 
-
+注： web管理页面的默认账户是root，密码123456
 
 ***************
 5.运行
@@ -73,3 +73,12 @@ pip install crondeamon
 
   [root@bogon ~]# python -m crondeamon.sbin.main -c start
   start success!
+安装成功，打开http://192.168.8.137:8024
+
+.. image:: docs/image/ex1.png
+用默认账号密码 root    123456 进行登陆，并新建一个计划任务
+
+.. image:: docs/image/ex2.png
+
+创建完成
+.. image:: docs/image/ex3.png
