@@ -72,4 +72,5 @@ u'''Error! /etc/crondeamon.ini 中 mysql配置项错误，连接mysql失败！
 u'''Error ! /etc/crondeamon.ini 中slaveport配置项错误！
 '''
         )
+    config["slaveport"]=int(config["slaveport"])
     return config

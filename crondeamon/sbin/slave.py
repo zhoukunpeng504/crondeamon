@@ -7,13 +7,10 @@ import sys
 import  os
 import  psutil
 from _kill import  killpid
-import  ConfigParser
+from crondeamon.common.valid_configfile import valid_config
 
-cfg=ConfigParser.ConfigParser()
-result=cfg.read("/etc/crondeamon.ini")
-assert  result==["/etc/crondeamon.ini"]
-assert cfg.sections()==["crondeamon"]
-config=dict(cfg.items("crondeamon"))
+
+config=valid_config()
 datadir=config["datadir"]
 slave_dir=os.path.join(datadir,"slave")
 

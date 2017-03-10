@@ -12,6 +12,7 @@ from twisted.application.internet import TCPServer
 import  ConfigParser
 from twisted.spread import pb
 import  sys
+from crondeamon.common.valid_configfile import valid_config
 
 
 
@@ -26,27 +27,9 @@ class MyServiceMaker(object):
     description = "crondeamon-slave"
     options=Options
     def makeService(self, options):
-        cfg=ConfigParser.ConfigParser()
-        result=cfg.read("/etc/crondeamon.ini")
-        try:
-            assert  result== ["/etc/crondeamon.ini"]
-            assert cfg.sections()==["crondeamon"]
-            config=dict(cfg.items("crondeamon"))
-            host=config["host"]
-            assert  host  and host !="127.0.0.1"  and host !="localhost"
-            mysqlhost=config["mysqlhost"]
-            mysqlport=int(config["mysqlport"])
-            mysqldb=config["mysqldb"]
-            mysqluser=config["user"]
-            mysqlpasswd=config["passwd"]
-            mysqlcharset=config["charset"]
-            slaveport=config["slaveport"]
-            slaveport=int(slaveport)
-        except:
-            raise Exception("Config File /etc/crondeamon.ini is error please recheck it!")
-        else:
-            from  crondeamon.slave import  service as subrpc
-            serverfactory = server.Site(subrpc.MainRpc())
-            return TCPServer(int(slaveport),serverfactory,interface=host)
+        config=valid_config()
+        from  crondeamon.slave import  service as subrpc
+        serverfactory = server.Site(subrpc.MainRpc())
+        return TCPServer(int(config["slaveport"]),serverfactory,interface=config["host"])
 
 serviceMaker = MyServiceMaker()
