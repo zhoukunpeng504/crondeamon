@@ -26,8 +26,8 @@ pip install crondeamon
 ***************
 4.配置详解
 ***************
-配置文件：  /etc/crondeamon.ini
 
+配置文件：  /etc/crondeamon.ini
 ::
 
   [crondeamon]
