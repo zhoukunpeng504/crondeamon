@@ -874,76 +874,61 @@ class MainRpc(xmlrpc.XMLRPC):
         return dict( [ (tid,SubRpc().xmlrpc_getstatus(tid,"task")) for tid in  tidlist])
 
 import socket
-import fcntl
-import struct
 import  os
 localip=None
-import  ConfigParser
-import  traceback
-
+from crondeamon.common.valid_configfile import valid_config
 @defer.inlineCallbacks
 def init():
-    cfg=ConfigParser.ConfigParser()
-    result=cfg.read("/etc/crondeamon.ini")
-    try:
-        assert  result==["/etc/crondeamon.ini"]
-        assert cfg.sections()==["crondeamon"]
-        config=dict(cfg.items("crondeamon"))
-        mysqlhost=config["mysqlhost"]
-        mysqlport=int(config["mysqlport"])
-        mysqldb=config["mysqldb"]
-        mysqluser=config["user"]
-        mysqlpasswd=config["passwd"]
-        datadir=config["datadir"]
-        globals()["datadir"]=datadir
-        host=config["host"]
-        assert  host !="127.0.0.1"
-        assert  host != "localhost"
-        mysqlcharset=config["charset"]
-        MYSQLCONFIG["host"]=mysqlhost
-        MYSQLCONFIG["port"]=mysqlport
-        MYSQLCONFIG["db"]=mysqldb
-        MYSQLCONFIG["user"]=mysqluser
-        MYSQLCONFIG["passwd"]=mysqlpasswd
-        MYSQLCONFIG["charset"]=mysqlcharset
-        global  localip
-        localip=host
-    except Exception as e :
-        traceback.print_exc()
-        raise Exception("Config File /etc/crondeamon/slave.ini is error please recheck it!")
+    config=valid_config()
+    mysqlhost=config["mysqlhost"]
+    mysqlport=int(config["mysqlport"])
+    mysqldb=config["mysqldb"]
+    mysqluser=config["user"]
+    mysqlpasswd=config["passwd"]
+    datadir=config["datadir"]
+    globals()["datadir"]=datadir
+    host=config["host"]
+    mysqlcharset=config["charset"]
+    MYSQLCONFIG["host"]=mysqlhost
+    MYSQLCONFIG["port"]=mysqlport
+    MYSQLCONFIG["db"]=mysqldb
+    MYSQLCONFIG["user"]=mysqluser
+    MYSQLCONFIG["passwd"]=mysqlpasswd
+    MYSQLCONFIG["charset"]=mysqlcharset
+    global  localip
+    localip=host
+    global conn
+    from ..common.valid_mysql import valid,add_server
+    valid(MYSQLCONFIG["host"],MYSQLCONFIG["port"],MYSQLCONFIG["db"],MYSQLCONFIG["user"],MYSQLCONFIG["passwd"])
+    add_server(MYSQLCONFIG["host"],MYSQLCONFIG["port"],MYSQLCONFIG["db"],MYSQLCONFIG["user"],MYSQLCONFIG["passwd"],
+               host)
+    conn=adbapi.ConnectionPool("MySQLdb",host=MYSQLCONFIG["host"],user=MYSQLCONFIG["user"],
+                               passwd=MYSQLCONFIG["passwd"],charset=MYSQLCONFIG["charset"],
+                               port=MYSQLCONFIG["port"],db=MYSQLCONFIG["db"],cp_reconnect=True)
+    result_cron=yield  run_conn_fun("runQuery","select tid from   cron_task WHERE ip=%s and status=1",(localip,))
+    result_dae=yield   run_conn_fun("runQuery","select tid from   task_task WHERE ip=%s and status=1",(localip,))
+    if len(result_cron)==0:
+        pass
     else:
-        global conn
-        from ..common.valid_mysql import valid,add_server
-        valid(MYSQLCONFIG["host"],MYSQLCONFIG["port"],MYSQLCONFIG["db"],MYSQLCONFIG["user"],MYSQLCONFIG["passwd"])
-        add_server(MYSQLCONFIG["host"],MYSQLCONFIG["port"],MYSQLCONFIG["db"],MYSQLCONFIG["user"],MYSQLCONFIG["passwd"],
-                   host)
-        conn=adbapi.ConnectionPool("MySQLdb",host=MYSQLCONFIG["host"],user=MYSQLCONFIG["user"],
-                                   passwd=MYSQLCONFIG["passwd"],charset=MYSQLCONFIG["charset"],
-                                   port=MYSQLCONFIG["port"],db=MYSQLCONFIG["db"],cp_reconnect=True)
-        result_cron=yield  run_conn_fun("runQuery","select tid from   cron_task WHERE ip=%s and status=1",(localip,))
-        result_dae=yield   run_conn_fun("runQuery","select tid from   task_task WHERE ip=%s and status=1",(localip,))
-        if len(result_cron)==0:
-            pass
-        else:
-            if len(result_cron)==1:
-                result_cron=result_cron*2
-            yield  run_conn_fun("runOperation","update cron_runlog set status=3 WHERE  status in (0,1) and tid in %s",
-                                (tuple([i[0] for i in result_cron]),))
-        if len(result_dae)==0:
-            pass
-        else:
-            if len(result_dae)==1:
-                result_dae*=2
-            yield  run_conn_fun("runOperation","update task_runlog set status=3  WHERE   status in (0,1) and tid in %s",
-                                (tuple([i[0] for i in result_dae]),))
-        cronmgr=CronMgr()
-        deamgr=DaeMgr()
-        for i in result_cron:
-            yield  cronmgr._init(i[0],initcode=False)
-        for j in result_dae:
-            yield  deamgr._init(j[0],initcode=False)
-            print "init one dae"
-        defer.returnValue("init Success!")
+        if len(result_cron)==1:
+            result_cron=result_cron*2
+        yield  run_conn_fun("runOperation","update cron_runlog set status=3 WHERE  status in (0,1) and tid in %s",
+                            (tuple([i[0] for i in result_cron]),))
+    if len(result_dae)==0:
+        pass
+    else:
+        if len(result_dae)==1:
+            result_dae*=2
+        yield  run_conn_fun("runOperation","update task_runlog set status=3  WHERE   status in (0,1) and tid in %s",
+                            (tuple([i[0] for i in result_dae]),))
+    cronmgr=CronMgr()
+    deamgr=DaeMgr()
+    for i in result_cron:
+        yield  cronmgr._init(i[0],initcode=False)
+    for j in result_dae:
+        yield  deamgr._init(j[0],initcode=False)
+        print "init one dae"
+    defer.returnValue("init Success!")
 def _print(a):
         print a
 def print_cron():
