@@ -48,6 +48,12 @@ pip install crondeamon
 5.运行
 ***************
 
+python -m crondeamon.sbin.main -c start
+
+***************
+6.例子
+***************
+
 以192.168.8.137机器为例：
  ::
 
@@ -81,4 +87,5 @@ pip install crondeamon
 .. image:: docs/image/ex2.png
 
 创建完成
+
 .. image:: docs/image/ex3.png
