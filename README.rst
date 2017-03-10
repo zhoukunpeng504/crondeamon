@@ -45,10 +45,12 @@ pip install crondeamon
 注： web管理页面的默认账户是root，密码123456
 
 ***************
-5.运行
+5.运行和停止
 ***************
 
-python -m crondeamon.sbin.main -c start
+运行：python -m crondeamon.sbin.main -c start
+停止：python -m crondeamon.sbin.main -c stop
+重启：python -m crondeamon.sbin.main -c restart
 
 ***************
 6.例子
