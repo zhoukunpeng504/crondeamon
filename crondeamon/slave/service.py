@@ -879,6 +879,7 @@ import struct
 import  os
 localip=None
 import  ConfigParser
+import  traceback
 
 @defer.inlineCallbacks
 def init():
@@ -908,7 +909,7 @@ def init():
         global  localip
         localip=host
     except Exception as e :
-        print str(e)
+        traceback.print_exc()
         raise Exception("Config File /etc/crondeamon/slave.ini is error please recheck it!")
     else:
         global conn

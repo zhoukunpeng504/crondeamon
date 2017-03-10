@@ -9,7 +9,7 @@ import  ConfigParser
 cfg=ConfigParser.ConfigParser()
 result=cfg.read("/etc/crondeamon.ini")
 
-assert  result== ["/etc/crondeamo.ini"]
+assert  result== ["/etc/crondeamon.ini"]
 assert cfg.sections()==["crondeamon"]
 config=dict(cfg.items("crondeamon"))
 host=config["host"]

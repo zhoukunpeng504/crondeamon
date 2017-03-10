@@ -238,7 +238,8 @@ INSERT ignore  INTO auth_user (id,username, first_name, last_name, email, passwo
  (33, 'Can delete 后台任务', 11, 'delete_task') ,
  (34, 'Can add 运行日志', 12, 'add_runlog') ,
  (35, 'Can change 运行日志', 12, 'change_runlog') ,
- (36, 'Can delete 运行日志', 12, 'delete_runlog');'''
+ (36, 'Can delete 运行日志', 12, 'delete_runlog');''',
+    '''insert ignore into django_site values(1,"example.com","example.com");'''
 ]
 def valid(host,port,db,user,passwd):
     for i in create_table_sql_list:
