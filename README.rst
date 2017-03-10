@@ -21,7 +21,9 @@ pip   svn   git
 ***************
 3.安装
 ***************
-pip install crondeamon
+本项目已提交到python官方源，可以直接通过pip或easy_install进行安装
+
+pip install crondeamon 或 easy_install crondeamon
 
 ***************
 4.配置详解
