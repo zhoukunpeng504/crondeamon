@@ -603,7 +603,7 @@ class DaeMgr(object):
                     pass
                 del cls.BUFF[tid]
             _task=task.LoopingCall(cls._check,tid)
-            _task.start(30,now=False) #001
+            _task.start(60,now=False)  #检测间隔秒数
             yield  cls._check(tid)
             cls.BUFF[tid]=_task
             defer.returnValue(True)
