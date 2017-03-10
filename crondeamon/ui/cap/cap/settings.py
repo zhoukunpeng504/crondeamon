@@ -5,15 +5,9 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 LOGIN_URL="/login/"
 LANGUAGE_CODE="zh-CN"
-import  ConfigParser
-cfg=ConfigParser.ConfigParser()
-result=cfg.read("/etc/crondeamon.ini")
+from crondeamon.common.valid_configfile import valid_config
 
-assert  result== ["/etc/crondeamon.ini"]
-assert cfg.sections()==["crondeamon"]
-config=dict(cfg.items("crondeamon"))
-host=config["host"]
-assert  host  and host !="127.0.0.1"  and host !="localhost"
+config=valid_config()
 mysqlhost=config["mysqlhost"]
 mysqlport=int(config["mysqlport"])
 mysqldb=config["mysqldb"]
@@ -36,9 +30,9 @@ DATABASES = {
 
 
 # ----------------------------------------
-CRON_SERVER={"host":host,
+CRON_SERVER={"host":config["host"],
              "port":int(slaveport)}
-TASK_SERVE={"host":host,
+TASK_SERVE={"host":config["host"],
             "port":int(slaveport)}
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
