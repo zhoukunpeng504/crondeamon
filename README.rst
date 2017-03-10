@@ -49,7 +49,9 @@ pip install crondeamon
 ***************
 
 运行：python -m crondeamon.sbin.main -c start
+
 停止：python -m crondeamon.sbin.main -c stop
+
 重启：python -m crondeamon.sbin.main -c restart
 
 ***************
