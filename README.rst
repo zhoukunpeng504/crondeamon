@@ -4,7 +4,8 @@ crondeamon
 ***************
 1.介绍
 ***************
-crondeamon是用来管理计划任务及后台任务的项目， 其功能相当于supervisor+crontab，  基于twisted   django 框架。
+crondeamon是用来管理计划任务及后台任务的项目， 其功能相当于supervisor+crontab，  基于twisted   django 框架。通过crondeamon可以在web页面中完成计划任务或后台任务的管理。
+.. image:: docs/image/main.png
 
 ***************
 2.依赖
@@ -35,8 +36,8 @@ charset=utf8                   # mysql 编码 ，最好设为为utf8
 host=192.168.8.137             # 服务绑定的IP
 datadir=/data/test/crondeamon  # 服务data目录
 slaveport=8023                 # 服务中slave模块绑定端口
-uiport=8024                    # 服务中ui模块绑定端口
-注：
+uiport=8024                    # 服务中ui模块绑定端口, 安装完成后可通过192.168.8.137:8024打开web管理页面
+
 
 
 ***************
