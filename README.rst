@@ -4,7 +4,7 @@ crondeamon
 ***************
 1.介绍
 ***************
-crondeamon是用来管理计划任务及后台任务的项目， 其功能相当于supervisor+crontab，  基于twisted   django 框架。  crondeamon集群有三个角色：
+crondeamon是用来管理计划任务及后台任务的项目， 其功能相当于supervisor+crontab，  基于twisted   django 框架。
 
 ***************
 2.依赖
