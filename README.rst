@@ -33,16 +33,26 @@ pip install crondeamon 或 easy_install crondeamon
 ::
 
   [crondeamon]
-  mysqlhost=192.168.15.34        # mysql IP
-  mysqlport=3306                 # mysql 端口
-  mysqldb=mycrondeamon           # mysql 数据库名
-  user=root                      # mysql 用户名
-  passwd=123456                  # mysql 密码
-  charset=utf8                   # mysql 编码 ，最好设为为utf8
-  host=192.168.8.137             # 服务绑定的IP
-  datadir=/data/test/crondeamon  # 服务data目录
-  slaveport=8023                 # 服务中slave模块绑定端口
-  uiport=8024                    # 服务中ui模块绑定端口, 安装完成后可通过192.168.8.137:8024打开web管理页面
+  mysqlhost=192.168.15.34
+  ;mysql IP
+  mysqlport=3306
+  ; mysql 端口
+  mysqldb=mycrondeamon
+  ;mysql 数据库名
+  user=root
+  ;mysql 用户名
+  passwd=123456
+  ;mysql 密码
+  charset=utf8
+  ;mysql 编码 ，最好设为为utf8
+  host=192.168.8.137
+  ;服务绑定的IP
+  datadir=/data/test/crondeamon
+  ;服务data目录
+  slaveport=8023
+  ;服务中slave模块绑定端口
+  uiport=8024
+  ;服务中ui模块绑定端口, 安装完成后可通过192.168.8.137:8024打开web管理页面
 
 注： web管理页面的默认账户是root，密码123456
 
