@@ -320,7 +320,7 @@ def modifytask(request):
                     else:
                         version=versioninfo[1]
                 if  not  locals().has_key("buff"):
-                    result= run_serve_fun("modifydaemon",ip,task.tid,name,svnpath,str(version),svnuser,svnpasswd,info,args,filename)
+                    result= run_serve_fun("modifydaemon",task.tid,name,svnpath,str(version),svnuser,svnpasswd,info,args,filename)
                     if result==True:
                         buff=generate_dict(True,"Success!")
                     else:

@@ -401,7 +401,7 @@ def modifycron(request):
                     else:
                         version=versioninfo[1]
                 if buff=={}:
-                    result= serve.modifycron(ip,tid,name,svnpath,str(version),svnuser,svnpasswd,rule,info,request.user.username,args,filename)
+                    result= serve.modifycron(tid,name,svnpath,str(version),svnuser,svnpasswd,rule,info,request.user.username,args,filename)
                     if result!=True:
                         buff["status"],buff["message"]=result
                     else:
