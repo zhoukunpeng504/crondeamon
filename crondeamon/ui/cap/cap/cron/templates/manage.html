@@ -60,7 +60,7 @@
     <form action="/cron/add/?data=add" method="post" autocomplete="off" id="form1">
     {% csrf_token %}
         <div class="modal-body">
-            <div class="form-inline">
+            <div class="form-inline" style="display: none">
                 <div class="form-group" >
                     <label for="cap-ip" class="control-label">IP:</label>
                     <!--input type="text" class="form-control" name="ip" id="cap-ip"-->
@@ -142,7 +142,7 @@
 
     <form action="{{ request.path }}" method="get" class="form-inline" id="form2">
     <div class="row" style="padding-bottom: 8px">
-          <div class="form-group" style="padding-left: 10px">
+          <div class="form-group" style="padding-left: 10px;display: none">
             <label>主机：</label>
             <select name="ip" class="form-control" style="width: 145px">
                 <option value="">请选择</option>
@@ -152,7 +152,7 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="padding-left: 15px">
             <label>状态：</label>
             <select name="status" class="form-control" style="width: 95px">
                 <option value="">请选择</option>
