@@ -25,11 +25,10 @@
             <li style="padding-right: 50px;color: #ffffff"> <a href="/" style="color: #ffffff"><b style="color: #fffff0">CronDeamon</b></a></li>
 
             <li class="dropdown gct" >
-                <a href="/cron/" class="droptown-toggle" data-toggle="dropdown">扩展服务<b class="caret"></b> </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/cron/manage/">计划任务</a> </li>
-                    <li><a href="/task/manage/">后台任务</a> </li>
-                </ul>
+                <a href="/cron/manage" >计划任务</a>
+            </li>
+            <li class="dropdown gct" >
+                <a href="/task/manage" >后台任务</a>
             </li>
             {% if request.user.is_superuser%}
             <li class="dropdown gct">
