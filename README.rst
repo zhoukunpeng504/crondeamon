@@ -15,7 +15,9 @@ python版本要求：
 
 python>=2.6.x 
 
-pip   svn
+pip
+
+svn
 
 
 ***************
