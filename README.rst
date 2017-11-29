@@ -68,7 +68,7 @@ pip install crondeamon 或 easy_install crondeamon
   Collecting crondeamon
   Installing collected packages: crondeamon
   Running setup.py install for crondeamon ... done
-  Successfully installed crondeamon-0.1.2
+  Successfully installed crondeamon-0.1.4
 
   [root@bogon ~]# vim /etc/crondeamon.ini
   [crondeamon]
