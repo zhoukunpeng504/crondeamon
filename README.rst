@@ -6,6 +6,9 @@ crondeamon
 ***************
 crondeamon是用来通过web管理计划任务及后台任务的项目， 其功能相当于supervisor+crontab，  基于twisted   django 框架。通过crondeamon可以在web页面中完成计划任务或后台任务的管理。本项目源于世界工厂网研发团队,现仍在项目中服役.
 
+注意：本项目已经停止维护。所有功能已迁移到 `cap-python项目 <https://github.com/zhoukunpeng504/cap-python>`_ ，在易用性及可扩展性方面得到了极大提升， 强烈建议你使用cap-python项目。
+
+
 .. image:: docs/image/cr1.png
 
 ***************
