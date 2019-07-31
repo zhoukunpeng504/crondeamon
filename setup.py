@@ -1,7 +1,7 @@
 # coding:utf-8
 __author__ = 'zhoukunpeng'
 # --------------------------------
-# Created by  zhoukunpeng  on 2016/11/11.
+# Created by  zhoukunpeng  on 2016/11/11..
 # ---------------------------------
 
 from setuptools import setup, find_packages
